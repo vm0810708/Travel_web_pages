@@ -24,6 +24,7 @@
       margin: 0;
       padding: 0;
       -webkit-tap-highlight-color: transparent;
+      touch-action: manipulation;
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
     }
 
@@ -34,7 +35,6 @@
       line-height: 1.5;
     }
 
-    /* 頂部導航列 */
     header {
       position: sticky;
       top: 0;
@@ -69,7 +69,6 @@
       border: 1px solid #fde68a;
     }
 
-    /* 分頁容器 */
     .tab-view {
       display: none;
       padding: 16px;
@@ -129,9 +128,6 @@
       font-weight: 700;
       color: var(--primary);
       margin-bottom: 4px;
-      display: flex;
-      align-items: center;
-      gap: 6px;
     }
 
     .timeline-card {
@@ -162,6 +158,7 @@
     .tag-food { background: #fee2e2; color: #b91c1c; }
     .tag-luggage { background: #fef3c7; color: #b45309; }
     .tag-sight { background: #dcfce7; color: #15803d; }
+    .tag-shop { background: #f3e8ff; color: #7e22ce; }
 
     .card-desc {
       font-size: 0.85rem;
@@ -169,23 +166,24 @@
       margin-bottom: 8px;
     }
 
-    /* 導航按鈕：優化點擊區域 */
+    /* 單擊導航按鈕 */
     .nav-btn {
       display: inline-flex;
       align-items: center;
       gap: 5px;
       font-size: 0.8rem;
-      color: #ffffff;
+      color: #ffffff !important;
       text-decoration: none;
       font-weight: 600;
       background: var(--primary);
-      padding: 7px 14px;
+      padding: 8px 14px;
       border-radius: 8px;
       margin-top: 4px;
-      box-shadow: 0 2px 4px rgba(30, 58, 138, 0.2);
+      box-shadow: 0 2px 5px rgba(30, 58, 138, 0.2);
+      cursor: pointer;
     }
 
-    /* 地圖專區容器優化 */
+    /* Google 我的地圖容器 */
     .map-action-bar {
       margin-bottom: 12px;
     }
@@ -224,12 +222,22 @@
       border: 0;
     }
 
-    /* 景點清單卡片 */
+    /* 景點分類導覽 */
+    .section-title {
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: var(--primary);
+      margin: 18px 0 10px 4px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
     .place-card {
       background: var(--card-bg);
       border-radius: 14px;
       padding: 14px 16px;
-      margin-bottom: 14px;
+      margin-bottom: 12px;
       border: 1px solid var(--border);
       box-shadow: 0 2px 6px rgba(0,0,0,0.02);
     }
@@ -348,8 +356,7 @@
             <span class="tag tag-luggage">碼頭下船</span>
           </div>
           <div class="card-desc">依序辦理離船手續，並前往行李大廳提取所有托運的大型行李箱。</div>
-          <!-- 座標：43.3444, 5.3400 -->
-          <a class="nav-btn" href="https://www.google.com/maps/search/?api=1&query=43.3444,5.3400" target="_blank" rel="noopener noreferrer">📍 導航至郵輪碼頭</a>
+          <a class="nav-btn" href="https://www.google.com/maps/search/?api=1&query=Marseille+Cruise+Terminal+MPCC" target="_blank" rel="noopener noreferrer">📍 導航至郵輪碼頭</a>
         </div>
       </div>
 
@@ -360,9 +367,8 @@
             <span>直奔火車站寄放大型行李</span>
             <span class="tag tag-transit">計程車/Uber</span>
           </div>
-          <div class="card-desc">在碼頭排隊乘計程車或叫 Uber 直達聖夏爾火車站（約 20 分鐘）。於站內官方寄物處（La Bag Mobile）完成寄放，轉為輕裝！</div>
-          <!-- 座標：43.3030, 5.3810 -->
-          <a class="nav-btn" href="https://www.google.com/maps/search/?api=1&query=43.3030,5.3810" target="_blank" rel="noopener noreferrer">📍 導航至聖夏爾火車站</a>
+          <div class="card-desc">在碼頭搭計程車或叫 Uber 直達聖夏爾火車站（約 20 分鐘）。於站內官方寄物處（La Bag Mobile）完成寄放，轉為輕裝！</div>
+          <a class="nav-btn" href="https://www.google.com/maps/search/?api=1&query=Gare+de+Marseille+Saint+Charles" target="_blank" rel="noopener noreferrer">📍 導航至聖夏爾火車站</a>
         </div>
       </div>
 
@@ -386,13 +392,12 @@
           </div>
           <div class="card-desc">
             1. <strong>鏡面遮陽棚</strong>拍照留念<br>
-            2. 緩步登入 <strong>Le Panier 籃筐老街</strong>欣賞彩繪壁畫與肥皂店<br>
+            2. 漫步 <strong>Le Panier 籃筐老街</strong>彩繪階梯與肥皂店<br>
             3. 造訪 <strong>老濟貧院</strong> 巴洛克拱廊<br>
             4. 漫步至臨海 <strong>馬賽主教座堂</strong> 遠眺地中海<br>
             5. 經 <strong>朗什廣場</strong> 順坡走下市政廳
           </div>
-          <!-- 座標：43.2954, 5.3739 -->
-          <a class="nav-btn" href="https://www.google.com/maps/search/?api=1&query=43.2954,5.3739" target="_blank" rel="noopener noreferrer">📍 導航起點：鏡面遮陽棚</a>
+          <a class="nav-btn" href="https://www.google.com/maps/search/?api=1&query=L%27Ombriere+du+Vieux+Port+Marseille" target="_blank" rel="noopener noreferrer">📍 導航起點：鏡面遮陽棚</a>
         </div>
       </div>
 
@@ -404,8 +409,7 @@
             <span class="tag tag-food">已預訂 12:00</span>
           </div>
           <div class="card-desc">女主廚掌勺 30 年名店。品嘗正統二道式魚湯（濃郁岩魚湯佐 Rouille 辣醬烤麵包 ➔ 鮮魚切盤佐馬鈴薯）。入座時可告知需於 13:45 前用畢。</div>
-          <!-- 座標：43.2960, 5.3676 -->
-          <a class="nav-btn" style="background:var(--accent);" href="https://www.google.com/maps/search/?api=1&query=43.2960,5.3676" target="_blank" rel="noopener noreferrer">📍 導航至 Chez Madie 餐廳</a>
+          <a class="nav-btn" style="background:var(--accent);" href="https://www.google.com/maps/search/?api=1&query=Chez+Madie+Les+Galinettes+Marseille" target="_blank" rel="noopener noreferrer">📍 導航至 Chez Madie 餐廳</a>
         </div>
       </div>
 
@@ -417,8 +421,7 @@
             <span class="tag tag-transit">地鐵或步行</span>
           </div>
           <div class="card-desc">沿 Quai du Port 購買正宗馬賽肥皂，或步行 5 分鐘至老佛爺百貨/Centre Bourse 採買。隨後於 Vieux-Port 搭地鐵 M1 返回聖夏爾車站。</div>
-          <!-- 座標：43.2974, 5.3761 -->
-          <a class="nav-btn" href="https://www.google.com/maps/search/?api=1&query=43.2974,5.3761" target="_blank" rel="noopener noreferrer">📍 導航至老佛爺百貨</a>
+          <a class="nav-btn" href="https://www.google.com/maps/search/?api=1&query=Galeries+Lafayette+Marseille+Bourse" target="_blank" rel="noopener noreferrer">📍 導航至老佛爺百貨</a>
         </div>
       </div>
 
@@ -452,8 +455,7 @@
             <span class="tag tag-flight">17:30 起飛</span>
           </div>
           <div class="card-desc">預留 2 小時 15 分鐘：辦理託運手續、海關退稅、通過安檢，從容準備登機返程！</div>
-          <!-- 座標：43.4393, 5.2214 -->
-          <a class="nav-btn" href="https://www.google.com/maps/search/?api=1&query=43.4393,5.2214" target="_blank" rel="noopener noreferrer">📍 導航至馬賽機場航廈</a>
+          <a class="nav-btn" href="https://www.google.com/maps/search/?api=1&query=Aeroport+Marseille+Provence" target="_blank" rel="noopener noreferrer">📍 導航至馬賽普羅旺斯機場</a>
         </div>
       </div>
 
@@ -472,28 +474,30 @@
     <div class="map-frame-wrapper">
       <iframe 
         id="mymaps-frame"
-        src="" 
+        src="YOUR_GOOGLE_MAPS_EMBED_URL_HERE" 
         allowfullscreen="" 
         loading="lazy">
       </iframe>
     </div>
   </div>
 
-  <!-- 頁面 3: 景點導覽 (Places Guide) -->
+  <!-- 頁面 3: 景點導覽 (包含全部 15 個完整地點) -->
   <div id="view-places" class="tab-view">
     
+    <div class="section-title">🍲 預訂餐廳</div>
     <div class="place-card">
       <div class="place-header">
         <div>
-          <div class="place-name">瑪迪與小母雞海鮮餐館</div>
+          <div class="place-name">瑪迪與小母雞普羅旺斯海鮮餐館</div>
           <div class="place-fr">Chez Madie Les Galinettes</div>
         </div>
         <span class="tag tag-food">12:00 預訂</span>
       </div>
-      <p class="card-desc">女主廚 Delphine Roux 經營近三十年，坐落於舊港市政廳旁。正統二段式馬賽魚湯，岩魚濃湯佐 Rouille 辣醬與鮮魚盤，風味濃郁道地。</p>
-      <a class="nav-btn" href="https://www.google.com/maps/search/?api=1&query=43.2960,5.3676" target="_blank" rel="noopener noreferrer">Google Maps 導航</a>
+      <p class="card-desc">女主廚 Delphine Roux 掌勺近三十年老店，坐落於舊港市政廳旁。主打正統二道式馬賽魚湯（Bouillabaisse en deux temps）：濃郁岩魚湯佐 Rouille 蒜辣醬烤麵包，接著呈上當季現煮鮮魚與馬鈴薯。</p>
+      <a class="nav-btn" href="https://www.google.com/maps/search/?api=1&query=Chez+Madie+Les+Galinettes+Marseille" target="_blank" rel="noopener noreferrer">Google Maps 導航</a>
     </div>
 
+    <div class="section-title">🏛️ 舊港與老城區景點</div>
     <div class="place-card">
       <div class="place-header">
         <div>
@@ -502,8 +506,8 @@
         </div>
         <span class="tag tag-sight">必拍地標</span>
       </div>
-      <p class="card-desc">建築大師諾曼·福斯特設計，薄型拋光不銹鋼鏡面棚頂將港口波光、帆船與人潮顛倒映照，極具前衛視覺張力。</p>
-      <a class="nav-btn" href="https://www.google.com/maps/search/?api=1&query=43.2954,5.3739" target="_blank" rel="noopener noreferrer">Google Maps 導航</a>
+      <p class="card-desc">由英國建築大師諾曼·福斯特打造。薄型拋光不銹鋼鏡面頂棚將碼頭帆船波光、往來行旅與南法晴空顛倒映照，是舊港最具創意的拍照打卡點。</p>
+      <a class="nav-btn" href="https://www.google.com/maps/search/?api=1&query=L%27Ombriere+du+Vieux+Port+Marseille" target="_blank" rel="noopener noreferrer">Google Maps 導航</a>
     </div>
 
     <div class="place-card">
@@ -514,8 +518,8 @@
         </div>
         <span class="tag tag-sight">歷史街區</span>
       </div>
-      <p class="card-desc">馬賽建於西元前 600 年的最古老發祥地。穿梭於彩色石階巷弄間，隨處可見生動的彩繪壁畫、陶藝工坊與馬賽肥皂老店。</p>
-      <a class="nav-btn" href="https://www.google.com/maps/search/?api=1&query=43.2985,5.3678" target="_blank" rel="noopener noreferrer">Google Maps 導航</a>
+      <p class="card-desc">馬賽歷史最悠久的核心發祥地，始建於西元前 600 年。街區依山緩建，彩色老屋、石階巷弄間滿布生動彩繪壁畫、獨立手作工坊、陶瓷店與天然馬賽肥皂老鋪，洋溢南法慢活情調。</p>
+      <a class="nav-btn" href="https://www.google.com/maps/search/?api=1&query=Le+Panier+Marseille" target="_blank" rel="noopener noreferrer">Google Maps 導航</a>
     </div>
 
     <div class="place-card">
@@ -526,8 +530,8 @@
         </div>
         <span class="tag tag-sight">巴洛克古蹟</span>
       </div>
-      <p class="card-desc">17 世紀路易十四時期古蹟，淡粉色石灰岩的三層優雅半圓拱廊環抱中央壯麗的橢圓形圓頂禮拜堂，光影細膩靜謐。</p>
-      <a class="nav-btn" href="https://www.google.com/maps/search/?api=1&query=43.3003,5.3678" target="_blank" rel="noopener noreferrer">Google Maps 導航</a>
+      <p class="card-desc">建於 17 世紀路易十四統治時期，由建築師皮埃爾·普吉設計。三層淡粉色石灰岩優雅拱廊環抱中央壯麗的橢圓形圓頂禮拜堂，環境靜謐雅致，現為地中海考古與藝術博物館。</p>
+      <a class="nav-btn" href="https://www.google.com/maps/search/?api=1&query=Centre+de+la+Vieille+Charite+Marseille" target="_blank" rel="noopener noreferrer">Google Maps 導航</a>
     </div>
 
     <div class="place-card">
@@ -538,20 +542,130 @@
         </div>
         <span class="tag tag-sight">臨海大教堂</span>
       </div>
-      <p class="card-desc">拿破崙三世時期建立的新拜占庭風格大教堂，以白色與綠色大理石砌成斑馬條紋立面，氣勢雄渾，殿外可飽覽蔚藍地中海。</p>
-      <a class="nav-btn" href="https://www.google.com/maps/search/?api=1&query=43.2999,5.3649" target="_blank" rel="noopener noreferrer">Google Maps 導航</a>
+      <p class="card-desc">建於 19 世紀拿破崙三世時期。外觀以卡拉拉白大理石與佛羅倫斯綠大理石交替砌築出標誌性的斑馬條紋立面，揉合拜占庭與羅馬式風格，殿外臨海廣場可遠眺蔚藍地中海。</p>
+      <a class="nav-btn" href="https://www.google.com/maps/search/?api=1&query=Cathedrale+La+Major+Marseille" target="_blank" rel="noopener noreferrer">Google Maps 導航</a>
     </div>
 
     <div class="place-card">
       <div class="place-header">
         <div>
-          <div class="place-name">老佛爺百貨 (證券交易所門市)</div>
+          <div class="place-name">朗什廣場</div>
+          <div class="place-fr">Place de Lenche</div>
+        </div>
+        <span class="tag tag-sight">老城廣場</span>
+      </div>
+      <p class="card-desc">相傳建於古希臘市集遺址之上，綠蔭掩映，環繞著露天咖啡館與手工冰淇淋店。廣場南側開闊處可越過港灣水面，遠眺對岸山頂金光閃閃的守護聖母聖殿。</p>
+      <a class="nav-btn" href="https://www.google.com/maps/search/?api=1&query=Place+de+Lenche+Marseille" target="_blank" rel="noopener noreferrer">Google Maps 導航</a>
+    </div>
+
+    <div class="place-card">
+      <div class="place-header">
+        <div>
+          <div class="place-name">馬賽市政廳</div>
+          <div class="place-fr">Hôtel de Ville de Marseille</div>
+        </div>
+        <span class="tag tag-sight">港畔宮殿</span>
+      </div>
+      <p class="card-desc">建於 17 世紀路易十四時代的熱那亞巴洛克風格建築，在二戰大轟炸中奇蹟倖存。外牆雕刻精細，門前為開闊石板水岸步道，步行至 Chez Madie 餐廳僅需 1 分鐘。</p>
+      <a class="nav-btn" href="https://www.google.com/maps/search/?api=1&query=Hotel+de+Ville+Marseille" target="_blank" rel="noopener noreferrer">Google Maps 導航</a>
+    </div>
+
+    <div class="place-card">
+      <div class="place-header">
+        <div>
+          <div class="place-name">歐洲及地中海文明博物館與聖若望堡</div>
+          <div class="place-fr">MuCEM & Fort Saint-Jean</div>
+        </div>
+        <span class="tag tag-sight">當代地標</span>
+      </div>
+      <p class="card-desc">2013 年歐洲文化之都地標。黑色混凝土鏤空屏風建築，以懸空海景天橋串聯 17 世紀路易十四時期的軍事要塞聖若望堡，呈現前衛美學與古老堡壘的完美對話。</p>
+      <a class="nav-btn" href="https://www.google.com/maps/search/?api=1&query=MuCEM+Marseille" target="_blank" rel="noopener noreferrer">Google Maps 導航</a>
+    </div>
+
+    <div class="place-card">
+      <div class="place-header">
+        <div>
+          <div class="place-name">守護聖母聖殿</div>
+          <div class="place-fr">Basilique Notre-Dame de la Garde</div>
+        </div>
+        <span class="tag tag-sight">馬賽最高點</span>
+      </div>
+      <p class="card-desc">聳立於海拔 149 公尺石灰岩山巔，被暱稱為「好母親」。金色聖母抱子像守護航海者，內部懸掛帆船謝匾，戶外露台提供 360 度俯瞰整座馬賽城、舊港與海灣的壯麗全景。</p>
+      <a class="nav-btn" href="https://www.google.com/maps/search/?api=1&query=Basilique+Notre-Dame+de+la+Garde" target="_blank" rel="noopener noreferrer">Google Maps 導航</a>
+    </div>
+
+    <div class="section-title">🛍️ 百貨公司與購物中心</div>
+    <div class="place-card">
+      <div class="place-header">
+        <div>
+          <div class="place-name">馬賽老佛爺百貨 (證券交易所門市)</div>
           <div class="place-fr">Galeries Lafayette Marseille Bourse</div>
         </div>
-        <span class="tag tag-transit">購物退稅</span>
+        <span class="tag tag-shop">精品退稅</span>
       </div>
-      <p class="card-desc">離舊港僅步行 3 分鐘，匯聚法國時裝、美妝香氛與精品，設有專用退稅處，適合午餐前後採買經典法式伴手禮。</p>
-      <a class="nav-btn" href="https://www.google.com/maps/search/?api=1&query=43.2974,5.3761" target="_blank" rel="noopener noreferrer">Google Maps 導航</a>
+      <p class="card-desc">法國百年連鎖高級百貨公司，距舊港步行僅需 3 分鐘。館內匯聚國際一線精品、法式美妝香氛、皮件包款與服飾，設有專用退稅服務處，適合午餐前後快速採買。</p>
+      <a class="nav-btn" href="https://www.google.com/maps/search/?api=1&query=Galeries+Lafayette+Marseille+Bourse" target="_blank" rel="noopener noreferrer">Google Maps 導航</a>
+    </div>
+
+    <div class="place-card">
+      <div class="place-header">
+        <div>
+          <div class="place-name">證券交易所購物中心</div>
+          <div class="place-fr">Centre Bourse</div>
+        </div>
+        <span class="tag tag-shop">綜合商場</span>
+      </div>
+      <p class="card-desc">與老佛爺百貨相連的大型多層室內商場。入駐文化電子商城 FNAC、平價歐美流行品牌（Zara、Mango 等）與大型超市，是採買伴手禮、普羅旺斯紅酒與避暑的好去處。</p>
+      <a class="nav-btn" href="https://www.google.com/maps/search/?api=1&query=Centre+Bourse+Marseille" target="_blank" rel="noopener noreferrer">Google Maps 導航</a>
+    </div>
+
+    <div class="place-card">
+      <div class="place-header">
+        <div>
+          <div class="place-name">港灣露台購物中心</div>
+          <div class="place-fr">Les Terrasses du Port</div>
+        </div>
+        <span class="tag tag-shop">海景商城</span>
+      </div>
+      <p class="card-desc">坐落於 Joliette 碼頭邊的高檔濱海商城，進駐近 200 家國際與法國本土品牌。頂樓擁有長達 260 公尺的面海大露台，可一邊購物用餐、一邊俯瞰大型郵輪進出港口。</p>
+      <a class="nav-btn" href="https://www.google.com/maps/search/?api=1&query=Les+Terrasses+du+Port+Marseille" target="_blank" rel="noopener noreferrer">Google Maps 導航</a>
+    </div>
+
+    <div class="section-title">🚆 交通樞紐與行李</div>
+    <div class="place-card">
+      <div class="place-header">
+        <div>
+          <div class="place-name">馬賽聖夏爾中央火車站</div>
+          <div class="place-fr">Gare de Marseille Saint-Charles</div>
+        </div>
+        <span class="tag tag-transit">行李中繼站</span>
+      </div>
+      <p class="card-desc">建於 1848 年的百年中央門戶，站前擁有新古典主義壯麗大階梯。站內設有官方行李寄存處，地下一樓直通地鐵 M1 線，北側長途巴士站為直達機場快線（L91）發車站。</p>
+      <a class="nav-btn" href="https://www.google.com/maps/search/?api=1&query=Gare+de+Marseille+Saint+Charles" target="_blank" rel="noopener noreferrer">Google Maps 導航</a>
+    </div>
+
+    <div class="place-card">
+      <div class="place-header">
+        <div>
+          <div class="place-name">馬賽郵輪中心 (MPCC 碼頭)</div>
+          <div class="place-fr">Marseille Cruise Terminal - MPCC</div>
+        </div>
+        <span class="tag tag-transit">下船地點</span>
+      </div>
+      <p class="card-desc">地中海大型豪華郵輪停靠點，位於馬賽市區西北約 7 至 8 公里處。下船領取大件行李後，建議直接搭乘計程車前往聖夏爾火車站寄物展開輕裝行程。</p>
+      <a class="nav-btn" href="https://www.google.com/maps/search/?api=1&query=Marseille+Cruise+Terminal+MPCC" target="_blank" rel="noopener noreferrer">Google Maps 導航</a>
+    </div>
+
+    <div class="place-card">
+      <div class="place-header">
+        <div>
+          <div class="place-name">馬賽普羅旺斯機場</div>
+          <div class="place-fr">Aéroport Marseille Provence (MRS)</div>
+        </div>
+        <span class="tag tag-transit">起飛機場</span>
+      </div>
+      <p class="card-desc">17:30 航班起飛地，位於市中心西北約 25 公里處。設有退稅專櫃、免稅店與南法特產店。請於 15:15 前抵達航廈，辦理行李托運、退稅與安檢。</p>
+      <a class="nav-btn" href="https://www.google.com/maps/search/?api=1&query=Aeroport+Marseille+Provence" target="_blank" rel="noopener noreferrer">Google Maps 導航</a>
     </div>
 
   </div>
@@ -625,17 +739,13 @@
 
   <script>
     /* =========================================================
-       👉 設定您的 Google 我的地圖 ID 或完整網址
+       👉 設定您的 Google 我的地圖 ID
        ========================================================= */
-    // 例如您的分享網址為：https://www.google.com/maps/d/edit?mid=1a2B3c4D5e6F...
-    // 只要把 mid 後面的那串代碼貼在下方引號中即可：
     const MY_MAP_ID = "1gVs8Rvpspg-LIsL9lfQB9ptPY_nlVnU"; 
-    // 初始化地圖連結（同時設定 iframe 與 App 喚起按鈕）
+
     (function initMaps() {
-      if (MY_MAP_ID && MY_MAP_ID !== "貼上您的_MID_代碼") {
-        // 內嵌 iframe 網址
+      if (MY_MAP_ID && MY_MAP_ID !== "YOUR_GOOGLE_MAPS_MID_HERE") {
         document.getElementById('mymaps-frame').src = `https://www.google.com/maps/d/embed?mid=${MY_MAP_ID}`;
-        // 獨立 App / 全螢幕開啟網址
         document.getElementById('btn-open-app-map').href = `https://www.google.com/maps/d/viewer?mid=${MY_MAP_ID}`;
       }
     })();
