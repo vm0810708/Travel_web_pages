@@ -8,7 +8,6 @@
   <meta name="theme-color" content="#0F4C81">
   <title>Day 1 · 馬賽登船日 | MSC World Europa</title>
   <style>
-    /* 統一 Design System 變數 */
     :root {
       --primary: #0F4C81;
       --primary-dark: #0A3258;
@@ -54,7 +53,7 @@
       -webkit-font-smoothing: antialiased;
     }
 
-    /* 頂部固定 Sticky 雙層毛玻璃導航 */
+    /* 頂部雙層 Sticky 毛玻璃導航 */
     header.city-header {
       position: fixed;
       top: 0;
@@ -139,7 +138,6 @@
       gap: 3px;
     }
 
-    /* 主要容器 */
     main.city-main {
       padding: 12px 16px;
       max-width: 640px;
@@ -160,7 +158,6 @@
       to { opacity: 1; transform: translateY(0); }
     }
 
-    /* 醒目警示卡 */
     .urgent-banner {
       background: linear-gradient(135deg, var(--primary) 0%, #1a629e 100%);
       color: #fff;
@@ -185,7 +182,7 @@
       opacity: 0.94;
     }
 
-    /* ================= 統一時間軸 (Timeline) ================= */
+    /* 時間軸樣式 */
     .timeline {
       position: relative;
       padding-left: 20px;
@@ -292,7 +289,6 @@
       background: #E0F2FE;
     }
 
-    /* ================= 統一地圖視圖 ================= */
     .btn-full-map {
       display: flex;
       align-items: center;
@@ -326,7 +322,6 @@
       border: 0;
     }
 
-    /* ================= 統一景點導覽 ================= */
     .guide-category-title {
       font-size: 12.5px;
       font-weight: 800;
@@ -380,7 +375,6 @@
       font-weight: 600;
     }
 
-    /* ================= 統一預約錦囊 ================= */
     .checklist-section {
       background: var(--card-bg);
       border-radius: var(--radius-md);
@@ -453,7 +447,6 @@
       margin-top: 2px;
     }
 
-    /* ================= 統一固定底部 Tab Bar ================= */
     nav.tab-bar {
       position: fixed;
       bottom: 0;
@@ -515,10 +508,9 @@
     <div class="header-nav-bottom">
       <div class="city-heading">
         馬賽 Marseille
-        <small>Day 1 · 登船日</small>
+        <small>Day 1 · 10/03 (六)</small>
       </div>
       <div class="port-cross-nav">
-        <!-- Day 1 無上一站，僅有下一站 -->
         <a href="1004_義大利_熱拿亞.html" class="btn-port-link">下一站：熱那亞 ➔</a>
       </div>
     </div>
@@ -533,8 +525,8 @@
       <div class="urgent-banner">
         <div class="urgent-title">⚡ 登船日三大核心任務</div>
         <div class="urgent-desc">
-          1. 12:50 機場接機專車直達碼頭 Porte 4 辦理托運<br>
-          2. 連線船上 WiFi 打開 MSC for Me App 觀看安全演習影片並撥 881 認證<br>
+          1. 12:50 機場接機專車直達碼頭 Porte 4 辦理行李托運與報到<br>
+          2. 連線船上 Wi-Fi 打開 MSC for Me App 觀看安全演習影片並撥 881 認證<br>
           3. 下午首度進入 App 即刻搶約今晚主劇院表演席位
         </div>
       </div>
@@ -569,7 +561,7 @@
             </div>
             <div class="card-title">Welcome Pickups 專車出發往郵輪碼頭</div>
             <div class="card-body">
-              司機於接機大廳舉牌等候。6 人及大件行李全數入座預訂車款。車程約 25–35 分鐘直達馬賽郵輪碼頭 4 號門（Port de Marseille - Terminal Croisières Porte 4）。
+              司機於接機大廳舉牌等候。6 人及大件行李全數入座預訂車款。車程約 25–35 分鐘直達馬賽郵輪碼頭 4 號門（Port de Marseille - Porte 4）。
             </div>
             <a href="https://www.google.com/maps/search/?api=1&query=Port+Marseille+Fos+Porte+4+Marseille" target="_blank" rel="noopener noreferrer" class="btn-nav">
               📍 導航至馬賽碼頭 4 號門
@@ -587,7 +579,7 @@
             </div>
             <div class="card-title">行李托運與櫃檯辦理 Check-in</div>
             <div class="card-body">
-              下車後先將大件行李交給穿著 MSC 制服的行李員托運（已繫好郵輪行李條）。隨後全員攜帶護照、電子船票進入候船大廳安檢並領取船卡（Cruise Card）。
+              抵達馬賽客運大樓（MPCT/MPCC）。下車後先將大件行李交給穿著 MSC 制服的行李員托運（已繫好郵輪行李條）。隨後全員攜帶護照、電子船票進入候船大廳安檢並領取船卡（Cruise Card）。
             </div>
             <a href="https://www.google.com/maps/search/?api=1&query=Marseille+Provence+Cruise+Terminal+Marseille" target="_blank" rel="noopener noreferrer" class="btn-nav">
               📍 導航至 MSC 客運大樓
@@ -606,7 +598,7 @@
             <div class="card-title">登船、連線 WiFi 與預約夜間劇場秀</div>
             <div class="card-body">
               登船後立即連上客輪內網 Wi-Fi，打開 <strong>MSC for Me App</strong>：<br>
-              ① 預約今晚主劇院（Main Theatre）的百老匯級特技與歌舞表演場次（每晚 2-3 場，極易額滿）。<br>
+              ① 預約今晚主劇院（World Theatre）百老匯特技與歌舞表演場次（每晚 2-3 場，極易額滿）。<br>
               ② 前往自助餐廳享用登船便餐。
             </div>
           </div>
@@ -635,12 +627,27 @@
           <div class="timeline-dot accent"></div>
           <div class="card">
             <div class="card-header">
-              <span class="card-time">18:00 出港</span>
+              <span class="card-time">18:00 – 18:30</span>
               <span class="card-tag sail">啟航離港</span>
             </div>
             <div class="card-title">甲板眺望伊夫島與馬賽日落 Sailaway</div>
             <div class="card-body">
-              郵輪駛出馬賽港！建議 17:45 前往頂層甲板，遠眺外海伊夫島古堡（Château d'If）與守護聖母聖殿山丘，享受地中海落日啟航派對。
+              郵輪鳴笛駛出馬賽港！建議 17:45 前往頂層露天甲板，遠眺外海伊夫島古堡（Château d'If）與守護聖母聖殿山丘，享受地中海落日啟航派對。
+            </div>
+          </div>
+        </div>
+
+        <!-- 節點 7 -->
+        <div class="timeline-item">
+          <div class="timeline-dot success"></div>
+          <div class="card">
+            <div class="card-header">
+              <span class="card-time">18:30 – 21:00</span>
+              <span class="card-tag flight">首夜晚餐</span>
+            </div>
+            <div class="card-title">主餐廳啟航晚宴 ＆ 劇院大秀</div>
+            <div class="card-body">
+              前往指定主餐廳享用啟航精緻晚宴。晚餐後依預約時段前往千人 World Theatre 世界大劇院欣賞百老匯級開航首秀，漫步 World Galleria 穹頂長廊。
             </div>
           </div>
         </div>
@@ -675,7 +682,7 @@
           <div class="guide-native">Aéroport Marseille Provence (MRS)</div>
         </div>
         <div class="guide-desc">
-          法國南部重要航空樞紐，距市區西北約 27 公里。荷航 KLM 班機降落於第一航廈（Terminal 1），出關提領行李後，前往迎賓大廳即可看到接送司機。
+          法國南部重要航空樞紐，距市區西北約 27 公里。荷航 KLM 班機降落於第一航廈（Terminal 1），出關提領行李後，前往迎賓大廳即可看到預約的接送司機。
         </div>
         <div class="guide-highlight">特色亮點：接機大廳指標清晰，便利商店與換幣機均設於 Terminal 1。</div>
         <a href="https://www.google.com/maps/search/?api=1&query=Aeroport+Marseille+Provence+Marignane" target="_blank" rel="noopener noreferrer" class="btn-nav">
@@ -686,10 +693,10 @@
       <div class="guide-card">
         <div class="guide-names">
           <div class="guide-cn">馬賽郵輪碼頭（4號管制門）</div>
-          <div class="guide-native">Port de Marseille Fos - Porte 4</div>
+          <div class="guide-native">Port de Marseille Fos - Porte 4 (MPCT/MPCC)</div>
         </div>
         <div class="guide-desc">
-          地中海大型郵輪母港之一。大型現代化郵輪（如 MSC 系列）停靠於客運站（MPCT / Terminals A, B, C）。所有專車均由 Porte 4 門哨進入，直達客運大樓前方便卸下行李。
+          地中海大型郵輪母港之一。大型現代化郵輪（如 MSC 系列）停靠於深水客運站。所有專車計程車均由 Porte 4 門哨進入，直達客運大樓前方便卸下大件行李。
         </div>
         <div class="guide-highlight">特色亮點：行李託運直達轉盤，安檢大廳寬敞、通關效率高。</div>
         <a href="https://www.google.com/maps/search/?api=1&query=Port+Marseille+Fos+Porte+4+Marseille" target="_blank" rel="noopener noreferrer" class="btn-nav">
@@ -702,10 +709,10 @@
       <div class="guide-card">
         <div class="guide-names">
           <div class="guide-cn">伊夫堡（出海眺望）</div>
-          <div class="guide-native">Château d%27If</div>
+          <div class="guide-native">Château d'If</div>
         </div>
         <div class="guide-desc">
-          坐落於外海弗留爾群島的小島上，因大仲馬《基度山恩仇記》中主角被囚禁於此而聞名世界。郵輪啟航離港時由頂層甲板右舷可清晰飽覽整座海島城堡要塞。
+          坐落於外海弗留爾群島的小島上，因大仲馬傳奇小說《基度山恩仇記》中主角被囚禁於此而聞名世界。郵輪啟航離港時由頂層甲板右舷可清晰飽覽整座海島要塞。
         </div>
         <div class="guide-highlight">特色亮點：經典文學傳奇誕生地，啟航時絕佳攝影地標。</div>
         <a href="https://www.google.com/maps/search/?api=1&query=Chateau+d%27If+Marseille" target="_blank" rel="noopener noreferrer" class="btn-nav">
@@ -734,7 +741,7 @@
       
       <div class="checklist-section">
         <div class="section-headline">
-          <span>📋</span> 登船日必檢清單（可點擊打勾）
+          <span>📋</span> 登船日手續與通關檢核
         </div>
 
         <div class="check-item" onclick="toggleCheckItem(this, 'day1_luggage_tag')">
@@ -749,7 +756,7 @@
           <div class="check-box"></div>
           <div>
             <div class="check-text-title">隨身手提包保留重要證件</div>
-            <div class="check-text-desc">護照本、申根簽證、郵輪登船憑證（Web Check-in Ticket）請勿放入托運行李。</div>
+            <div class="check-text-desc">持台灣護照享歐盟免簽待遇（效期須滿 6 個月以上），請備妥電子船票、回程機票。首站荷蘭阿姆斯特丹入境時將透過 EES 系統採集臉部與指紋辨識。</div>
           </div>
         </div>
 
@@ -757,7 +764,7 @@
           <div class="check-box"></div>
           <div>
             <div class="check-text-title">Welcome Pickups 司機聯繫確認</div>
-            <div class="check-text-desc">手機裝妥 Welcome Pickups App，出關前連上機場 WiFi 掌握司機車牌與位置。</div>
+            <div class="check-text-desc">手機裝妥 Welcome Pickups App，出關前連上機場 Wi-Fi 掌握司機車牌與位置。</div>
           </div>
         </div>
 
@@ -765,7 +772,7 @@
           <div class="check-box"></div>
           <div>
             <div class="check-text-title">下載並登入 MSC for Me App</div>
-            <div class="check-text-desc">出發前下載官方 App，登船連上內網即可立即操作安全演習與劇場預約。</div>
+            <div class="check-text-desc">出發前下載官方 App，登船連上客輪免費內網即可立即操作安全演習與劇場預約。</div>
           </div>
         </div>
       </div>
@@ -775,13 +782,13 @@
           <span>🎭</span> 表演預約與船上實用錦囊
         </div>
         <div class="check-text-desc" style="margin-bottom: 8px;">
-          • <strong>劇院預約機制：</strong>每晚表演需於登船當日透過 App 或中庭觸控螢幕登記座席，建議於 15:00 登船後第一時間完成預訂，避免晚間晚餐時段與秀場衝堂。
+          • <strong>劇院預約機制：</strong>每晚表演需於登船當日透過 App 或中庭觸控螢幕登記座席，建議於登船後第一時間完成全航程預訂，避免熱門時段客滿。
         </div>
         <div class="check-text-desc" style="margin-bottom: 8px;">
-          • <strong>信用卡扣款綁定：</strong>可於登船後至 6 樓或 7 樓中庭之「自動信用卡綁定機」感應房卡與實體信用卡完成授權，省去下船日前一晚排隊結帳的麻煩。
+          • <strong>信用卡扣款綁定：</strong>可於登船後至中庭「自動信用卡綁定機」感應房卡與實體信用卡完成授權，省去下船日前一晚排隊結帳的麻煩。
         </div>
         <div class="check-text-desc">
-          • <strong>飛航模式提醒：</strong>郵輪離港進入公海後，務必將手機關閉行動網路或開啟「飛航模式」，僅連線船上 Wi-Fi，以免誤連高額的衛星海事漫遊通訊（Cellular at Sea）[cite: 1, 2]。
+          • <strong>飛航模式提醒：</strong>郵輪離港進入公海後，務必將手機關閉行動網路或開啟「飛航模式」，僅連線船上 Wi-Fi，以免誤連高額的衛星海事漫遊通訊（Cellular at Sea）。
         </div>
       </div>
 
@@ -814,7 +821,6 @@
   </nav>
 
   <script>
-    // Tab 分頁切換
     function switchTab(tabId, btn) {
       document.querySelectorAll('.tab-view').forEach(function(view) {
         view.classList.remove('active');
@@ -831,14 +837,12 @@
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
-    // 交互 Checkbox 與 LocalStorage 存儲
     function toggleCheckItem(el, storageKey) {
       el.classList.toggle('checked');
       const isChecked = el.classList.contains('checked');
       localStorage.setItem(storageKey, isChecked);
     }
 
-    // 初始化讀取 Checkbox 狀態
     document.addEventListener('DOMContentLoaded', function() {
       document.querySelectorAll('.check-item').forEach(function(item) {
         const onclickAttr = item.getAttribute('onclick');
