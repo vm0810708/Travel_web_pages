@@ -1,0 +1,1258 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, maximum-scale=1.0, user-scalable=no">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="theme-color" content="#0F4C81">
+  <title>Day 7 · 巴塞隆納一日遊 | MSC World Europa</title>
+  <style>
+    :root {
+      --primary: #0F4C81;
+      --primary-dark: #0A3258;
+      --primary-light: #EBF3FA;
+      --accent: #D97706;
+      --accent-light: #FEF3C7;
+      --danger: #DC2626;
+      --danger-light: #FEE2E2;
+      --success: #059669;
+      --success-light: #D1FAE5;
+      --bg-system: #F4F6F9;
+      --card-bg: #FFFFFF;
+      --text-main: #0F172A;
+      --text-sub: #475569;
+      --text-muted: #94A3B8;
+      --border-color: #E2E8F0;
+      --nav-glass: rgba(255, 255, 255, 0.88);
+      --nav-border: rgba(0, 0, 0, 0.08);
+      --radius-sm: 8px;
+      --radius-md: 14px;
+      --radius-lg: 20px;
+      --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.05);
+      --shadow-md: 0 4px 14px rgba(15, 23, 42, 0.08);
+      --safe-top: env(safe-area-inset-top, 0px);
+      --safe-bottom: env(safe-area-inset-bottom, 0px);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      touch-action: manipulation;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Pro Display", "PingFang TC", "Helvetica Neue", Arial, sans-serif;
+      background-color: var(--bg-system);
+      color: var(--text-main);
+      line-height: 1.5;
+      padding-top: calc(var(--safe-top) + 90px);
+      padding-bottom: calc(var(--safe-bottom) + 72px);
+      -webkit-font-smoothing: antialiased;
+    }
+
+    header.city-header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      background: var(--nav-glass);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--nav-border);
+      padding: calc(var(--safe-top) + 8px) 16px 8px;
+    }
+
+    .header-nav-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 6px;
+    }
+
+    .btn-back-home {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--primary);
+      text-decoration: none;
+      background: var(--primary-light);
+      padding: 4px 10px;
+      border-radius: 20px;
+    }
+
+    .header-danger-pill {
+      font-size: 11px;
+      font-weight: 700;
+      background: var(--danger-light);
+      color: var(--danger);
+      padding: 4px 9px;
+      border-radius: 20px;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .header-nav-bottom {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .city-heading {
+      font-size: 18px;
+      font-weight: 800;
+      color: var(--text-main);
+      display: flex;
+      align-items: baseline;
+      gap: 6px;
+    }
+
+    .city-heading small {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--text-muted);
+    }
+
+    .port-cross-nav {
+      display: flex;
+      gap: 6px;
+    }
+
+    .btn-port-link {
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--primary);
+      text-decoration: none;
+      background: #F1F5F9;
+      padding: 3px 8px;
+      border-radius: 6px;
+      display: inline-flex;
+      align-items: center;
+      gap: 3px;
+    }
+
+    main.city-main {
+      padding: 12px 16px;
+      max-width: 640px;
+      margin: 0 auto;
+    }
+
+    .tab-view {
+      display: none;
+      animation: fadeIn 0.22s ease-out;
+    }
+
+    .tab-view.active {
+      display: block;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(4px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .urgent-banner {
+      background: linear-gradient(135deg, var(--primary) 0%, #1a629e 100%);
+      color: #fff;
+      border-radius: var(--radius-md);
+      padding: 14px 16px;
+      margin-bottom: 16px;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .urgent-title {
+      font-size: 13.5px;
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      margin-bottom: 5px;
+    }
+
+    .urgent-desc {
+      font-size: 12px;
+      line-height: 1.5;
+      opacity: 0.94;
+    }
+
+    .timeline {
+      position: relative;
+      padding-left: 20px;
+    }
+
+    .timeline::before {
+      content: "";
+      position: absolute;
+      left: 6px;
+      top: 14px;
+      bottom: 20px;
+      width: 2px;
+      background: #CBD5E1;
+    }
+
+    .timeline-node {
+      position: relative;
+      margin-bottom: 18px;
+    }
+
+    .timeline-dot {
+      position: absolute;
+      left: -20px;
+      top: 14px;
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      background: var(--card-bg);
+      border: 3px solid var(--primary);
+      z-index: 1;
+    }
+
+    .timeline-dot.danger { border-color: var(--danger); }
+    .timeline-dot.accent { border-color: var(--accent); }
+    .timeline-dot.success { border-color: var(--success); }
+
+    .card {
+      background: var(--card-bg);
+      border-radius: var(--radius-md);
+      padding: 14px 16px;
+      box-shadow: var(--shadow-sm);
+      border: 1px solid var(--border-color);
+    }
+
+    .card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 6px;
+    }
+
+    .card-time {
+      font-size: 12.5px;
+      font-weight: 800;
+      color: var(--primary);
+    }
+
+    .card-tag {
+      font-size: 10px;
+      font-weight: 700;
+      padding: 2px 7px;
+      border-radius: 4px;
+      background: #F1F5F9;
+      color: var(--text-sub);
+    }
+
+    .card-title {
+      font-size: 15px;
+      font-weight: 800;
+      color: var(--text-main);
+      margin-bottom: 5px;
+    }
+
+    .card-body {
+      font-size: 12.5px;
+      color: var(--text-sub);
+      line-height: 1.5;
+      margin-bottom: 10px;
+    }
+
+    .btn-nav {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      background: #F8FAFC;
+      color: var(--primary);
+      text-decoration: none;
+      font-size: 12px;
+      font-weight: 700;
+      padding: 6px 12px;
+      border-radius: var(--radius-sm);
+      border: 1px solid #BAE6FD;
+      transition: background 0.15s;
+    }
+
+    .btn-nav:active {
+      background: #E0F2FE;
+    }
+
+    .btn-full-map {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      background: linear-gradient(135deg, var(--success) 0%, #047857 100%);
+      color: #fff;
+      font-size: 14px;
+      font-weight: 700;
+      padding: 12px 16px;
+      border-radius: var(--radius-md);
+      text-decoration: none;
+      margin-bottom: 12px;
+      box-shadow: 0 4px 10px rgba(5, 150, 105, 0.25);
+    }
+
+    .map-frame-box {
+      width: 100%;
+      height: 62vh;
+      min-height: 400px;
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      border: 1px solid var(--border-color);
+      box-shadow: var(--shadow-sm);
+      background: #E2E8F0;
+    }
+
+    .map-frame-box iframe {
+      width: 100%;
+      height: 100%;
+      border: 0;
+    }
+
+    .filter-scroll-wrapper {
+      margin: -4px -16px 14px;
+      padding: 0 16px;
+      overflow-x: auto;
+      white-space: nowrap;
+      scrollbar-width: none;
+    }
+    .filter-scroll-wrapper::-webkit-scrollbar { display: none; }
+
+    .category-pills {
+      display: inline-flex;
+      gap: 8px;
+    }
+
+    .cat-pill {
+      font-size: 12px;
+      font-weight: 700;
+      padding: 6px 13px;
+      border-radius: 20px;
+      background: #FFFFFF;
+      border: 1px solid var(--border-color);
+      color: var(--text-sub);
+      cursor: pointer;
+    }
+
+    .cat-pill.active {
+      background: var(--primary);
+      color: #FFFFFF;
+      border-color: var(--primary);
+    }
+
+    .guide-card {
+      background: var(--card-bg);
+      border-radius: var(--radius-md);
+      padding: 14px 16px;
+      margin-bottom: 12px;
+      border: 1px solid var(--border-color);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .guide-names {
+      margin-bottom: 6px;
+    }
+
+    .guide-cn {
+      font-size: 15.5px;
+      font-weight: 800;
+      color: var(--text-main);
+    }
+
+    .guide-native {
+      font-size: 12px;
+      color: var(--text-muted);
+      font-weight: 500;
+    }
+
+    .guide-desc {
+      font-size: 12.5px;
+      color: var(--text-sub);
+      line-height: 1.55;
+      margin-bottom: 8px;
+    }
+
+    .guide-highlight {
+      background: #F8FAFC;
+      border-left: 3px solid var(--primary);
+      padding: 6px 10px;
+      font-size: 11.5px;
+      color: var(--primary);
+      margin-bottom: 10px;
+      border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+      font-weight: 600;
+    }
+
+    .checklist-section {
+      background: var(--card-bg);
+      border-radius: var(--radius-md);
+      padding: 16px;
+      margin-bottom: 14px;
+      border: 1px solid var(--border-color);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .section-headline {
+      font-size: 14.5px;
+      font-weight: 800;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      color: var(--text-main);
+      border-bottom: 1px solid var(--border-color);
+      padding-bottom: 8px;
+    }
+
+    .check-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      margin-bottom: 12px;
+      cursor: pointer;
+    }
+    .check-item:last-child { margin-bottom: 0; }
+
+    .check-box {
+      width: 19px;
+      height: 19px;
+      border-radius: 5px;
+      border: 1.5px solid var(--text-muted);
+      margin-top: 1px;
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.15s ease;
+    }
+
+    .check-item.checked .check-box {
+      background: var(--success);
+      border-color: var(--success);
+    }
+
+    .check-item.checked .check-box::after {
+      content: "✔";
+      color: #fff;
+      font-size: 11px;
+    }
+
+    .check-item.checked .check-text-title {
+      text-decoration: line-through;
+      color: var(--text-muted);
+    }
+
+    .check-text-title {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--text-main);
+    }
+
+    .check-text-desc {
+      font-size: 12px;
+      color: var(--text-sub);
+      line-height: 1.45;
+      margin-top: 2px;
+    }
+
+    nav.tab-bar {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      background: var(--nav-glass);
+      backdrop-filter: blur(25px);
+      -webkit-backdrop-filter: blur(25px);
+      border-top: 1px solid var(--nav-border);
+      padding-bottom: var(--safe-bottom);
+      height: calc(var(--safe-bottom) + 54px);
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      max-width: 640px;
+      margin: 0 auto;
+    }
+
+    .tab-btn {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      background: none;
+      border: none;
+      padding: 4px 0 2px;
+      color: var(--text-muted);
+      cursor: pointer;
+      text-decoration: none;
+    }
+
+    .tab-btn svg {
+      width: 22px;
+      height: 22px;
+      margin-bottom: 2px;
+      fill: currentColor;
+    }
+
+    .tab-btn span {
+      font-size: 10px;
+      font-weight: 700;
+    }
+
+    .tab-btn.active {
+      color: var(--primary);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- 頂部 Sticky 導航區 -->
+  <header class="city-header">
+    <div class="header-nav-top">
+      <a href="index.html" class="btn-back-home">⌂ 所有行程</a>
+      <span class="header-danger-pill">🚢 18:00 啟航 ⚠️ 17:00 返船</span>
+    </div>
+    <div class="header-nav-bottom">
+      <div class="city-heading">
+        巴塞隆納 Barcelona
+        <small>Day 7 · 10/09 (四)</small>
+      </div>
+      <div class="port-cross-nav">
+        <a href="1008_海上日.html" class="btn-port-link">← 上一站</a>
+        <a href="1010_法國_馬賽.html" class="btn-port-link">下一站 ➔</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- 主要內容區 -->
+  <main class="city-main">
+
+    <!-- Tab 1: 行程時間軸 -->
+    <section id="tab-timeline" class="tab-view active">
+      
+      <div class="urgent-banner">
+        <div class="urgent-title">⚡ 關鍵預約：09:45 聖家堂入場 ＆ 17:00 All Aboard</div>
+        <div class="urgent-desc">
+          • 08:00 靠港 Moll Adossat，下船請直接搭乘排班計程車直達聖家堂（約 20 分鐘），避免轉乘延誤！<br>
+          • 13:00 享用西班牙道地 Tapas，午後漫步加泰羅尼亞廣場、波蓋利亞市場與哥特區。<br>
+          • 16:30 務必抵達哥倫布紀念碑搭車返港，確保 17:00 前順利登船。
+        </div>
+      </div>
+
+      <div class="timeline">
+
+        <!-- 08:00 - 08:30 -->
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <div class="card">
+            <div class="card-header">
+              <span class="card-time">08:00 – 08:30</span>
+              <span class="card-tag">下船通關</span>
+            </div>
+            <div class="card-title">郵輪靠港與梯口就位</div>
+            <div class="card-body">
+              郵輪靠泊阿多薩特碼頭（Moll Adossat）。因已預訂 09:45 聖家堂，請提早在艙門梯口排隊，以第一批完成安檢下船。
+            </div>
+            <a href="https://www.google.com/maps/search/?api=1&query=Moll+Adossat+Cruise+Terminal+Barcelona" target="_blank" rel="noopener noreferrer" class="btn-nav">
+              📍 碼頭位置導航
+            </a>
+          </div>
+        </div>
+
+        <!-- 08:30 - 09:15 -->
+        <div class="timeline-item">
+          <div class="timeline-dot accent"></div>
+          <div class="card">
+            <div class="card-header">
+              <span class="card-time">08:30 – 09:15</span>
+              <span class="card-tag">關鍵接駁</span>
+            </div>
+            <div class="card-title">排班計程車直奔聖家堂</div>
+            <div class="card-body">
+              碼頭外設有排班計程車站，直達聖家堂約 7.8 公里（車程約 20–25 分鐘，車資約 20–25 歐元，支援刷卡）。切勿搭接駁巴士轉地鐵！
+            </div>
+            <a href="https://www.google.com/maps/search/?api=1&query=Basilica+de+la+Sagrada+Familia+Barcelona" target="_blank" rel="noopener noreferrer" class="btn-nav">
+              📍 導航至聖家堂
+            </a>
+          </div>
+        </div>
+
+        <!-- 09:15 - 09:45 -->
+        <div class="timeline-item">
+          <div class="timeline-dot success"></div>
+          <div class="card">
+            <div class="card-header">
+              <span class="card-time">09:15 – 09:45</span>
+              <span class="card-tag">預約報到</span>
+            </div>
+            <div class="card-title">抵達聖家堂 & 預檢入場</div>
+            <div class="card-body">
+              抵達誕生立面（Carrer de la Marina）入口排隊接受 X 光安檢。請提早開啟官方 App 載入電子門票並備妥耳機。
+            </div>
+          </div>
+        </div>
+
+        <!-- 09:45 - 11:45 -->
+        <div class="timeline-item">
+          <div class="timeline-dot success"></div>
+          <div class="card">
+            <div class="card-header">
+              <span class="card-time">09:45 – 11:45</span>
+              <span class="card-tag">必訪名勝</span>
+            </div>
+            <div class="card-title">聖家堂深度朝聖巡禮</div>
+            <div class="card-body">
+              高第傳世神作。上午日光穿透誕生立面冷色調彩繪玻璃，殿內石柱如蓊鬱巨木交織。參觀受難立面與地下博物館高第墓。
+            </div>
+            <a href="https://www.google.com/maps/search/?api=1&query=Basilica+de+la+Sagrada+Familia+Barcelona" target="_blank" rel="noopener noreferrer" class="btn-nav">
+              📍 聖家堂入口
+            </a>
+          </div>
+        </div>
+
+        <!-- 11:45 - 12:15 -->
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <div class="card">
+            <div class="card-header">
+              <span class="card-time">11:45 – 12:15</span>
+              <span class="card-tag">捷運轉乘</span>
+            </div>
+            <div class="card-title">地鐵 L5 線前往格拉西亞大道</div>
+            <div class="card-body">
+              自聖家堂旁地鐵站搭乘 L5 藍線往 Cornellà Centre 方向，僅搭 2 站至 Diagonal 站出站，步出即可來到米拉之家門前。
+            </div>
+            <a href="https://www.google.com/maps/search/?api=1&query=Casa+Mila+Barcelona" target="_blank" rel="noopener noreferrer" class="btn-nav">
+              📍 導航至米拉之家
+            </a>
+          </div>
+        </div>
+
+        <!-- 12:15 - 13:00 -->
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <div class="card">
+            <div class="card-header">
+              <span class="card-time">12:15 – 13:00</span>
+              <span class="card-tag">建築名勝</span>
+            </div>
+            <div class="card-title">米拉之家 ➔ 巴特略之家 外觀巡禮</div>
+            <div class="card-body">
+              欣賞米拉之家起伏如浪的粗獷立面與奇幻煙囪；隨後沿格拉西亞大道南行 500 公尺，欣賞巴特略之家宛如巨龍脊背的魔幻外型。
+            </div>
+            <a href="https://www.google.com/maps/search/?api=1&query=Casa+Batllo+Barcelona" target="_blank" rel="noopener noreferrer" class="btn-nav">
+              📍 導航至巴特略之家
+            </a>
+          </div>
+        </div>
+
+        <!-- 13:00 - 14:15 -->
+        <div class="timeline-item">
+          <div class="timeline-dot accent"></div>
+          <div class="card">
+            <div class="card-header">
+              <span class="card-time">13:00 – 14:15</span>
+              <span class="card-tag">美饌佳餚</span>
+            </div>
+            <div class="card-title">享用道地西班牙 Tapas 午餐</div>
+            <div class="card-body">
+              推薦落座於現代主義風格的 El Nacional 美食殿堂，或前往周邊排隊名店 Ciudad Condal 品嚐蒜香蜂蜜鱈魚與現煎海鮮。
+            </div>
+            <a href="https://www.google.com/maps/search/?api=1&query=El+Nacional+Barcelona" target="_blank" rel="noopener noreferrer" class="btn-nav">
+              📍 El Nacional
+            </a>
+            <a href="https://www.google.com/maps/search/?api=1&query=Ciudad+Condal+Barcelona" target="_blank" rel="noopener noreferrer" class="btn-nav" style="margin-left:6px;">
+              📍 Ciudad Condal
+            </a>
+          </div>
+        </div>
+
+        <!-- 14:15 - 14:45 -->
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <div class="card">
+            <div class="card-header">
+              <span class="card-time">14:15 – 14:45</span>
+              <span class="card-tag">景觀地標</span>
+            </div>
+            <div class="card-title">加泰羅尼亞廣場 & 英國宮百貨</div>
+            <div class="card-body">
+              抵達貫穿新舊城區的心臟地標。中央噴泉群鴿環繞。若有退稅伴手禮採買需求，可造訪廣場旁的西班牙旗艦百貨 El Corte Inglés。
+            </div>
+            <a href="https://www.google.com/maps/search/?api=1&query=Placa+de+Catalunya+Barcelona" target="_blank" rel="noopener noreferrer" class="btn-nav">
+              📍 導航至廣場
+            </a>
+          </div>
+        </div>
+
+        <!-- 14:45 - 15:30 -->
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <div class="card">
+            <div class="card-header">
+              <span class="card-time">14:45 – 15:30</span>
+              <span class="card-tag">傳統市場</span>
+            </div>
+            <div class="card-title">波蓋利亞市場 & 蘭布拉大道</div>
+            <div class="card-body">
+              步入全歐洲色彩最奔放的傳統市場，品嚐鮮榨果汁與現切頂級伊比利火腿。沿林蔭步道漫步，腳下可見米羅馬賽克地磚。
+            </div>
+            <a href="https://www.google.com/maps/search/?api=1&query=Mercat+de+la+Boqueria+Barcelona" target="_blank" rel="noopener noreferrer" class="btn-nav">
+              📍 導航至市場
+            </a>
+          </div>
+        </div>
+
+        <!-- 15:30 - 16:30 -->
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <div class="card">
+            <div class="card-header">
+              <span class="card-time">15:30 – 16:30</span>
+              <span class="card-tag">歷史老城</span>
+            </div>
+            <div class="card-title">哥特區古巷、主教橋與皇家廣場</div>
+            <div class="card-body">
+              穿梭於中世紀石板古巷，仰望巴塞隆納主教座堂與主教橋石雕。隨後至皇家廣場欣賞高第青年時代設計的街燈。
+            </div>
+            <a href="https://www.google.com/maps/search/?api=1&query=Catedral+de+Barcelona" target="_blank" rel="noopener noreferrer" class="btn-nav">
+              📍 主教座堂
+            </a>
+            <a href="https://www.google.com/maps/search/?api=1&query=Les+Quinze+Nits+Barcelona" target="_blank" rel="noopener noreferrer" class="btn-nav" style="margin-left:6px;">
+              📍 Les Quinze Nits
+            </a>
+          </div>
+        </div>
+
+        <!-- 16:30 - 17:00 -->
+        <div class="timeline-item">
+          <div class="timeline-dot danger"></div>
+          <div class="card">
+            <div class="card-header">
+              <span class="card-time">16:30 – 17:00</span>
+              <span class="card-tag">返船接駁</span>
+            </div>
+            <div class="card-title">哥倫布紀念碑集結 ➔ 返回碼頭</div>
+            <div class="card-body">
+              由皇家廣場往南漫步 5 分鐘抵達哥倫布紀念碑。在此搭乘排班計程車（約 10 分鐘直達）或藍色 Cruise Bus 返回碼頭登船！
+            </div>
+            <a href="https://www.google.com/maps/search/?api=1&query=Mirador+de+Colom+Barcelona" target="_blank" rel="noopener noreferrer" class="btn-nav">
+              📍 哥倫布紀念碑
+            </a>
+            <a href="https://www.google.com/maps/search/?api=1&query=Moll+Adossat+Cruise+Terminal+Barcelona" target="_blank" rel="noopener noreferrer" class="btn-nav" style="margin-left:6px;">
+              📍 郵輪碼頭
+            </a>
+          </div>
+        </div>
+
+        <!-- 17:00 - 18:00 -->
+        <div class="timeline-item">
+          <div class="timeline-dot danger"></div>
+          <div class="card" style="border-left: 4px solid var(--danger);">
+            <div class="card-header">
+              <span class="card-time" style="color:var(--danger);">17:00 – 18:00</span>
+              <span class="card-tag">登船截止</span>
+            </div>
+            <div class="card-title">All Aboard 返船 & 18:00 啟航</div>
+            <div class="card-body">
+              郵輪全員登船查驗完畢。返回甲板或客房陽台，享受地中海夕陽餘暉，向巴塞隆納港灣道別！
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Tab 2: 景點地圖 -->
+    <section id="tab-map" class="tab-view">
+      <a href="https://www.google.com/maps/d/viewer?mid=1shlu2fHhmblecA115LshxLtpqZ5UlGc" target="_blank" rel="noopener noreferrer" class="btn-full-map">
+        📲 在 Google Maps App 全螢幕開啟完整地圖
+      </a>
+
+      <div class="map-frame-box">
+        <iframe 
+          src="https://www.google.com/maps/d/embed?mid=1shlu2fHhmblecA115LshxLtpqZ5UlGc" 
+          allowfullscreen="" 
+          loading="lazy">
+        </iframe>
+      </div>
+    </section>
+
+    <!-- Tab 3: 景點導覽 (全部 26 處點位) -->
+    <section id="tab-guide" class="tab-view">
+      
+      <div class="filter-scroll-wrapper">
+        <div class="category-pills">
+          <button class="cat-pill active" onclick="filterPlaces('all', this)">全部 (26)</button>
+          <button class="cat-pill" onclick="filterPlaces('dining', this)">預訂美饌 (8)</button>
+          <button class="cat-pill" onclick="filterPlaces('must-see', this)">必訪名勝 (7)</button>
+          <button class="cat-pill" onclick="filterPlaces('historic', this)">老城地標 (8)</button>
+          <button class="cat-pill" onclick="filterPlaces('shopping', this)">購物商場 (1)</button>
+          <button class="cat-pill" onclick="filterPlaces('transit', this)">交通樞紐 (2)</button>
+        </div>
+      </div>
+
+      <div id="places-list">
+
+        <!-- 交通樞紐 -->
+        <article class="guide-card" data-category="transit">
+          <div class="guide-names">
+            <div class="guide-cn">阿多薩特碼頭</div>
+            <div class="guide-native">Moll Adossat - Cruise Terminal</div>
+          </div>
+          <div class="guide-desc">
+            巴塞隆納大型國際郵輪停靠主要客運碼頭，設有排班計程車站與港區藍色接駁公車（Cruise Bus）站牌。建議下船通關後直接搭排班計程車直奔聖家堂，車程約 20 分鐘，確保準時在 09:45 前抵達入場。
+          </div>
+          <div class="guide-highlight">特色亮點：Terminal A-E、排班計程車站、直達聖家堂起點。</div>
+          <a href="https://www.google.com/maps/search/?api=1&query=Moll+Adossat+Cruise+Terminal+Barcelona" target="_blank" rel="noopener noreferrer" class="btn-nav">📍 導航</a>
+        </article>
+
+        <article class="guide-card" data-category="transit">
+          <div class="guide-names">
+            <div class="guide-cn">哥倫布紀念碑</div>
+            <div class="guide-native">Mirador de Colom</div>
+          </div>
+          <div class="guide-desc">
+            高達 60 公尺的圓柱地標雕像，紀念哥倫布首次航行美洲後返回西班牙。座落於蘭布拉大道南端與舊港交界，為郵輪返程關鍵樞紐，建議最晚於 16:30 前抵達此處搭車返回碼頭登船。
+          </div>
+          <div class="guide-highlight">特色亮點：返船關鍵集合點、Cruise Bus 總站、舊港交界。</div>
+          <a href="https://www.google.com/maps/search/?api=1&query=Mirador+de+Colom+Barcelona" target="_blank" rel="noopener noreferrer" class="btn-nav">📍 導航</a>
+        </article>
+
+        <!-- 必訪名勝 -->
+        <article class="guide-card" data-category="must-see">
+          <div class="guide-names">
+            <div class="guide-cn">聖家堂</div>
+            <div class="guide-native">Basílica de la Sagrada Família</div>
+          </div>
+          <div class="guide-desc">
+            高第傾注心血的世界遺產與世紀神作，已預約 09:45 入場。內部仿若茂密森林，上午陽光穿透誕生立面彩繪玻璃灑落夢幻光影，請提前下載官方 App 並備妥耳機。
+          </div>
+          <div class="guide-highlight">特色亮點：世界文化遺產、09:45 已預約、高第神作。</div>
+          <a href="https://www.google.com/maps/search/?api=1&query=Basilica+de+la+Sagrada+Familia+Barcelona" target="_blank" rel="noopener noreferrer" class="btn-nav">📍 導航</a>
+        </article>
+
+        <article class="guide-card" data-category="must-see">
+          <div class="guide-names">
+            <div class="guide-cn">米拉之家</div>
+            <div class="guide-native">Casa Milà (La Pedrera)</div>
+          </div>
+          <div class="guide-desc">
+            高第世俗建築顛峰之作，因粗獷起伏的石材外觀被暱稱為「採石場」。全棟無直線設計，配有回收廢鐵打造的鍛鐵陽台與奇幻士兵煙囪。
+          </div>
+          <div class="guide-highlight">特色亮點：採石場、奇幻煙囪、波浪立面。</div>
+          <a href="https://www.google.com/maps/search/?api=1&query=Casa+Mila+Barcelona" target="_blank" rel="noopener noreferrer" class="btn-nav">📍 導航</a>
+        </article>
+
+        <article class="guide-card" data-category="must-see">
+          <div class="guide-names">
+            <div class="guide-cn">巴特略之家</div>
+            <div class="guide-native">Casa Batlló</div>
+          </div>
+          <div class="guide-desc">
+            坐落於格拉西亞大道「不和諧街區」，高第以加泰隆尼亞聖喬治屠龍傳說改建。彩色碎陶瓷外牆宛如巨龍鱗片，面具造型陽台極具張力。
+          </div>
+          <div class="guide-highlight">特色亮點：巨龍背脊波浪屋頂、彩色碎陶立面。</div>
+          <a href="https://www.google.com/maps/search/?api=1&query=Casa+Batllo+Barcelona" target="_blank" rel="noopener noreferrer" class="btn-nav">📍 導航</a>
+        </article>
+
+        <article class="guide-card" data-category="must-see">
+          <div class="guide-names">
+            <div class="guide-cn">奎爾宮</div>
+            <div class="guide-native">Palau Güell</div>
+          </div>
+          <div class="guide-desc">
+            高第為富商奎爾早期設計的代表豪宅，列入世界遺產。融合摩爾風情與哥德復興元素，屋頂聳立 20 根色彩絢麗的馬賽克奇幻煙囪。
+          </div>
+          <div class="guide-highlight">特色亮點：高第早期代表作、馬賽克煙囪群。</div>
+          <a href="https://www.google.com/maps/search/?api=1&query=Palau+Guell+Barcelona" target="_blank" rel="noopener noreferrer" class="btn-nav">📍 導航</a>
+        </article>
+
+        <article class="guide-card" data-category="must-see">
+          <div class="guide-names">
+            <div class="guide-cn">加泰羅尼亞音樂宮</div>
+            <div class="guide-native">Palau de la Música Catalana</div>
+          </div>
+          <div class="guide-desc">
+            現代主義建築大師蒙塔內爾的世界文化遺產傑作。建築外觀布滿精緻馬賽克立柱，音樂廳內部擁有舉世聞名的水滴狀倒懸彩色玻璃穹頂。
+          </div>
+          <div class="guide-highlight">特色亮點：水滴倒懸彩繪穹頂、世界文化遺產。</div>
+          <a href="https://www.google.com/maps/search/?api=1&query=Palau+de+la+Musica+Catalana+Barcelona" target="_blank" rel="noopener noreferrer" class="btn-nav">📍 導航</a>
+        </article>
+
+        <article class="guide-card" data-category="must-see">
+          <div class="guide-names">
+            <div class="guide-cn">巴塞隆納主教座堂</div>
+            <div class="guide-native">Catedral de Barcelona</div>
+          </div>
+          <div class="guide-desc">
+            哥特區最具代表性的天主教宗座聖殿，始建於 13 世紀。外觀宏偉莊嚴，內部迴廊長年飼養 13 隻白鵝以紀念守護聖女歐拉利亞。
+          </div>
+          <div class="guide-highlight">特色亮點：哥特區核心、迴廊13隻白鵝。</div>
+          <a href="https://www.google.com/maps/search/?api=1&query=Catedral+de+Barcelona" target="_blank" rel="noopener noreferrer" class="btn-nav">📍 導航</a>
+        </article>
+
+        <article class="guide-card" data-category="must-see">
+          <div class="guide-names">
+            <div class="guide-cn">海洋聖母聖殿</div>
+            <div class="guide-native">Basílica de Santa Maria del Mar</div>
+          </div>
+          <div class="guide-desc">
+            著名歷史小說《海上教堂》原型，建於 14 世紀，由中世紀水手與碼頭搬運工集資出力建造，為純粹加泰隆尼亞哥德式代表。
+          </div>
+          <div class="guide-highlight">特色亮點：海上水手大教堂、純粹哥德式開闊空間。</div>
+          <a href="https://www.google.com/maps/search/?api=1&query=Basilica+de+Santa+Maria+del+Mar+Barcelona" target="_blank" rel="noopener noreferrer" class="btn-nav">📍 導航</a>
+        </article>
+
+        <!-- 預訂美饌 (8) -->
+        <article class="guide-card" data-category="dining">
+          <div class="guide-names">
+            <div class="guide-cn">十五夜餐廳</div>
+            <div class="guide-native">Les Quinze Nits</div>
+          </div>
+          <div class="guide-desc">
+            座落於浪漫皇家廣場拱廊下的超人氣名店，以平價且道地的海鮮燉飯聞名。招牌必點濃郁鮮美的墨魚海鮮黑飯（Arroz Negro）佐大蒜蛋黃醬。
+          </div>
+          <div class="guide-highlight">特色亮點：正宗墨魚黑飯、皇家廣場戶外露台。</div>
+          <a href="https://www.google.com/maps/search/?api=1&query=Les+Quinze+Nits+Barcelona" target="_blank" rel="noopener noreferrer" class="btn-nav">📍 導航</a>
+        </article>
+
+        <article class="guide-card" data-category="dining">
+          <div class="guide-names">
+            <div class="guide-cn">國家美食殿堂</div>
+            <div class="guide-native">El Nacional</div>
+          </div>
+          <div class="guide-desc">
+            格拉西亞大道旁的指標性美食聚落，前身為染織廠，改建為華麗的現代主義工業風殿堂，內部集合肉類、海鮮、Tapas 與生蠔香檳四大特色區。
+          </div>
+          <div class="guide-highlight">特色亮點：現代主義挑高工業風、Tapas/海鮮多元選擇。</div>
+          <a href="https://www.google.com/maps/search/?api=1&query=El+Nacional+Barcelona" target="_blank" rel="noopener noreferrer" class="btn-nav">📍 導航</a>
+        </article>
+
+        <article class="guide-card" data-category="dining">
+          <div class="guide-names">
+            <div class="guide-cn">首都伯爵小吃館</div>
+            <div class="guide-native">Ciudad Condal (Ciutat Comtal)</div>
+          </div>
+          <div class="guide-desc">
+            加泰羅尼亞廣場旁名列前茅的經典 Tapas 名店，招牌必點香脆鱈魚佐蜂蜜美乃滋（Bacalao al alioli）與煎鵝肝牛肉小漢堡。
+          </div>
+          <div class="guide-highlight">特色亮點：蜂蜜鱈魚佐蒜醬、鵝肝小漢堡。</div>
+          <a href="https://www.google.com/maps/search/?api=1&query=Ciudad+Condal+Barcelona" target="_blank" rel="noopener noreferrer" class="btn-nav">📍 導航</a>
+        </article>
+
+        <article class="guide-card" data-category="dining">
+          <div class="guide-names">
+            <div class="guide-cn">加泰羅尼亞啤酒館</div>
+            <div class="guide-native">Cervecería Catalana</div>
+          </div>
+          <div class="guide-desc">
+            口碑極佳的頂級 Tapas 餐館，店內海鮮極其新鮮，推薦每日現流海鮮、現炸小青椒（Padrón Peppers）與經典西班牙烘蛋。
+          </div>
+          <div class="guide-highlight">特色亮點：現流海鮮、炸小青椒、西班牙烘蛋。</div>
+          <a href="https://www.google.com/maps/search/?api=1&query=Cerveceria+Catalana+Barcelona" target="_blank" rel="noopener noreferrer" class="btn-nav">📍 導航</a>
+        </article>
+
+        <article class="guide-card" data-category="dining">
+          <div class="guide-names">
+            <div class="guide-cn">波蓋利亞市場</div>
+            <div class="guide-native">Mercat de la Boqueria</div>
+          </div>
+          <div class="guide-desc">
+            全歐洲最負盛名且色彩斑斕的傳統市集，供應頂級伊比利火腿、鮮榨果汁與現煎海鮮 Tapas（週日公休；人潮擁擠請留意防竊）。
+          </div>
+          <div class="guide-highlight">特色亮點：伊比利火腿、2歐現榨果汁、特色熟食吧台。</div>
+          <a href="https://www.google.com/maps/search/?api=1&query=Mercat+de+la+Boqueria+Barcelona" target="_blank" rel="noopener noreferrer" class="btn-nav">📍 導航</a>
+        </article>
+
+        <article class="guide-card" data-category="dining">
+          <div class="guide-names">
+            <div class="guide-cn">皮諾喬吧</div>
+            <div class="guide-native">Pinotxo Bar</div>
+          </div>
+          <div class="guide-desc">
+            波蓋利亞市場內最具傳奇色彩的小吃吧台，招牌料理為白豆炒燉血腸（Butifarra negra con mongetes）與鮮煎墨魚燉鷹嘴豆。
+          </div>
+          <div class="guide-highlight">特色亮點：市場傳奇吧台、白豆燉血腸靈魂風味。</div>
+          <a href="https://www.google.com/maps/search/?api=1&query=Pinotxo+Bar+Mercat+de+la+Boqueria+Barcelona" target="_blank" rel="noopener noreferrer" class="btn-nav">📍 導航</a>
+        </article>
+
+        <article class="guide-card" data-category="dining">
+          <div class="guide-names">
+            <div class="guide-cn">維亞德爾百年老店</div>
+            <div class="guide-native">Granja M. Viader</div>
+          </div>
+          <div class="guide-desc">
+            創立於 1870 年的百年老字號傳統點心坊，為巧克力飲品 Cacaolat 誕生地，必點香酥吉拿棒（Churros）搭配手打生奶油濃熱巧克力。
+          </div>
+          <div class="guide-highlight">特色亮點：1870 創立、香酥吉拿棒、濃郁熱巧克力。</div>
+          <a href="https://www.google.com/maps/search/?api=1&query=Granja+M+Viader+Barcelona" target="_blank" rel="noopener noreferrer" class="btn-nav">📍 導航</a>
+        </article>
+
+        <article class="guide-card" data-category="dining">
+          <div class="guide-names">
+            <div class="guide-cn">七門餐廳</div>
+            <div class="guide-native">7 Portes</div>
+          </div>
+          <div class="guide-desc">
+            創立於 1836 年的百年傳奇餐廳，畢卡索、米羅都曾是座上賓，以正宗海鮮燉飯（Paella Parellada）聞名遐邇，海鮮已去殼處理細緻高雅。
+          </div>
+          <div class="guide-highlight">特色亮點：1836 百年名店、去殼正宗海鮮燉飯、畢卡索曾訪。</div>
+          <a href="https://www.google.com/maps/search/?api=1&query=Restaurant+7+Portes+Barcelona" target="_blank" rel="noopener noreferrer" class="btn-nav">📍 導航</a>
+        </article>
+
+        <!-- 歷史老城與街道 (8) -->
+        <article class="guide-card" data-category="historic">
+          <div class="guide-names">
+            <div class="guide-cn">哥特區</div>
+            <div class="guide-native">Barri Gòtic</div>
+          </div>
+          <div class="guide-desc">
+            巴塞隆納歷史底蘊最深厚的中世紀老城核心，密布迷宮般的石板小巷與古羅馬城牆遺跡，午後漫步氣氛古樸沉靜，自然通往海港。
+          </div>
+          <div class="guide-highlight">特色亮點：中世紀石板巷、羅馬城牆遺跡。</div>
+          <a href="https://www.google.com/maps/search/?api=1&query=Barri+Gotic+Barcelona" target="_blank" rel="noopener noreferrer" class="btn-nav">📍 導航</a>
+        </article>
+
+        <article class="guide-card" data-category="historic">
+          <div class="guide-names">
+            <div class="guide-cn">主教橋</div>
+            <div class="guide-native">Pont del Bisbe</div>
+          </div>
+          <div class="guide-desc">
+            連接加泰隆尼亞政府宮與大主教宮的新哥德式天橋，建於 1928 年，精細石雕下方藏有貫穿匕首的骷髏頭神秘圖案，相傳許願能帶來好運。
+          </div>
+          <div class="guide-highlight">特色亮點：哥特區必拍天橋、骷髏神秘浮雕。</div>
+          <a href="https://www.google.com/maps/search/?api=1&query=Pont+del+Bisbe+Barcelona" target="_blank" rel="noopener noreferrer" class="btn-nav">📍 導航</a>
+        </article>
+
+        <article class="guide-card" data-category="historic">
+          <div class="guide-names">
+            <div class="guide-cn">皇家廣場</div>
+            <div class="guide-native">Plaça Reial</div>
+          </div>
+          <div class="guide-desc">
+            新古典主義拱廊方形廣場，中央矗立三女神噴泉與棕櫚樹，廣場兩側獨特的六臂鍛鐵街燈是青年高第獲市府委託的首件公共藝術作品。
+          </div>
+          <div class="guide-highlight">特色亮點：高第六臂街燈、三女神噴泉、拱廊咖啡座。</div>
+          <a href="https://www.google.com/maps/search/?api=1&query=Placa+Reial+Barcelona" target="_blank" rel="noopener noreferrer" class="btn-nav">📍 導航</a>
+        </article>
+
+        <article class="guide-card" data-category="historic">
+          <div class="guide-names">
+            <div class="guide-cn">蘭布拉大道</div>
+            <div class="guide-native">La Rambla</div>
+          </div>
+          <div class="guide-desc">
+            全球最負盛名的林蔭步道之一，中央為徒步區，中段地面鑲嵌藝術巨匠米羅設計的彩色圓形馬賽克地磚，感受市井活力必經之路。
+          </div>
+          <div class="guide-highlight">特色亮點：歐洲最美林蔭道、米羅馬賽克地磚。</div>
+          <a href="https://www.google.com/maps/search/?api=1&query=La+Rambla+Barcelona" target="_blank" rel="noopener noreferrer" class="btn-nav">📍 導航</a>
+        </article>
+
+        <article class="guide-card" data-category="historic">
+          <div class="guide-names">
+            <div class="guide-cn">加泰羅尼亞廣場</div>
+            <div class="guide-native">Plaça de Catalunya</div>
+          </div>
+          <div class="guide-desc">
+            連接新城擴展區與舊城哥特區的核心地標樞紐，周邊匯聚地鐵、火車及英國宮百貨，往北直通格拉西亞大道，往南直通蘭布拉大道。
+          </div>
+          <div class="guide-highlight">特色亮點：新舊城交界心臟、交通轉運樞紐。</div>
+          <a href="https://www.google.com/maps/search/?api=1&query=Placa+de+Catalunya+Barcelona" target="_blank" rel="noopener noreferrer" class="btn-nav">📍 導航</a>
+        </article>
+
+        <article class="guide-card" data-category="historic">
+          <div class="guide-names">
+            <div class="guide-cn">巴塞隆納凱旋門</div>
+            <div class="guide-native">Arc de Triomf</div>
+          </div>
+          <div class="guide-desc">
+            為 1888 年世界博覽會打造的迎賓大門，採用紅磚建造，展現鮮明的摩爾復興（穆德哈爾）風格與新古典主義浮雕裝飾。
+          </div>
+          <div class="guide-highlight">特色亮點：1888 世博紅磚大門、穆德哈爾風情。</div>
+          <a href="https://www.google.com/maps/search/?api=1&query=Arc+de+Triomf+Barcelona" target="_blank" rel="noopener noreferrer" class="btn-nav">📍 導航</a>
+        </article>
+
+        <article class="guide-card" data-category="historic">
+          <div class="guide-names">
+            <div class="guide-cn">城堡公園</div>
+            <div class="guide-native">Parc de la Ciutadella</div>
+          </div>
+          <div class="guide-desc">
+            市中心規模最大的歷史綠地公園，園內擁有高第參與設計的壯麗階梯式紀念噴泉（Cascada Monumental）與划船湖泊，綠樹成蔭。
+          </div>
+          <div class="guide-highlight">特色亮點：市中心綠洲、高第參與紀念階梯噴泉。</div>
+          <a href="https://www.google.com/maps/search/?api=1&query=Parc+de+la+Ciutadella+Barcelona" target="_blank" rel="noopener noreferrer" class="btn-nav">📍 導航</a>
+        </article>
+
+        <article class="guide-card" data-category="historic">
+          <div class="guide-names">
+            <div class="guide-cn">聖保羅修道院</div>
+            <div class="guide-native">Antic monestir de Sant Pau del Camp</div>
+          </div>
+          <div class="guide-desc">
+            現存最古老的羅曼式天主教修道院，建於 9 至 10 世紀，小巧幽靜的迴廊具有獨特的三葉拱門設計與西哥德風格刻痕。
+          </div>
+          <div class="guide-highlight">特色亮點：現存最古老修道院、羅曼式石造迴廊。</div>
+          <a href="https://www.google.com/maps/search/?api=1&query=Antic+monestir+de+Sant+Pau+del+Camp+Barcelona" target="_blank" rel="noopener noreferrer" class="btn-nav">📍 導航</a>
+        </article>
+
+        <!-- 購物商場 (1) -->
+        <article class="guide-card" data-category="shopping">
+          <div class="guide-names">
+            <div class="guide-cn">格拉西亞大道</div>
+            <div class="guide-native">Passeig de Gràcia</div>
+          </div>
+          <div class="guide-desc">
+            巴塞隆納最優雅華麗的林蔭大道，寬廣人行道鋪設高第親自設計的海星地磚，匯集現代主義建築群與國際精品旗艦店。
+          </div>
+          <div class="guide-highlight">特色亮點：精品名牌街、高第海星六角地磚。</div>
+          <a href="https://www.google.com/maps/search/?api=1&query=Passeig+de+Gracia+Barcelona" target="_blank" rel="noopener noreferrer" class="btn-nav">📍 導航</a>
+        </article>
+
+      </div>
+    </section>
+
+    <!-- Tab 4: 預約錦囊 -->
+    <section id="tab-checklist" class="tab-view">
+      
+      <div class="checklist-section">
+        <div class="section-headline">
+          <span>🎫</span> 重要票券與行前預約
+        </div>
+
+        <div class="check-item" onclick="toggleCheckItem(this, 'day7_sagrada_ticket')">
+          <div class="check-box"></div>
+          <div>
+            <div class="check-text-title">聖家堂 09:45 場次（已預約）</div>
+            <div class="check-text-desc">下載「Sagrada Família Official」App 離線可用，自備個人耳機聆聽中文語音導覽。</div>
+          </div>
+        </div>
+
+        <div class="check-item" onclick="toggleCheckItem(this, 'day7_lunch_strategy')">
+          <div class="check-box"></div>
+          <div>
+            <div class="check-text-title">午餐名店排隊策略</div>
+            <div class="check-text-desc">西班牙午餐尖峰為 13:30–15:00，前往 Les Quinze Nits 或 Ciudad Condal 建議 13:00 前抵達；挑高的 El Nacional 容客率較大。</div>
+          </div>
+        </div>
+
+        <div class="check-item" onclick="toggleCheckItem(this, 'day7_taxi_pay')">
+          <div class="check-box"></div>
+          <div>
+            <div class="check-text-title">計程車（Taxi）搭乘須知</div>
+            <div class="check-text-desc">黑黃相間計程車一律按錶收費，法定強制支援信用卡與 Apple Pay 感應付款。</div>
+          </div>
+        </div>
+
+        <div class="check-item" onclick="toggleCheckItem(this, 'day7_safe_return')">
+          <div class="check-box"></div>
+          <div>
+            <div class="check-text-title">最後返船：17:00 All Aboard</div>
+            <div class="check-text-desc">郵輪 18:00 啟航，全體乘客最遲於 17:00 完成登船，嚴格遵守「最晚 16:30 抵達哥倫布紀念碑」搭車。</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="checklist-section">
+        <div class="section-headline">
+          <span>🛡️</span> 治安防竊與退稅錦囊
+        </div>
+        <div class="check-text-desc" style="margin-bottom: 8px;">
+          • <strong>老城防扒竊警告：</strong>波蓋利亞市場、蘭布拉大道及地鐵車廂內為扒手熱區，手機切勿插在後口袋，背包務必前背。
+        </div>
+        <div class="check-text-desc">
+          • <strong>西班牙 DIVA 電子退稅：</strong>無購物退稅最低金額門檻。若下一港仍為歐盟境內，退稅須於離開歐盟之最終站或邊境機場完成認證核章。
+        </div>
+      </div>
+
+    </section>
+
+  </main>
+
+  <!-- 底部固定 5 鍵 Tab Bar -->
+  <nav class="tab-bar">
+    <a href="index.html" class="tab-btn">
+      <svg viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
+      <span>首頁</span>
+    </a>
+    <button class="tab-btn active" onclick="switchTab('tab-timeline', this)">
+      <svg viewBox="0 0 24 24"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z"/></svg>
+      <span>行程</span>
+    </button>
+    <button class="tab-btn" onclick="switchTab('tab-map', this)">
+      <svg viewBox="0 0 24 24"><path d="M20.5 3l-.16.03L15 5.1 9 3 3.36 4.9c-.21.07-.36.25-.36.48V20.5c0 .28.22.5.5.5l.16-.03L9 18.9l6 2.1 5.64-1.9c.21-.07.36-.25.36-.48V3.5c0-.28-.22-.5-.5-.5zM15 19l-6-2.11V5l6 2.11V19z"/></svg>
+      <span>地圖</span>
+    </button>
+    <button class="tab-btn" onclick="switchTab('tab-guide', this)">
+      <svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+      <span>景點</span>
+    </button>
+    <button class="tab-btn" onclick="switchTab('tab-checklist', this)">
+      <svg viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-9 14l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
+      <span>錦囊</span>
+    </button>
+  </nav>
+
+  <script>
+    function switchTab(tabId, btn) {
+      document.querySelectorAll('.tab-view').forEach(function(view) {
+        view.classList.remove('active');
+      });
+      document.querySelectorAll('.tab-bar .tab-btn').forEach(function(item) {
+        item.classList.remove('active');
+      });
+
+      const target = document.getElementById(tabId);
+      if (target) {
+        target.classList.add('active');
+      }
+      btn.classList.add('active');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function filterPlaces(category, btn) {
+      document.querySelectorAll('.cat-pill').forEach(function(el) {
+        el.classList.remove('active');
+      });
+      btn.classList.add('active');
+
+      const cards = document.querySelectorAll('.guide-card');
+      cards.forEach(function(card) {
+        if (category === 'all' || card.getAttribute('data-category') === category) {
+          card.style.display = 'block';
+        } else {
+          card.style.display = 'none';
+        }
+      });
+    }
+
+    function toggleCheckItem(el, storageKey) {
+      el.classList.toggle('checked');
+      const isChecked = el.classList.contains('checked');
+      localStorage.setItem(storageKey, isChecked);
+    }
+
+    document.addEventListener('DOMContentLoaded', function() {
+      document.querySelectorAll('.check-item').forEach(function(item) {
+        const onclickAttr = item.getAttribute('onclick');
+        if (onclickAttr) {
+          const match = onclickAttr.match(/'([^']+)'/);
+          if (match && match[1]) {
+            const saved = localStorage.getItem(match[1]);
+            if (saved === 'true') {
+              item.classList.add('checked');
+            }
+          }
+        }
+      });
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,1112 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, maximum-scale=1.0, user-scalable=no">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="theme-color" content="#0F4C81">
+  <title>Day 2 · 熱那亞一日遊 | MSC World Europa</title>
+  <style>
+    :root {
+      --primary: #0F4C81;
+      --primary-dark: #0A3258;
+      --primary-light: #EBF3FA;
+      --accent: #D97706;
+      --accent-light: #FEF3C7;
+      --danger: #DC2626;
+      --danger-light: #FEE2E2;
+      --success: #059669;
+      --success-light: #D1FAE5;
+      --bg-system: #F4F6F9;
+      --card-bg: #FFFFFF;
+      --text-main: #0F172A;
+      --text-sub: #475569;
+      --text-muted: #94A3B8;
+      --border-color: #E2E8F0;
+      --nav-glass: rgba(255, 255, 255, 0.88);
+      --nav-border: rgba(0, 0, 0, 0.08);
+      --radius-sm: 8px;
+      --radius-md: 14px;
+      --radius-lg: 20px;
+      --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.05);
+      --shadow-md: 0 4px 14px rgba(15, 23, 42, 0.08);
+      --safe-top: env(safe-area-inset-top, 0px);
+      --safe-bottom: env(safe-area-inset-bottom, 0px);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      touch-action: manipulation;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Pro Display", "PingFang TC", "Helvetica Neue", Arial, sans-serif;
+      background-color: var(--bg-system);
+      color: var(--text-main);
+      line-height: 1.5;
+      padding-top: calc(var(--safe-top) + 90px);
+      padding-bottom: calc(var(--safe-bottom) + 72px);
+      -webkit-font-smoothing: antialiased;
+    }
+
+    header.city-header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      background: var(--nav-glass);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--nav-border);
+      padding: calc(var(--safe-top) + 8px) 16px 8px;
+    }
+
+    .header-nav-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 6px;
+    }
+
+    .btn-back-home {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--primary);
+      text-decoration: none;
+      background: var(--primary-light);
+      padding: 4px 10px;
+      border-radius: 20px;
+    }
+
+    .header-danger-pill {
+      font-size: 11px;
+      font-weight: 700;
+      background: var(--danger-light);
+      color: var(--danger);
+      padding: 4px 9px;
+      border-radius: 20px;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .header-nav-bottom {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .city-heading {
+      font-size: 18px;
+      font-weight: 800;
+      color: var(--text-main);
+      display: flex;
+      align-items: baseline;
+      gap: 6px;
+    }
+
+    .city-heading small {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--text-muted);
+    }
+
+    .port-cross-nav {
+      display: flex;
+      gap: 6px;
+    }
+
+    .btn-port-link {
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--primary);
+      text-decoration: none;
+      background: #F1F5F9;
+      padding: 3px 8px;
+      border-radius: 6px;
+      display: inline-flex;
+      align-items: center;
+      gap: 3px;
+    }
+
+    main.city-main {
+      padding: 12px 16px;
+      max-width: 640px;
+      margin: 0 auto;
+    }
+
+    .tab-view {
+      display: none;
+      animation: fadeIn 0.22s ease-out;
+    }
+
+    .tab-view.active {
+      display: block;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(4px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .urgent-banner {
+      background: linear-gradient(135deg, var(--primary) 0%, #1a629e 100%);
+      color: #fff;
+      border-radius: var(--radius-md);
+      padding: 14px 16px;
+      margin-bottom: 16px;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .urgent-title {
+      font-size: 13.5px;
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      margin-bottom: 5px;
+    }
+
+    .urgent-desc {
+      font-size: 12px;
+      line-height: 1.5;
+      opacity: 0.94;
+    }
+
+    .timeline {
+      position: relative;
+      padding-left: 20px;
+    }
+
+    .timeline::before {
+      content: "";
+      position: absolute;
+      left: 6px;
+      top: 14px;
+      bottom: 20px;
+      width: 2px;
+      background: #CBD5E1;
+    }
+
+    .timeline-node {
+      position: relative;
+      margin-bottom: 18px;
+    }
+
+    .timeline-dot {
+      position: absolute;
+      left: -20px;
+      top: 14px;
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      background: var(--card-bg);
+      border: 3px solid var(--primary);
+      z-index: 1;
+    }
+
+    .timeline-dot.danger { border-color: var(--danger); }
+    .timeline-dot.accent { border-color: var(--accent); }
+    .timeline-dot.success { border-color: var(--success); }
+
+    .card {
+      background: var(--card-bg);
+      border-radius: var(--radius-md);
+      padding: 14px 16px;
+      box-shadow: var(--shadow-sm);
+      border: 1px solid var(--border-color);
+    }
+
+    .card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 6px;
+    }
+
+    .card-time {
+      font-size: 12.5px;
+      font-weight: 800;
+      color: var(--primary);
+    }
+
+    .card-tag {
+      font-size: 10px;
+      font-weight: 700;
+      padding: 2px 7px;
+      border-radius: 4px;
+      background: #F1F5F9;
+      color: var(--text-sub);
+    }
+
+    .card-tag.transit { background: #E0F2FE; color: #0369A1; }
+    .card-tag.spot { background: #DCFCE7; color: #15803D; }
+    .card-tag.food { background: #FEF3C7; color: #B45309; }
+    .card-tag.alert { background: #FEE2E2; color: #B91C1C; }
+
+    .card-title {
+      font-size: 15px;
+      font-weight: 800;
+      color: var(--text-main);
+      margin-bottom: 5px;
+    }
+
+    .card-body {
+      font-size: 12.5px;
+      color: var(--text-sub);
+      line-height: 1.5;
+      margin-bottom: 10px;
+    }
+
+    .btn-nav {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      background: #F8FAFC;
+      color: var(--primary);
+      text-decoration: none;
+      font-size: 12px;
+      font-weight: 700;
+      padding: 6px 12px;
+      border-radius: var(--radius-sm);
+      border: 1px solid #BAE6FD;
+      transition: background 0.15s;
+    }
+
+    .btn-nav:active {
+      background: #E0F2FE;
+    }
+
+    .btn-full-map {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      background: linear-gradient(135deg, var(--success) 0%, #047857 100%);
+      color: #fff;
+      font-size: 14px;
+      font-weight: 700;
+      padding: 12px 16px;
+      border-radius: var(--radius-md);
+      text-decoration: none;
+      margin-bottom: 12px;
+      box-shadow: 0 4px 10px rgba(5, 150, 105, 0.25);
+    }
+
+    .map-frame-box {
+      width: 100%;
+      height: 62vh;
+      min-height: 400px;
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      border: 1px solid var(--border-color);
+      box-shadow: var(--shadow-sm);
+      background: #E2E8F0;
+    }
+
+    .map-frame-box iframe {
+      width: 100%;
+      height: 100%;
+      border: 0;
+    }
+
+    .filter-scroll-wrapper {
+      margin: -4px -16px 14px;
+      padding: 0 16px;
+      overflow-x: auto;
+      white-space: nowrap;
+      scrollbar-width: none;
+    }
+    .filter-scroll-wrapper::-webkit-scrollbar { display: none; }
+
+    .category-pills {
+      display: inline-flex;
+      gap: 8px;
+    }
+
+    .cat-pill {
+      font-size: 12px;
+      font-weight: 700;
+      padding: 6px 13px;
+      border-radius: 20px;
+      background: #FFFFFF;
+      border: 1px solid var(--border-color);
+      color: var(--text-sub);
+      cursor: pointer;
+    }
+
+    .cat-pill.active {
+      background: var(--primary);
+      color: #FFFFFF;
+      border-color: var(--primary);
+    }
+
+    .guide-card {
+      background: var(--card-bg);
+      border-radius: var(--radius-md);
+      padding: 14px 16px;
+      margin-bottom: 12px;
+      border: 1px solid var(--border-color);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .guide-names {
+      margin-bottom: 6px;
+    }
+
+    .guide-cn {
+      font-size: 15.5px;
+      font-weight: 800;
+      color: var(--text-main);
+    }
+
+    .guide-native {
+      font-size: 12px;
+      color: var(--text-muted);
+      font-weight: 500;
+    }
+
+    .guide-desc {
+      font-size: 12.5px;
+      color: var(--text-sub);
+      line-height: 1.55;
+      margin-bottom: 8px;
+    }
+
+    .guide-highlight {
+      background: #F8FAFC;
+      border-left: 3px solid var(--primary);
+      padding: 6px 10px;
+      font-size: 11.5px;
+      color: var(--primary);
+      margin-bottom: 10px;
+      border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+      font-weight: 600;
+    }
+
+    .checklist-section {
+      background: var(--card-bg);
+      border-radius: var(--radius-md);
+      padding: 16px;
+      margin-bottom: 14px;
+      border: 1px solid var(--border-color);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .section-headline {
+      font-size: 14.5px;
+      font-weight: 800;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      color: var(--text-main);
+      border-bottom: 1px solid var(--border-color);
+      padding-bottom: 8px;
+    }
+
+    .check-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      margin-bottom: 12px;
+      cursor: pointer;
+    }
+    .check-item:last-child { margin-bottom: 0; }
+
+    .check-box {
+      width: 19px;
+      height: 19px;
+      border-radius: 5px;
+      border: 1.5px solid var(--text-muted);
+      margin-top: 1px;
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.15s ease;
+    }
+
+    .check-item.checked .check-box {
+      background: var(--success);
+      border-color: var(--success);
+    }
+
+    .check-item.checked .check-box::after {
+      content: "✔";
+      color: #fff;
+      font-size: 11px;
+    }
+
+    .check-item.checked .check-text-title {
+      text-decoration: line-through;
+      color: var(--text-muted);
+    }
+
+    .check-text-title {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--text-main);
+    }
+
+    .check-text-desc {
+      font-size: 12px;
+      color: var(--text-sub);
+      line-height: 1.45;
+      margin-top: 2px;
+    }
+
+    nav.tab-bar {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      background: var(--nav-glass);
+      backdrop-filter: blur(25px);
+      -webkit-backdrop-filter: blur(25px);
+      border-top: 1px solid var(--nav-border);
+      padding-bottom: var(--safe-bottom);
+      height: calc(var(--safe-bottom) + 54px);
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      max-width: 640px;
+      margin: 0 auto;
+    }
+
+    .tab-btn {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      background: none;
+      border: none;
+      padding: 4px 0 2px;
+      color: var(--text-muted);
+      cursor: pointer;
+      text-decoration: none;
+    }
+
+    .tab-btn svg {
+      width: 22px;
+      height: 22px;
+      margin-bottom: 2px;
+      fill: currentColor;
+    }
+
+    .tab-btn span {
+      font-size: 10px;
+      font-weight: 700;
+    }
+
+    .tab-btn.active {
+      color: var(--primary);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- 頂部 Sticky 導航區 -->
+  <header class="city-header">
+    <div class="header-nav-top">
+      <a href="index.html" class="btn-back-home">⌂ 所有行程</a>
+      <span class="header-danger-pill">🚢 16:00 開船 ⚠️ 15:00 返船</span>
+    </div>
+    <div class="header-nav-bottom">
+      <div class="city-heading">
+        熱那亞 Genoa
+        <small>Day 2 · 10/04 (六)</small>
+      </div>
+      <div class="port-cross-nav">
+        <a href="1003_登船日.html" class="btn-port-link">← 上一站</a>
+        <a href="1005_義大利_拿坡里.html" class="btn-port-link">下一站 ➔</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- 主要內容區 -->
+  <main class="city-main">
+
+    <!-- Tab 1: 行程時間軸 -->
+    <section id="tab-timeline" class="tab-view active">
+      
+      <div class="urgent-banner">
+        <div class="urgent-title">⚠️ 郵輪返港安全最高原則</div>
+        <div class="urgent-desc">
+          郵輪預計 16:00 啟航，全體登船時間（All Aboard）為 15:00 至 15:30。本行程全程鎖定於 <strong>14:50 返抵碼頭</strong>，預留 1 小時安全緩衝，請依表推進。
+        </div>
+      </div>
+
+      <div class="timeline">
+
+        <!-- 08:00 - 08:30 -->
+        <div class="timeline-item">
+          <div class="timeline-dot success"></div>
+          <div class="card">
+            <div class="card-header">
+              <span class="card-time">08:00 – 08:30</span>
+              <span class="card-tag transit">下船通關</span>
+            </div>
+            <div class="card-title">熱那亞碼頭靠泊與離船準備</div>
+            <div class="card-body">
+              郵輪平穩靠泊客運碼頭（Ponte dei Mille）。攜帶房卡、護照影本與信用卡輕裝下船，順海濱大道 Via Antonio Gramsci 往東出發。
+            </div>
+            <a href="https://www.google.com/maps/search/?api=1&query=Stazioni+Marittime+SpA+Genova" target="_blank" rel="noopener noreferrer" class="btn-nav">
+              📍 導航碼頭起點
+            </a>
+          </div>
+        </div>
+
+        <!-- 08:30 - 09:30 -->
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <div class="card">
+            <div class="card-header">
+              <span class="card-time">08:30 – 09:30</span>
+              <span class="card-tag spot">海濱散步</span>
+            </div>
+            <div class="card-title">舊港長廊、加拉塔海博館外觀與水族館</div>
+            <div class="card-body">
+              沿舊港木棧道散步，途經加拉塔海博館外水面退役潛艇、皮亞諾透明生物圈、水族館外觀與十七世紀海王星號海盜船，海景開闊怡人。
+            </div>
+            <a href="https://www.google.com/maps/search/?api=1&query=Porto+Antico+Genova" target="_blank" rel="noopener noreferrer" class="btn-nav">
+              📍 導航舊港
+            </a>
+          </div>
+        </div>
+
+        <!-- 09:30 - 10:00 -->
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <div class="card">
+            <div class="card-header">
+              <span class="card-time">09:30 – 10:00</span>
+              <span class="card-tag spot">老城玄關</span>
+            </div>
+            <div class="card-title">聖喬治宮外觀壁畫巡禮</div>
+            <div class="card-body">
+              舊港正對面的十三世紀宮殿，正面繪滿震撼的「聖喬治屠龍」彩色濕壁畫。此處曾為歐洲最早的現代銀行，亦為馬可·波羅寫下《東方見聞錄》之處。
+            </div>
+            <a href="https://www.google.com/maps/search/?api=1&query=Palazzo+San+Giorgio+Genova" target="_blank" rel="noopener noreferrer" class="btn-nav">
+              📍 導航聖喬治宮
+            </a>
+          </div>
+        </div>
+
+        <!-- 10:00 - 10:45 -->
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <div class="card">
+            <div class="card-header">
+              <span class="card-time">10:00 – 10:45</span>
+              <span class="card-tag spot">宗教名勝</span>
+            </div>
+            <div class="card-title">聖老楞佐主教座堂與二戰未爆彈</div>
+            <div class="card-body">
+              沿 Via S. Lorenzo 緩坡而上，欣賞黑白斑馬紋大理石正立面與門口石獅。入內（免費）右側側廊瞻仰二戰穿透穹頂卻未引爆的英軍砲彈。
+            </div>
+            <a href="https://www.google.com/maps/search/?api=1&query=Cattedrale+di+San+Lorenzo+Genova" target="_blank" rel="noopener noreferrer" class="btn-nav">
+              📍 導航大教堂
+            </a>
+          </div>
+        </div>
+
+        <!-- 10:45 - 11:30 -->
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <div class="card">
+            <div class="card-header">
+              <span class="card-time">10:45 – 11:30</span>
+              <span class="card-tag spot">市中心核心</span>
+            </div>
+            <div class="card-title">穿過總督宮中庭 ➔ 費拉里廣場</div>
+            <div class="card-body">
+              從大教堂穿過歷任總督官邸（總督宮）恢弘的雙層柱廊中庭捷徑，直通熱那亞心臟「費拉里廣場」，在氣勢磅礡的巨型青銅噴泉前合照。
+            </div>
+            <a href="https://www.google.com/maps/search/?api=1&query=Piazza+De+Ferrari+Genova" target="_blank" rel="noopener noreferrer" class="btn-nav">
+              📍 導航費拉里廣場
+            </a>
+          </div>
+        </div>
+
+        <!-- 11:30 - 12:00 -->
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <div class="card">
+            <div class="card-header">
+              <span class="card-time">11:30 – 12:00</span>
+              <span class="card-tag spot">古城古蹟</span>
+            </div>
+            <div class="card-title">索普拉納要塞雙塔門 ➔ 哥倫布故居</div>
+            <div class="card-body">
+              步行至十二世紀保存最完好的雙塔古城門，感受防禦工事威嚴；城門下方綠蔭中探訪常春藤覆蓋的哥倫布故居石屋與修道院石柱迴廊。
+            </div>
+            <a href="https://www.google.com/maps/search/?api=1&query=Porta+Soprana+Genova" target="_blank" rel="noopener noreferrer" class="btn-nav">
+              📍 導航索普拉納門
+            </a>
+          </div>
+        </div>
+
+        <!-- 12:00 - 13:00 -->
+        <div class="timeline-item">
+          <div class="timeline-dot accent"></div>
+          <div class="card">
+            <div class="card-header">
+              <span class="card-time">12:00 – 13:00</span>
+              <span class="card-tag food">在地美饌</span>
+            </div>
+            <div class="card-title">品嚐青醬義大利餃或百年佛卡夏</div>
+            <div class="card-body">
+              <strong>選項 A（入座麵食）</strong>：索普拉納門旁 <em>Raviolhouse</em> 現包手工餃搭熱那亞青醬。<br>
+              <strong>選項 B（老城外帶）</strong>：老字號 <em>Antico Forno della Casana</em> 趁熱品嚐剛出爐洋蔥/起司佛卡夏。
+            </div>
+            <a href="https://www.google.com/maps/search/?api=1&query=Raviolhouse+Genova" target="_blank" rel="noopener noreferrer" class="btn-nav">
+              📍 導航 Raviolhouse
+            </a>
+            <a href="https://www.google.com/maps/search/?api=1&query=Antico+Forno+della+Casana+Genova" target="_blank" rel="noopener noreferrer" class="btn-nav" style="margin-left:6px;">
+              📍 導航 Casana 烘焙坊
+            </a>
+          </div>
+        </div>
+
+        <!-- 13:00 - 13:45 -->
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <div class="card">
+            <div class="card-header">
+              <span class="card-time">13:00 – 13:45</span>
+              <span class="card-tag spot">世界文化遺產</span>
+            </div>
+            <div class="card-title">加里波第街：紅宮、白宮與圖爾西宮</div>
+            <div class="card-body">
+              漫步十六世紀黃金大道（Strada Nuova），兩側排列著全城最極致的羅利宮殿群。透過敞開的巴洛克大門欣賞通透中庭、噴泉天井與雕塑。
+            </div>
+            <a href="https://www.google.com/maps/search/?api=1&query=Via+Garibaldi+Genova" target="_blank" rel="noopener noreferrer" class="btn-nav">
+              📍 導航加里波第街
+            </a>
+          </div>
+        </div>
+
+        <!-- 13:45 - 14:25 -->
+        <div class="timeline-item">
+          <div class="timeline-dot accent"></div>
+          <div class="card">
+            <div class="card-header">
+              <span class="card-time">13:45 – 14:25</span>
+              <span class="card-tag spot">制高全景</span>
+            </div>
+            <div class="card-title">搭乘百年電梯登頂卡斯特萊托高台</div>
+            <div class="card-body">
+              從波爾泰洛站刷信用卡搭乘新藝術風格登山電梯直達高台。在「熱那亞陽台」360 度俯瞰老城紅瓦海景，並在 Don Paolo 來杯咖啡冰沙。
+            </div>
+            <a href="https://www.google.com/maps/search/?api=1&query=Spianata+di+Castelletto+Genova" target="_blank" rel="noopener noreferrer" class="btn-nav">
+              📍 導航觀景高台
+            </a>
+          </div>
+        </div>
+
+        <!-- 14:25 - 14:50 -->
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <div class="card">
+            <div class="card-header">
+              <span class="card-time">14:25 – 14:50</span>
+              <span class="card-tag transit">皇家大道返程</span>
+            </div>
+            <div class="card-title">巴爾比街下山 ➔ 經熱那亞王宮返回</div>
+            <div class="card-body">
+              自山丘漫步下山切入巴爾比街（Via Balbi），途經金碧輝煌的聖母領報聖殿與宏偉的薩伏依熱那亞王宮外觀，順向往客運碼頭前進。
+            </div>
+            <a href="https://www.google.com/maps/search/?api=1&query=Palazzo+Reale+Genova" target="_blank" rel="noopener noreferrer" class="btn-nav">
+              📍 導航熱那亞王宮
+            </a>
+          </div>
+        </div>
+
+        <!-- 14:50 - 15:00 -->
+        <div class="timeline-item">
+          <div class="timeline-dot danger"></div>
+          <div class="card" style="border-left: 4px solid var(--danger);">
+            <div class="card-header">
+              <span class="card-time" style="color:var(--danger);">14:50 – 15:00</span>
+              <span class="card-tag alert">全員回船</span>
+            </div>
+            <div class="card-title">返抵客運碼頭 ➔ 安全通過安檢登船</div>
+            <div class="card-body">
+              返抵 Ponte dei Mille 客運大樓，預留充足 1 小時安全餘裕辦理安檢。順利登船回艙房沖涼，準備於 16:00 甲板觀賞啟航鳴笛！
+            </div>
+            <a href="https://www.google.com/maps/search/?api=1&query=Stazioni+Marittime+SpA+Genova" target="_blank" rel="noopener noreferrer" class="btn-nav" style="background:var(--danger); color:#fff; border-color:var(--danger);">
+              📍 導航碼頭終點
+            </a>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Tab 2: 景點地圖 -->
+    <section id="tab-map" class="tab-view">
+      <a href="https://www.google.com/maps/d/viewer?mid=1FgxBf5nIHd_xTL9RAjLx5Hp7a362PJg" target="_blank" rel="noopener noreferrer" class="btn-full-map">
+        📲 在 Google Maps App 全螢幕開啟完整地圖
+      </a>
+
+      <div class="map-frame-box">
+        <iframe 
+          src="https://www.google.com/maps/d/embed?mid=1FgxBf5nIHd_xTL9RAjLx5Hp7a362PJg" 
+          allowfullscreen="" 
+          loading="lazy">
+        </iframe>
+      </div>
+    </section>
+
+    <!-- Tab 3: 景點導覽 -->
+    <section id="tab-guide" class="tab-view">
+      
+      <div class="filter-scroll-wrapper">
+        <div class="category-pills">
+          <button class="cat-pill active" onclick="filterPlaces('all', this)">全部景點 (12)</button>
+          <button class="cat-pill" onclick="filterPlaces('food', this)">在地美食 & 烘焙 (4)</button>
+          <button class="cat-pill" onclick="filterPlaces('historic', this)">老城 & 羅利宮殿 (5)</button>
+          <button class="cat-pill" onclick="filterPlaces('port', this)">舊港海濱 (1)</button>
+          <button class="cat-pill" onclick="filterPlaces('transit', this)">交通與觀景 (2)</button>
+        </div>
+      </div>
+
+      <div id="places-list">
+
+        <!-- 1. 聖老楞佐主教座堂 -->
+        <article class="guide-card" data-category="historic">
+          <div class="guide-names">
+            <div class="guide-cn">聖老楞佐主教座堂</div>
+            <div class="guide-native">Cattedrale di San Lorenzo</div>
+          </div>
+          <div class="guide-desc">
+            熱那亞最高宗教中樞，建於十二至十四世紀。外觀採用熱那亞貴族象徵的黑白大理石斑馬條紋裝飾，入口石獅威嚴肅穆。右側側廊展示一枚二戰期間盟軍轟炸穿透教堂穹頂卻未爆炸的重型砲彈，被全城信徒視為守護奇蹟。
+          </div>
+          <div class="guide-highlight">特色亮點：黑白斑馬橫紋立面、二戰未爆彈奇蹟、免費參觀。</div>
+          <a href="https://www.google.com/maps/search/?api=1&query=Cattedrale+di+San+Lorenzo+Genova" target="_blank" rel="noopener noreferrer" class="btn-nav">
+            📍 Google Maps 導航
+          </a>
+        </article>
+
+        <!-- 2. 費拉里廣場 -->
+        <article class="guide-card" data-category="historic">
+          <div class="guide-names">
+            <div class="guide-cn">費拉里廣場</div>
+            <div class="guide-native">Piazza De Ferrari</div>
+          </div>
+          <div class="guide-desc">
+            熱那亞的心臟地標，也是中世紀狹窄巷弄與十九世紀開闊現代大道的交匯樞紐。廣場正中央設有奔騰壯麗的巨型圓形青銅噴水池，四周環繞著卡洛·費利切歌劇院、大區政府大樓等雄偉的新古典主義建築。
+          </div>
+          <div class="guide-highlight">特色亮點：中央青銅圓形大噴泉、歌劇院立面、新舊市區交界。</div>
+          <a href="https://www.google.com/maps/search/?api=1&query=Piazza+De+Ferrari+Genova" target="_blank" rel="noopener noreferrer" class="btn-nav">
+            📍 Google Maps 導航
+          </a>
+        </article>
+
+        <!-- 3. 聖喬治宮 -->
+        <article class="guide-card" data-category="historic">
+          <div class="guide-names">
+            <div class="guide-cn">聖喬治宮</div>
+            <div class="guide-native">Palazzo San Giorgio</div>
+          </div>
+          <div class="guide-desc">
+            矗立於舊港正前方的十三世紀古老宮殿，面向大海的外立面繪有極具視覺張力的彩色聖喬治屠龍濕壁畫。這裡曾是歐洲最早的現代銀行「聖喬治銀行」總部，更曾作為牢獄，威尼斯旅行家馬可·波羅曾在此被囚並口述寫下《東方見聞錄》。
+          </div>
+          <div class="guide-highlight">特色亮點：聖喬治屠龍外牆濕壁畫、馬可波羅被囚執筆處。</div>
+          <a href="https://www.google.com/maps/search/?api=1&query=Palazzo+San+Giorgio+Genova" target="_blank" rel="noopener noreferrer" class="btn-nav">
+            📍 Google Maps 導航
+          </a>
+        </article>
+
+        <!-- 4. 索普拉納門與哥倫布故居 -->
+        <article class="guide-card" data-category="historic">
+          <div class="guide-names">
+            <div class="guide-cn">索普拉納門 & 哥倫布故居</div>
+            <div class="guide-native">Porta Soprana & Casa di Colombo</div>
+          </div>
+          <div class="guide-desc">
+            建於十二世紀的索普拉納門是防禦城牆中保存最完好的雙塔石造城門。城門外側綠蔭下的雙層石舍相傳為探險家哥倫布童年住所，旁邊緊鄰著十二世紀聖安德肋修道院精雕細琢的石柱迴廊殘跡。
+          </div>
+          <div class="guide-highlight">特色亮點：中世紀雙塔古城門、哥倫布常春藤石屋、修道院迴廊。</div>
+          <a href="https://www.google.com/maps/search/?api=1&query=Porta+Soprana+Genova" target="_blank" rel="noopener noreferrer" class="btn-nav">
+            📍 Google Maps 導航
+          </a>
+        </article>
+
+        <!-- 5. 加里波第街與羅利宮殿群 -->
+        <article class="guide-card" data-category="historic">
+          <div class="guide-names">
+            <div class="guide-cn">加里波第街與羅利宮殿群</div>
+            <div class="guide-native">Via Garibaldi (Palazzi dei Rolli)</div>
+          </div>
+          <div class="guide-desc">
+            十六世紀由金融富商規劃的「新街」，列入 UNESCO 世界文化遺產。整條大道密布十餘座文藝復興與巴洛克式豪宅。紅宮（Palazzo Rosso）藏有凡·戴克名畫；白宮（Palazzo Bianco）收藏卡拉瓦喬大作；圖爾西宮收藏著帕格尼尼名琴「大砲」。
+          </div>
+          <div class="guide-highlight">特色亮點：紅宮與白宮對望、開放式巴洛克天井噴泉、世界遺產街道。</div>
+          <a href="https://www.google.com/maps/search/?api=1&query=Via+Garibaldi+Genova" target="_blank" rel="noopener noreferrer" class="btn-nav">
+            📍 Google Maps 導航
+          </a>
+        </article>
+
+        <!-- 6. 卡斯特萊托全景高台 -->
+        <article class="guide-card" data-category="transit">
+          <div class="guide-names">
+            <div class="guide-cn">卡斯特萊托全景高台</div>
+            <div class="guide-native">Spianata di Castelletto</div>
+          </div>
+          <div class="guide-desc">
+            被譽為「熱那亞的陽台」，為全城公認景觀最震撼的露天觀景平台。自波爾泰洛廣場搭乘建於一九○九年的百年復古登山電梯直達懸崖頂端。平台擁有 360 度海空全景，能將老城橘紅屋頂與碼頭郵輪一覽無遺。
+          </div>
+          <div class="guide-highlight">特色亮點：新藝術風格登山電梯、郵輪同框最佳機位、俯瞰老城全景。</div>
+          <a href="https://www.google.com/maps/search/?api=1&query=Spianata+di+Castelletto+Genova" target="_blank" rel="noopener noreferrer" class="btn-nav">
+            📍 Google Maps 導航
+          </a>
+        </article>
+
+        <!-- 7. 熱那亞王宮 -->
+        <article class="guide-card" data-category="transit">
+          <div class="guide-names">
+            <div class="guide-cn">熱那亞王宮</div>
+            <div class="guide-native">Palazzo Reale</div>
+          </div>
+          <div class="guide-desc">
+            坐落於巴爾比街上，原為顯赫的巴爾比家族建於十七世紀的巴洛克府邸，十九世紀被薩伏依王朝收購成為義大利國王行宮。建築具備奢華的巴洛克大門面、金碧輝煌的鏡廳與懸空的花園露台。
+          </div>
+          <div class="guide-highlight">特色亮點：巴洛克皇家立面、空中花園露台、返船主幹道樞紐。</div>
+          <a href="https://www.google.com/maps/search/?api=1&query=Palazzo+Reale+Genova" target="_blank" rel="noopener noreferrer" class="btn-nav">
+            📍 Google Maps 導航
+          </a>
+        </article>
+
+        <!-- 8. 拉維奧利手工餃坊 -->
+        <article class="guide-card" data-category="food">
+          <div class="guide-names">
+            <div class="guide-cn">拉維奧利手工餃坊</div>
+            <div class="guide-native">Raviolhouse Genova</div>
+          </div>
+          <div class="guide-desc">
+            位於索普拉納古城門旁的熱門手工義大利麵館，以現點現煮的義大利餃（Ravioli）聞名。可自由選擇牛肉、起司或菠菜等內餡，搭配熱那亞正宗研磨羅勒青醬或濃郁白核桃醬。出餐迅速、份量扎實且收費親民。
+          </div>
+          <div class="guide-highlight">特色亮點：現包義大利餃、客製化青醬/核桃醬搭配、鄰近古蹟。</div>
+          <a href="https://www.google.com/maps/search/?api=1&query=Raviolhouse+Genova" target="_blank" rel="noopener noreferrer" class="btn-nav">
+            📍 Google Maps 導航
+          </a>
+        </article>
+
+        <!-- 9. 卡薩納古老烘焙坊 -->
+        <article class="guide-card" data-category="food">
+          <div class="guide-names">
+            <div class="guide-cn">卡薩納古老烘焙坊</div>
+            <div class="guide-native">Antico Forno della Casana</div>
+          </div>
+          <div class="guide-desc">
+            隱身在窄巷內的百年傳統老字號，為熱那亞在地人買佛卡夏的首選。剛出爐的原味佛卡夏大量淋上特級初榨橄欖油與海鹽粒，外層金黃香脆、內部柔韌有彈性。焦香洋蔥佛卡夏香氣濃烈，按重量秤重計價。
+          </div>
+          <div class="guide-highlight">特色亮點：百年古法烘烤、正統油鹽佛卡夏、焦香洋蔥薄餅。</div>
+          <a href="https://www.google.com/maps/search/?api=1&query=Antico+Forno+della+Casana+Genova" target="_blank" rel="noopener noreferrer" class="btn-nav">
+            📍 Google Maps 導航
+          </a>
+        </article>
+
+        <!-- 10. 恩典傳統小館 -->
+        <article class="guide-card" data-category="food">
+          <div class="guide-names">
+            <div class="guide-cn">恩典傳統小館</div>
+            <div class="guide-native">Trattoria delle Grazie</div>
+          </div>
+          <div class="guide-desc">
+            靠近舊港老街區的超高人氣利古里亞小館，以極致道地的「雷科起司佛卡夏（Focaccia al formaggio）」聞名。薄脆無酵母雙層麵皮中夾入大量流心 Crescenza 濃醇新鮮乳酪，切開爆漿拉絲。
+          </div>
+          <div class="guide-highlight">特色亮點：正統爆漿起司佛卡夏、羅勒青醬寬麵、家常溫馨氛圍。</div>
+          <a href="https://www.google.com/maps/search/?api=1&query=Trattoria+delle+Grazie+Genova" target="_blank" rel="noopener noreferrer" class="btn-nav">
+            📍 Google Maps 導航
+          </a>
+        </article>
+
+        <!-- 11. 烏戈傳統小館 -->
+        <article class="guide-card" data-category="food">
+          <div class="guide-names">
+            <div class="guide-cn">烏戈傳統小館 (1969創立)</div>
+            <div class="guide-native">Trattoria Ugo dal 1969</div>
+          </div>
+          <div class="guide-desc">
+            創立半世紀的古城家常名店，以純手工新鮮研磨的經典青醬螺旋麵（Trofie al Pesto）征服各國食客。青醬採用在地小葉羅勒、松子、大蒜與帕馬森起司研磨而成，與馬鈴薯及四季豆一同拌煮，濃郁清新不膩口。
+          </div>
+          <div class="guide-highlight">特色亮點：五十年手磨青醬老配方、現拌螺旋麵、傳統燉牛肚。</div>
+          <a href="https://www.google.com/maps/search/?api=1&query=Trattoria+Ugo+Genova" target="_blank" rel="noopener noreferrer" class="btn-nav">
+            📍 Google Maps 導航
+          </a>
+        </article>
+
+        <!-- 12. 舊港海濱地標群 -->
+        <article class="guide-card" data-category="port">
+          <div class="guide-names">
+            <div class="guide-cn">舊港區 (水族館、海盜船、比戈吊車)</div>
+            <div class="guide-native">Porto Antico di Genova</div>
+          </div>
+          <div class="guide-desc">
+            熱那亞千年商貿發源地，經建築大師倫佐·皮亞諾精心改造為現代海濱特區。停泊著歐洲最大規模水族館、科幻球體「生物圈（Biosfera）」、電影《海盜》實體十七世紀大型帆船「海王星號」，以及比戈全景吊車。
+          </div>
+          <div class="guide-highlight">特色亮點：皮亞諾現代建築美學、水面退役潛艇、海王星號大帆船。</div>
+          <a href="https://www.google.com/maps/search/?api=1&query=Porto+Antico+Genova" target="_blank" rel="noopener noreferrer" class="btn-nav">
+            📍 Google Maps 導航
+          </a>
+        </article>
+
+      </div>
+    </section>
+
+    <!-- Tab 4: 預約錦囊 -->
+    <section id="tab-checklist" class="tab-view">
+      
+      <div class="checklist-section">
+        <div class="section-headline">
+          <span>⏱️</span> 郵輪返船與交通核對清單
+        </div>
+
+        <div class="check-item" onclick="toggleCheckItem(this, 'day2_onboard_safe')">
+          <div class="check-box"></div>
+          <div>
+            <div class="check-text-title">15:00 嚴格登船緩衝 (All Aboard)</div>
+            <div class="check-text-desc">郵輪 16:00 啟航，碼頭大樓設有安檢，務必在 14:50-15:00 返抵大廳辦理登船。</div>
+          </div>
+        </div>
+
+        <div class="check-item" onclick="toggleCheckItem(this, 'day2_lift_tap')">
+          <div class="check-box"></div>
+          <div>
+            <div class="check-text-title">登山電梯支援感應刷卡（Tap & Go）</div>
+            <div class="check-text-desc">卡斯特萊托電梯閘門支援 Apple Pay 或實體信用卡感應通關（約 €1.20 至 €1.60）。</div>
+          </div>
+        </div>
+
+        <div class="check-item" onclick="toggleCheckItem(this, 'day2_multi_tap')">
+          <div class="check-box"></div>
+          <div>
+            <div class="check-text-title">兩人以上刷卡方式</div>
+            <div class="check-text-desc">若多人同行，可在閘門螢幕先點選「+」選取乘客數量後再行感應扣款。</div>
+          </div>
+        </div>
+
+        <div class="check-item" onclick="toggleCheckItem(this, 'day2_cash_coin')">
+          <div class="check-box"></div>
+          <div>
+            <div class="check-text-title">備用零錢準備</div>
+            <div class="check-text-desc">山體隧道內偶爾可能因網路訊號延遲，隨身準備 1 至 2 枚 1 歐元硬幣以防萬一。</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="checklist-section">
+        <div class="section-headline">
+          <span>🍴</span> 利古里亞特色美食與伴手禮錦囊
+        </div>
+        <div class="check-text-desc" style="margin-bottom: 8px;">
+          • <strong>起司佛卡夏 (Focaccia al formaggio)：</strong>必嚐無酵母薄脆雙層麵皮夾入融化爆漿乳酪的熱騰騰滋味。
+        </div>
+        <div class="check-text-desc" style="margin-bottom: 8px;">
+          • <strong>螺旋青醬麵 (Trofie al Pesto)：</strong>熱那亞為青醬發源地，正宗搭配必伴隨馬鈴薯塊與四季豆拌勻。
+        </div>
+        <div class="check-text-desc" style="margin-bottom: 8px;">
+          • <strong>超市冷藏青醬伴手禮：</strong>路過市區 Carrefour Express 或 Coop 超市時，務必到冷藏櫃尋找 <strong>Pastificio Novella - Pesto Genovese D.O.P.</strong>，這是在地居民最推崇的現做冷藏新鮮青醬，口感遠勝常溫玻璃罐！
+        </div>
+        <div class="check-text-desc">
+          • <strong>退稅與老城安全：</strong>老城「Caruggi」狹窄石板巷弄請結伴行走於主幹道，隨身包款前背。義大利單店消費滿 €70 可索取退稅單。
+        </div>
+      </div>
+
+    </section>
+
+  </main>
+
+  <!-- 底部固定 5 鍵 Tab Bar -->
+  <nav class="tab-bar">
+    <a href="index.html" class="tab-btn">
+      <svg viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
+      <span>首頁</span>
+    </a>
+    <button class="tab-btn active" onclick="switchTab('tab-timeline', this)">
+      <svg viewBox="0 0 24 24"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z"/></svg>
+      <span>行程</span>
+    </button>
+    <button class="tab-btn" onclick="switchTab('tab-map', this)">
+      <svg viewBox="0 0 24 24"><path d="M20.5 3l-.16.03L15 5.1 9 3 3.36 4.9c-.21.07-.36.25-.36.48V20.5c0 .28.22.5.5.5l.16-.03L9 18.9l6 2.1 5.64-1.9c.21-.07.36-.25.36-.48V3.5c0-.28-.22-.5-.5-.5zM15 19l-6-2.11V5l6 2.11V19z"/></svg>
+      <span>地圖</span>
+    </button>
+    <button class="tab-btn" onclick="switchTab('tab-guide', this)">
+      <svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+      <span>景點</span>
+    </button>
+    <button class="tab-btn" onclick="switchTab('tab-checklist', this)">
+      <svg viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-9 14l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
+      <span>錦囊</span>
+    </button>
+  </nav>
+
+  <script>
+    function switchTab(tabId, btn) {
+      document.querySelectorAll('.tab-view').forEach(function(view) {
+        view.classList.remove('active');
+      });
+      document.querySelectorAll('.tab-bar .tab-btn').forEach(function(item) {
+        item.classList.remove('active');
+      });
+
+      const target = document.getElementById(tabId);
+      if (target) {
+        target.classList.add('active');
+      }
+      btn.classList.add('active');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function filterPlaces(category, btn) {
+      document.querySelectorAll('.cat-pill').forEach(function(el) {
+        el.classList.remove('active');
+      });
+      btn.classList.add('active');
+
+      const cards = document.querySelectorAll('.guide-card');
+      cards.forEach(function(card) {
+        if (category === 'all' || card.getAttribute('data-category') === category) {
+          card.style.display = 'block';
+        } else {
+          card.style.display = 'none';
+        }
+      });
+    }
+
+    function toggleCheckItem(el, storageKey) {
+      el.classList.toggle('checked');
+      const isChecked = el.classList.contains('checked');
+      localStorage.setItem(storageKey, isChecked);
+    }
+
+    document.addEventListener('DOMContentLoaded', function() {
+      document.querySelectorAll('.check-item').forEach(function(item) {
+        const onclickAttr = item.getAttribute('onclick');
+        if (onclickAttr) {
+          const match = onclickAttr.match(/'([^']+)'/);
+          if (match && match[1]) {
+            const saved = localStorage.getItem(match[1]);
+            if (saved === 'true') {
+              item.classList.add('checked');
+            }
+          }
+        }
+      });
+    });
+  </script>
+</body>
+</html>

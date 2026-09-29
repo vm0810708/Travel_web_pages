@@ -1,0 +1,902 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, maximum-scale=1.0, user-scalable=no">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="theme-color" content="#0F4C81">
+  <title>Day 6 · 海上巡航日 | MSC World Europa</title>
+  <style>
+    :root {
+      --primary: #0F4C81;
+      --primary-dark: #0A3258;
+      --primary-light: #EBF3FA;
+      --accent: #D97706;
+      --accent-light: #FEF3C7;
+      --danger: #DC2626;
+      --danger-light: #FEE2E2;
+      --success: #059669;
+      --success-light: #D1FAE5;
+      --bg-system: #F4F6F9;
+      --card-bg: #FFFFFF;
+      --text-main: #0F172A;
+      --text-sub: #475569;
+      --text-muted: #94A3B8;
+      --border-color: #E2E8F0;
+      --nav-glass: rgba(255, 255, 255, 0.88);
+      --nav-border: rgba(0, 0, 0, 0.08);
+      --radius-sm: 8px;
+      --radius-md: 14px;
+      --radius-lg: 20px;
+      --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.05);
+      --shadow-md: 0 4px 14px rgba(15, 23, 42, 0.08);
+      --safe-top: env(safe-area-inset-top, 0px);
+      --safe-bottom: env(safe-area-inset-bottom, 0px);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      touch-action: manipulation;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Pro Display", "PingFang TC", "Helvetica Neue", Arial, sans-serif;
+      background-color: var(--bg-system);
+      color: var(--text-main);
+      line-height: 1.5;
+      padding-top: calc(var(--safe-top) + 90px);
+      padding-bottom: calc(var(--safe-bottom) + 72px);
+      -webkit-font-smoothing: antialiased;
+    }
+
+    header.city-header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      background: var(--nav-glass);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--nav-border);
+      padding: calc(var(--safe-top) + 8px) 16px 8px;
+    }
+
+    .header-nav-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 6px;
+    }
+
+    .btn-back-home {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--primary);
+      text-decoration: none;
+      background: var(--primary-light);
+      padding: 4px 10px;
+      border-radius: 20px;
+    }
+
+    .header-purple-pill {
+      font-size: 11px;
+      font-weight: 700;
+      background: #F3E8FF;
+      color: #7E22CE;
+      padding: 4px 9px;
+      border-radius: 20px;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .header-nav-bottom {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .city-heading {
+      font-size: 18px;
+      font-weight: 800;
+      color: var(--text-main);
+      display: flex;
+      align-items: baseline;
+      gap: 6px;
+    }
+
+    .city-heading small {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--text-muted);
+    }
+
+    .port-cross-nav {
+      display: flex;
+      gap: 6px;
+    }
+
+    .btn-port-link {
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--primary);
+      text-decoration: none;
+      background: #F1F5F9;
+      padding: 3px 8px;
+      border-radius: 6px;
+      display: inline-flex;
+      align-items: center;
+      gap: 3px;
+    }
+
+    main.city-main {
+      padding: 12px 16px;
+      max-width: 640px;
+      margin: 0 auto;
+    }
+
+    .tab-view {
+      display: none;
+      animation: fadeIn 0.22s ease-out;
+    }
+
+    .tab-view.active {
+      display: block;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(4px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .urgent-banner {
+      background: linear-gradient(135deg, var(--primary) 0%, #1a629e 100%);
+      color: #fff;
+      border-radius: var(--radius-md);
+      padding: 14px 16px;
+      margin-bottom: 16px;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .urgent-title {
+      font-size: 13.5px;
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      margin-bottom: 5px;
+    }
+
+    .urgent-desc {
+      font-size: 12px;
+      line-height: 1.5;
+      opacity: 0.94;
+    }
+
+    .timeline {
+      position: relative;
+      padding-left: 20px;
+    }
+
+    .timeline::before {
+      content: "";
+      position: absolute;
+      left: 6px;
+      top: 14px;
+      bottom: 20px;
+      width: 2px;
+      background: #CBD5E1;
+    }
+
+    .timeline-node {
+      position: relative;
+      margin-bottom: 18px;
+    }
+
+    .timeline-dot {
+      position: absolute;
+      left: -20px;
+      top: 14px;
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      background: var(--card-bg);
+      border: 3px solid var(--primary);
+      z-index: 1;
+    }
+
+    .timeline-dot.danger { border-color: var(--danger); }
+    .timeline-dot.accent { border-color: var(--accent); }
+    .timeline-dot.success { border-color: var(--success); }
+
+    .card {
+      background: var(--card-bg);
+      border-radius: var(--radius-md);
+      padding: 14px 16px;
+      box-shadow: var(--shadow-sm);
+      border: 1px solid var(--border-color);
+    }
+
+    .card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 6px;
+    }
+
+    .card-time {
+      font-size: 12.5px;
+      font-weight: 800;
+      color: var(--primary);
+    }
+
+    .card-tag {
+      font-size: 10px;
+      font-weight: 700;
+      padding: 2px 7px;
+      border-radius: 4px;
+      background: #F1F5F9;
+      color: var(--text-sub);
+    }
+
+    .card-tag.morning { background: #E8F8F5; color: #16A085; }
+    .card-tag.activity { background: #FEF3C7; color: #B45309; }
+    .card-tag.food { background: #FEF9E7; color: #B7950B; }
+    .card-tag.ship { background: #F4ECF7; color: #8E44AD; }
+    .card-tag.gala { background: #FEE2E2; color: #B91C1C; }
+
+    .card-title {
+      font-size: 15px;
+      font-weight: 800;
+      color: var(--text-main);
+      margin-bottom: 5px;
+    }
+
+    .card-body {
+      font-size: 12.5px;
+      color: var(--text-sub);
+      line-height: 1.5;
+      margin-bottom: 10px;
+    }
+
+    /* 甲板結構卡片 (Deck Section) */
+    .deck-section {
+      background: var(--card-bg);
+      border-radius: var(--radius-md);
+      padding: 14px 16px;
+      margin-bottom: 12px;
+      box-shadow: var(--shadow-sm);
+      border: 1px solid var(--border-color);
+    }
+
+    .deck-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-bottom: 8px;
+      border-bottom: 1px dashed var(--border-color);
+      margin-bottom: 10px;
+    }
+
+    .deck-number {
+      font-size: 14px;
+      font-weight: 800;
+      color: var(--primary);
+    }
+
+    .deck-name {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--text-muted);
+    }
+
+    .deck-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 6px 0;
+      font-size: 13px;
+    }
+
+    .deck-item-title {
+      font-weight: 700;
+      color: var(--text-main);
+    }
+
+    .deck-item-tag {
+      font-size: 11px;
+      color: var(--primary);
+      background: var(--primary-light);
+      padding: 2px 7px;
+      border-radius: 4px;
+      font-weight: 600;
+    }
+
+    /* 景點導覽 */
+    .guide-card {
+      background: var(--card-bg);
+      border-radius: var(--radius-md);
+      padding: 14px 16px;
+      margin-bottom: 12px;
+      border: 1px solid var(--border-color);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .guide-names {
+      margin-bottom: 6px;
+    }
+
+    .guide-cn {
+      font-size: 15.5px;
+      font-weight: 800;
+      color: var(--text-main);
+    }
+
+    .guide-native {
+      font-size: 12px;
+      color: var(--text-muted);
+      font-weight: 500;
+    }
+
+    .guide-desc {
+      font-size: 12.5px;
+      color: var(--text-sub);
+      line-height: 1.55;
+      margin-bottom: 8px;
+    }
+
+    .guide-highlight {
+      background: #F8FAFC;
+      border-left: 3px solid var(--primary);
+      padding: 6px 10px;
+      font-size: 11.5px;
+      color: var(--primary);
+      margin-bottom: 10px;
+      border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+      font-weight: 600;
+    }
+
+    .checklist-section {
+      background: var(--card-bg);
+      border-radius: var(--radius-md);
+      padding: 16px;
+      margin-bottom: 14px;
+      border: 1px solid var(--border-color);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .section-headline {
+      font-size: 14.5px;
+      font-weight: 800;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      color: var(--text-main);
+      border-bottom: 1px solid var(--border-color);
+      padding-bottom: 8px;
+    }
+
+    .check-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      margin-bottom: 12px;
+      cursor: pointer;
+    }
+    .check-item:last-child { margin-bottom: 0; }
+
+    .check-box {
+      width: 19px;
+      height: 19px;
+      border-radius: 5px;
+      border: 1.5px solid var(--text-muted);
+      margin-top: 1px;
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.15s ease;
+    }
+
+    .check-item.checked .check-box {
+      background: var(--success);
+      border-color: var(--success);
+    }
+
+    .check-item.checked .check-box::after {
+      content: "✔";
+      color: #fff;
+      font-size: 11px;
+    }
+
+    .check-item.checked .check-text-title {
+      text-decoration: line-through;
+      color: var(--text-muted);
+    }
+
+    .check-text-title {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--text-main);
+    }
+
+    .check-text-desc {
+      font-size: 12px;
+      color: var(--text-sub);
+      line-height: 1.45;
+      margin-top: 2px;
+    }
+
+    nav.tab-bar {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      background: var(--nav-glass);
+      backdrop-filter: blur(25px);
+      -webkit-backdrop-filter: blur(25px);
+      border-top: 1px solid var(--nav-border);
+      padding-bottom: var(--safe-bottom);
+      height: calc(var(--safe-bottom) + 54px);
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      max-width: 640px;
+      margin: 0 auto;
+    }
+
+    .tab-btn {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      background: none;
+      border: none;
+      padding: 4px 0 2px;
+      color: var(--text-muted);
+      cursor: pointer;
+      text-decoration: none;
+    }
+
+    .tab-btn svg {
+      width: 22px;
+      height: 22px;
+      margin-bottom: 2px;
+      fill: currentColor;
+    }
+
+    .tab-btn span {
+      font-size: 10px;
+      font-weight: 700;
+    }
+
+    .tab-btn.active {
+      color: var(--primary);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- 頂部 Sticky 導航區 -->
+  <header class="city-header">
+    <div class="header-nav-top">
+      <a href="index.html" class="btn-back-home">⌂ 所有行程</a>
+      <span class="header-purple-pill">🌊 全日公海航行 · Gala Night</span>
+    </div>
+    <div class="header-nav-bottom">
+      <div class="city-heading">
+        海上巡航 At Sea
+        <small>Day 6 · 10/08 (三)</small>
+      </div>
+      <div class="port-cross-nav">
+        <a href="1007_馬爾他_瓦萊塔.html" class="btn-port-link">← 上一站</a>
+        <a href="1009_西班牙_巴塞隆納.html" class="btn-port-link">下一站 ➔</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- 主要內容區 -->
+  <main class="city-main">
+
+    <!-- Tab 1: 行程時間軸 -->
+    <section id="tab-timeline" class="tab-view active">
+      
+      <div class="urgent-banner">
+        <div class="urgent-title">🌊 今日主題：深度放鬆、船長晚宴與旗艦設施制霸</div>
+        <div class="urgent-desc">
+          • 無需趕著下船！今天是專屬於 MSC World Europa 21 萬噸旗艦的深度體驗日。<br>
+          • 建議上午體驗 Zen Pool 靜謐無邊際泳池或挑戰 11 層高空滑梯。<br>
+          • 晚間為全船盛大的<strong>船長歡迎晚宴（Gala Night）</strong>，請準備好正式服裝（西裝/禮服）。
+        </div>
+      </div>
+
+      <div class="timeline">
+
+        <!-- 08:30 - 10:00 -->
+        <div class="timeline-item">
+          <div class="timeline-dot success"></div>
+          <div class="card">
+            <div class="card-header">
+              <span class="card-time">08:30 – 10:00</span>
+              <span class="card-tag morning">晨間悠閒</span>
+            </div>
+            <div class="card-title">景觀早餐與頂層甲板晨光漫步</div>
+            <div class="card-body">
+              前往 Deck 18 的 Il Mercato 自助餐廳享用全海景豐盛早餐，或在陽台艙房吹著地中海海風享受咖啡。餐後散步至船首觀賞大海波濤。
+            </div>
+          </div>
+        </div>
+
+        <!-- 10:00 - 12:00 -->
+        <div class="timeline-item">
+          <div class="timeline-dot accent"></div>
+          <div class="card">
+            <div class="card-header">
+              <span class="card-time">10:00 – 12:00</span>
+              <span class="card-tag activity">極限挑戰</span>
+            </div>
+            <div class="card-title">The Venom Drop 旋轉滑梯與水上樂園</div>
+            <div class="card-body">
+              趁人潮較少挑戰橫跨 11 層甲板的 <strong>The Venom Drop 乾式不鏽鋼滑梯</strong>（由 Deck 20 直衝 Deck 8），隨後造訪 Aurora Borealis 水上樂園與多水道滑水梯。
+            </div>
+          </div>
+        </div>
+
+        <!-- 12:00 - 13:30 -->
+        <div class="timeline-item">
+          <div class="timeline-dot success"></div>
+          <div class="card">
+            <div class="card-header">
+              <span class="card-time">12:00 – 13:30</span>
+              <span class="card-tag food">特色午餐</span>
+            </div>
+            <div class="card-title">La Pescaderia 地中海海鮮餐廳午宴</div>
+            <div class="card-body">
+              造訪船上主打新鮮漁獲的地中海海鮮餐廳，品嚐地道烤魚、鮮蝦與白酒海鮮義大利麵，感受濃郁南歐風情。
+            </div>
+          </div>
+        </div>
+
+        <!-- 13:30 - 16:00 -->
+        <div class="timeline-item">
+          <div class="timeline-dot accent"></div>
+          <div class="card">
+            <div class="card-header">
+              <span class="card-time">13:30 – 16:00</span>
+              <span class="card-tag ship">沉浸體驗</span>
+            </div>
+            <div class="card-title">Aurea Spa 舒壓按摩與 Zen Pool 成人泳池</div>
+            <div class="card-body">
+              前往 Deck 18 的 <strong>Zen Pool 成人專屬無邊際泳池</strong> 曬太陽、看海放鬆，或預約 Aurea Spa 享受巴厘島風情按摩與熱石療程。
+            </div>
+          </div>
+        </div>
+
+        <!-- 16:00 - 18:00 -->
+        <div class="timeline-item">
+          <div class="timeline-dot accent"></div>
+          <div class="card">
+            <div class="card-header">
+              <span class="card-time">16:00 – 18:00</span>
+              <span class="card-tag activity">海上微醺</span>
+            </div>
+            <div class="card-title">Masters of the Sea 海上微釀啤酒坊下午茶</div>
+            <div class="card-body">
+              前往 Deck 7 的微型釀酒廠品嚐現場以海水淡化技術釀造的特色精釀啤酒，伴隨 World Promenade 戶外長廊的音樂演出。
+            </div>
+          </div>
+        </div>
+
+        <!-- 18:30 - 21:00 -->
+        <div class="timeline-item">
+          <div class="timeline-dot danger"></div>
+          <div class="card" style="border-left: 4px solid var(--danger);">
+            <div class="card-header">
+              <span class="card-time" style="color:var(--danger);">18:30 – 21:00</span>
+              <span class="card-tag gala">正式晚宴</span>
+            </div>
+            <div class="card-title">船長歡迎晚宴（Gala Night）與主餐廳盛宴</div>
+            <div class="card-body">
+              穿著正式服裝出席晚宴。主廚團隊將端出最高規格的法式、義式晚宴菜單，並有機會與船長及高級船員舉杯合影。
+            </div>
+          </div>
+        </div>
+
+        <!-- 21:30 - 23:00 -->
+        <div class="timeline-item">
+          <div class="timeline-dot accent"></div>
+          <div class="card">
+            <div class="card-header">
+              <span class="card-time">21:30 – 23:00</span>
+              <span class="card-tag ship">百老匯大秀</span>
+            </div>
+            <div class="card-title">World Theatre 世界大劇院旗艦大秀</div>
+            <div class="card-body">
+              前往千人規模的 World Theatre 觀賞國際級歌舞與特技大秀，隨後前往 Panorama Lounge 參與深夜派對。
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Tab 2: 船體構造與地圖 -->
+    <section id="tab-map" class="tab-view">
+      
+      <div style="font-size:15px; font-weight:800; margin-bottom:6px; color:var(--primary);">
+        🚢 MSC World Europa 旗艦甲板配置與設施地圖
+      </div>
+      <div style="font-size:12.5px; color:var(--text-sub); margin-bottom:14px;">
+        海上巡航日探索全船最佳指南！記住以下核心樓層，解鎖 21 萬噸旗艦的所有設施：
+      </div>
+
+      <!-- Deck 19-20 -->
+      <div class="deck-section">
+        <div class="deck-header">
+          <span class="deck-number">Deck 19 – 20</span>
+          <span class="deck-name">Top Deck / 頂層戶外樂園</span>
+        </div>
+        <div class="deck-item">
+          <span class="deck-item-title">Aurora Borealis 水上樂園</span>
+          <span class="deck-item-tag">極光滑水道 + VR體驗</span>
+        </div>
+        <div class="deck-item">
+          <span class="deck-item-title">The Venom Drop 滑梯入口</span>
+          <span class="deck-item-tag">74米長全景不鏽鋼滑梯</span>
+        </div>
+        <div class="deck-item">
+          <span class="deck-item-title">MSC Sportsplex 運動館</span>
+          <span class="deck-item-tag">室內碰碰車 / 籃球場</span>
+        </div>
+      </div>
+
+      <!-- Deck 18 -->
+      <div class="deck-section">
+        <div class="deck-header">
+          <span class="deck-number">Deck 18</span>
+          <span class="deck-name">Zen & Pools / 泳池與水療</span>
+        </div>
+        <div class="deck-item">
+          <span class="deck-item-title">Zen Pool 成人無邊際泳池</span>
+          <span class="deck-item-tag">船尾靜謐放鬆區 (18+)</span>
+        </div>
+        <div class="deck-item">
+          <span class="deck-item-title">Aurea Spa 旗艦水療中心</span>
+          <span class="deck-item-tag">按摩 / 三溫暖 / 熱石理療</span>
+        </div>
+        <div class="deck-item">
+          <span class="deck-item-title">Il Mercato 自助餐廳</span>
+          <span class="deck-item-tag">全天候全海景 Buffet</span>
+        </div>
+      </div>
+
+      <!-- Deck 8 -->
+      <div class="deck-section">
+        <div class="deck-header">
+          <span class="deck-number">Deck 8</span>
+          <span class="deck-name">World Promenade / 戶外海景長廊</span>
+        </div>
+        <div class="deck-item">
+          <span class="deck-item-title">Venom Drop 巨蛇滑梯出口</span>
+          <span class="deck-item-tag">打卡熱點</span>
+        </div>
+        <div class="deck-item">
+          <span class="deck-item-title">Elixir 雞尾酒吧 & 露台</span>
+          <span class="deck-item-tag">星空調酒</span>
+        </div>
+        <div class="deck-item">
+          <span class="deck-item-title">Sweet Temptations 甜品坊</span>
+          <span class="deck-item-tag">手工義式冰淇淋 Gelato</span>
+        </div>
+      </div>
+
+      <!-- Deck 6-7 -->
+      <div class="deck-section">
+        <div class="deck-header">
+          <span class="deck-number">Deck 6 – 7</span>
+          <span class="deck-name">World Galleria / 室內穹頂中庭</span>
+        </div>
+        <div class="deck-item">
+          <span class="deck-item-title">90公尺 LED 巨型天幕穹頂</span>
+          <span class="deck-item-tag">定時絢麗光影秀</span>
+        </div>
+        <div class="deck-item">
+          <span class="deck-item-title">Masters of the Sea 海上微釀酒廠</span>
+          <span class="deck-item-tag">海水淡化自釀生啤酒</span>
+        </div>
+        <div class="deck-item">
+          <span class="deck-item-title">World Theatre 世界大劇院</span>
+          <span class="deck-item-tag">千人百老匯級大秀</span>
+        </div>
+        <div class="deck-item">
+          <span class="deck-item-title">Butcher's Cut 美式牛排館</span>
+          <span class="deck-item-tag">頂級熟成安格斯牛</span>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- Tab 3: 船上設施導覽 -->
+    <section id="tab-guide" class="tab-view">
+      
+      <div class="guide-card">
+        <div class="guide-names">
+          <div class="guide-cn">毒蛇巨型旋轉滑梯</div>
+          <div class="guide-native">The Venom Drop @ The Spiral</div>
+        </div>
+        <div class="guide-desc">
+          海上最長的不鏽鋼乾式旋轉滑梯，直接貫穿 11 層甲板（從 Deck 20 直達 Deck 8）。遊客穿上專用護具袋後以極快速度旋轉俯衝而下，充滿未來科技感與尖叫快感。
+        </div>
+        <div class="guide-highlight">特色亮點：免費體驗，位於 Deck 20 船尾，建議穿著長褲與布鞋。</div>
+      </div>
+
+      <div class="guide-card">
+        <div class="guide-names">
+          <div class="guide-cn">Zen Pool 成人無邊際泳池</div>
+          <div class="guide-native">Zen Pool (Deck 18 Aft)</div>
+        </div>
+        <div class="guide-desc">
+          位於船尾的成人專屬（18歲以上）靜謐放鬆區。擁有兩座無邊際景觀泳池與舒適的躺椅，面向一望無際的地中海航跡。
+        </div>
+        <div class="guide-highlight">特色亮點：環境寧靜清幽，無兒童喧嘩，欣賞海天一色絕佳地點。</div>
+      </div>
+
+      <div class="guide-card">
+        <div class="guide-names">
+          <div class="guide-cn">海上微釀精釀啤酒坊</div>
+          <div class="guide-native">Masters of the Sea (Deck 7)</div>
+        </div>
+        <div class="guide-desc">
+          攜手義大利精釀大師 Teo Musso 打造的海上首座微型釀造廠。利用船上先進的海水淡化過濾水質，搭配頂級麥芽在巨型銅製發酵罐中現地釀造。
+        </div>
+        <div class="guide-highlight">特色亮點：喝得到全海域獨一無二的「海上鮮釀生啤酒」。</div>
+      </div>
+
+      <div class="guide-card">
+        <div class="guide-names">
+          <div class="guide-cn">世界大劇院</div>
+          <div class="guide-native">World Theatre (Deck 6-7 Forward)</div>
+        </div>
+        <div class="guide-desc">
+          全船規模最大的娛樂中心，擁有上千個座位與尖端 LED 舞台。巡航日當晚將上演百老匯規格的歌舞劇與聲光雜技大秀。
+        </div>
+        <div class="guide-highlight">特色亮點：免費入場，務必於當天透過 MSC for Me App 預約場次。</div>
+      </div>
+
+    </section>
+
+    <!-- Tab 4: 預約錦囊 -->
+    <section id="tab-checklist" class="tab-view">
+      
+      <div class="checklist-section">
+        <div class="section-headline">
+          <span>📋</span> 海上巡航日實用檢核（可點擊打勾）
+        </div>
+
+        <div class="check-item" onclick="toggleCheckItem(this, 'day6_gala_dress')">
+          <div class="check-box"></div>
+          <div>
+            <div class="check-text-title">確認當晚「船長晚宴 (Gala Night)」服裝</div>
+            <div class="check-text-desc">準備好正式西裝、襯衫或優雅禮服，出席晚宴與合影留念。</div>
+          </div>
+        </div>
+
+        <div class="check-item" onclick="toggleCheckItem(this, 'day6_theater_app')">
+          <div class="check-box"></div>
+          <div>
+            <div class="check-text-title">透過 App 預約晚間秀場座位</div>
+            <div class="check-text-desc">巡航日人潮較多，請提早於 MSC for Me App 登記 World Theatre 演出席位。</div>
+          </div>
+        </div>
+
+        <div class="check-item" onclick="toggleCheckItem(this, 'day6_spa_book')">
+          <div class="check-box"></div>
+          <div>
+            <div class="check-text-title">預約 Aurea Spa 舒壓按摩療程</div>
+            <div class="check-text-desc">若想享受熱石按摩或三溫暖，建議趁早至 18 樓櫃檯或 App 預約時段。</div>
+          </div>
+        </div>
+
+        <div class="check-item" onclick="toggleCheckItem(this, 'day6_flight_mode')">
+          <div class="check-box"></div>
+          <div>
+            <div class="check-text-title">開啟手機「飛航模式」</div>
+            <div class="check-text-desc">全日在公海航行，請務必關閉行動網路，僅連線船上 Wi-Fi，避免高額衛星通訊費。</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="checklist-section">
+        <div class="section-headline">
+          <span>💡</span> 船上生活達人小撇步
+        </div>
+        <div class="check-text-desc" style="margin-bottom: 8px;">
+          • <strong>避開 Buffet 排隊人潮：</strong>午餐時間主自助餐廳人較多，可選擇前往主餐廳（Main Dining Room）享用精緻單點午餐，安靜且服務周到。
+        </div>
+        <div class="check-text-desc" style="margin-bottom: 8px;">
+          • <strong>免費冰淇淋與茶水：</strong>自助餐廳內全天候供應冰水、咖啡、茶包與定時霜淇淋，隨時可前往享用。
+        </div>
+        <div class="check-text-desc">
+          • <strong>免稅店巡禮：</strong>巡航日當天下午免稅精品店常有特惠活動，適合挑選紀念品。
+        </div>
+      </div>
+
+    </section>
+
+  </main>
+
+  <!-- 底部固定 5 鍵 Tab Bar -->
+  <nav class="tab-bar">
+    <a href="index.html" class="tab-btn">
+      <svg viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
+      <span>首頁</span>
+    </a>
+    <button class="tab-btn active" onclick="switchTab('tab-timeline', this)">
+      <svg viewBox="0 0 24 24"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z"/></svg>
+      <span>時間軸</span>
+    </button>
+    <button class="tab-btn" onclick="switchTab('tab-map', this)">
+      <svg viewBox="0 0 24 24"><path d="M20.5 3l-.16.03L15 5.1 9 3 3.36 4.9c-.21.07-.36.25-.36.48V20.5c0 .28.22.5.5.5l.16-.03L9 18.9l6 2.1 5.64-1.9c.21-.07.36-.25.36-.48V3.5c0-.28-.22-.5-.5-.5zM15 19l-6-2.11V5l6 2.11V19z"/></svg>
+      <span>船體地圖</span>
+    </button>
+    <button class="tab-btn" onclick="switchTab('tab-guide', this)">
+      <svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+      <span>船上導覽</span>
+    </button>
+    <button class="tab-btn" onclick="switchTab('tab-checklist', this)">
+      <svg viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-9 14l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
+      <span>預約錦囊</span>
+    </button>
+  </nav>
+
+  <script>
+    function switchTab(tabId, btn) {
+      document.querySelectorAll('.tab-view').forEach(function(view) {
+        view.classList.remove('active');
+      });
+      document.querySelectorAll('.tab-bar .tab-btn').forEach(function(item) {
+        item.classList.remove('active');
+      });
+
+      const target = document.getElementById(tabId);
+      if (target) {
+        target.classList.add('active');
+      }
+      btn.classList.add('active');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function toggleCheckItem(el, storageKey) {
+      el.classList.toggle('checked');
+      const isChecked = el.classList.contains('checked');
+      localStorage.setItem(storageKey, isChecked);
+    }
+
+    document.addEventListener('DOMContentLoaded', function() {
+      document.querySelectorAll('.check-item').forEach(function(item) {
+        const onclickAttr = item.getAttribute('onclick');
+        if (onclickAttr) {
+          const match = onclickAttr.match(/'([^']+)'/);
+          if (match && match[1]) {
+            const saved = localStorage.getItem(match[1]);
+            if (saved === 'true') {
+              item.classList.add('checked');
+            }
+          }
+        }
+      });
+    });
+  </script>
+</body>
+</html>

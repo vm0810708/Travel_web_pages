@@ -1,0 +1,1148 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, maximum-scale=1.0, user-scalable=no">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="theme-color" content="#0F4C81">
+  <title>Day 5 · 瓦萊塔一日遊 | MSC World Europa</title>
+  <style>
+    :root {
+      --primary: #0F4C81;
+      --primary-dark: #0A3258;
+      --primary-light: #EBF3FA;
+      --accent: #D97706;
+      --accent-light: #FEF3C7;
+      --danger: #DC2626;
+      --danger-light: #FEE2E2;
+      --success: #059669;
+      --success-light: #D1FAE5;
+      --bg-system: #F4F6F9;
+      --card-bg: #FFFFFF;
+      --text-main: #0F172A;
+      --text-sub: #475569;
+      --text-muted: #94A3B8;
+      --border-color: #E2E8F0;
+      --nav-glass: rgba(255, 255, 255, 0.88);
+      --nav-border: rgba(0, 0, 0, 0.08);
+      --radius-sm: 8px;
+      --radius-md: 14px;
+      --radius-lg: 20px;
+      --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.05);
+      --shadow-md: 0 4px 14px rgba(15, 23, 42, 0.08);
+      --safe-top: env(safe-area-inset-top, 0px);
+      --safe-bottom: env(safe-area-inset-bottom, 0px);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      touch-action: manipulation;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Pro Display", "PingFang TC", "Helvetica Neue", Arial, sans-serif;
+      background-color: var(--bg-system);
+      color: var(--text-main);
+      line-height: 1.5;
+      padding-top: calc(var(--safe-top) + 90px);
+      padding-bottom: calc(var(--safe-bottom) + 72px);
+      -webkit-font-smoothing: antialiased;
+    }
+
+    header.city-header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      background: var(--nav-glass);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--nav-border);
+      padding: calc(var(--safe-top) + 8px) 16px 8px;
+    }
+
+    .header-nav-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 6px;
+    }
+
+    .btn-back-home {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--primary);
+      text-decoration: none;
+      background: var(--primary-light);
+      padding: 4px 10px;
+      border-radius: 20px;
+    }
+
+    .header-danger-pill {
+      font-size: 11px;
+      font-weight: 700;
+      background: var(--danger-light);
+      color: var(--danger);
+      padding: 4px 9px;
+      border-radius: 20px;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .header-nav-bottom {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .city-heading {
+      font-size: 18px;
+      font-weight: 800;
+      color: var(--text-main);
+      display: flex;
+      align-items: baseline;
+      gap: 6px;
+    }
+
+    .city-heading small {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--text-muted);
+    }
+
+    .port-cross-nav {
+      display: flex;
+      gap: 6px;
+    }
+
+    .btn-port-link {
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--primary);
+      text-decoration: none;
+      background: #F1F5F9;
+      padding: 3px 8px;
+      border-radius: 6px;
+      display: inline-flex;
+      align-items: center;
+      gap: 3px;
+    }
+
+    main.city-main {
+      padding: 12px 16px;
+      max-width: 640px;
+      margin: 0 auto;
+    }
+
+    .tab-view {
+      display: none;
+      animation: fadeIn 0.22s ease-out;
+    }
+
+    .tab-view.active {
+      display: block;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(4px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .urgent-banner {
+      background: linear-gradient(135deg, var(--primary) 0%, #1a629e 100%);
+      color: #fff;
+      border-radius: var(--radius-md);
+      padding: 14px 16px;
+      margin-bottom: 16px;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .urgent-title {
+      font-size: 13.5px;
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      margin-bottom: 5px;
+    }
+
+    .urgent-desc {
+      font-size: 12px;
+      line-height: 1.5;
+      opacity: 0.94;
+    }
+
+    .timeline {
+      position: relative;
+      padding-left: 20px;
+    }
+
+    .timeline::before {
+      content: "";
+      position: absolute;
+      left: 6px;
+      top: 14px;
+      bottom: 20px;
+      width: 2px;
+      background: #CBD5E1;
+    }
+
+    .timeline-node {
+      position: relative;
+      margin-bottom: 18px;
+    }
+
+    .timeline-dot {
+      position: absolute;
+      left: -20px;
+      top: 14px;
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      background: var(--card-bg);
+      border: 3px solid var(--primary);
+      z-index: 1;
+    }
+
+    .timeline-dot.danger { border-color: var(--danger); }
+    .timeline-dot.accent { border-color: var(--accent); }
+    .timeline-dot.success { border-color: var(--success); }
+
+    .card {
+      background: var(--card-bg);
+      border-radius: var(--radius-md);
+      padding: 14px 16px;
+      box-shadow: var(--shadow-sm);
+      border: 1px solid var(--border-color);
+    }
+
+    .card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 6px;
+    }
+
+    .card-time {
+      font-size: 12.5px;
+      font-weight: 800;
+      color: var(--primary);
+    }
+
+    .card-tag {
+      font-size: 10px;
+      font-weight: 700;
+      padding: 2px 7px;
+      border-radius: 4px;
+      background: #F1F5F9;
+      color: var(--text-sub);
+    }
+
+    .card-tag.transit { background: #E0F2FE; color: #0369A1; }
+    .card-tag.spot { background: #DCFCE7; color: #15803D; }
+    .card-tag.food { background: #FEF3C7; color: #B45309; }
+    .card-tag.alert { background: #FEE2E2; color: #B91C1C; }
+
+    .card-title {
+      font-size: 15px;
+      font-weight: 800;
+      color: var(--text-main);
+      margin-bottom: 5px;
+    }
+
+    .card-body {
+      font-size: 12.5px;
+      color: var(--text-sub);
+      line-height: 1.5;
+      margin-bottom: 10px;
+    }
+
+    .btn-nav {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      background: #F8FAFC;
+      color: var(--primary);
+      text-decoration: none;
+      font-size: 12px;
+      font-weight: 700;
+      padding: 6px 12px;
+      border-radius: var(--radius-sm);
+      border: 1px solid #BAE6FD;
+      transition: background 0.15s;
+    }
+
+    .btn-nav:active {
+      background: #E0F2FE;
+    }
+
+    .btn-full-map {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      background: linear-gradient(135deg, var(--success) 0%, #047857 100%);
+      color: #fff;
+      font-size: 14px;
+      font-weight: 700;
+      padding: 12px 16px;
+      border-radius: var(--radius-md);
+      text-decoration: none;
+      margin-bottom: 12px;
+      box-shadow: 0 4px 10px rgba(5, 150, 105, 0.25);
+    }
+
+    .map-frame-box {
+      width: 100%;
+      height: 62vh;
+      min-height: 400px;
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      border: 1px solid var(--border-color);
+      box-shadow: var(--shadow-sm);
+      background: #E2E8F0;
+    }
+
+    .map-frame-box iframe {
+      width: 100%;
+      height: 100%;
+      border: 0;
+    }
+
+    .filter-scroll-wrapper {
+      margin: -4px -16px 14px;
+      padding: 0 16px;
+      overflow-x: auto;
+      white-space: nowrap;
+      scrollbar-width: none;
+    }
+    .filter-scroll-wrapper::-webkit-scrollbar { display: none; }
+
+    .category-pills {
+      display: inline-flex;
+      gap: 8px;
+    }
+
+    .cat-pill {
+      font-size: 12px;
+      font-weight: 700;
+      padding: 6px 13px;
+      border-radius: 20px;
+      background: #FFFFFF;
+      border: 1px solid var(--border-color);
+      color: var(--text-sub);
+      cursor: pointer;
+    }
+
+    .cat-pill.active {
+      background: var(--primary);
+      color: #FFFFFF;
+      border-color: var(--primary);
+    }
+
+    .guide-card {
+      background: var(--card-bg);
+      border-radius: var(--radius-md);
+      padding: 14px 16px;
+      margin-bottom: 12px;
+      border: 1px solid var(--border-color);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .guide-names {
+      margin-bottom: 6px;
+    }
+
+    .guide-cn {
+      font-size: 15.5px;
+      font-weight: 800;
+      color: var(--text-main);
+    }
+
+    .guide-native {
+      font-size: 12px;
+      color: var(--text-muted);
+      font-weight: 500;
+    }
+
+    .guide-desc {
+      font-size: 12.5px;
+      color: var(--text-sub);
+      line-height: 1.55;
+      margin-bottom: 8px;
+    }
+
+    .guide-highlight {
+      background: #F8FAFC;
+      border-left: 3px solid var(--primary);
+      padding: 6px 10px;
+      font-size: 11.5px;
+      color: var(--primary);
+      margin-bottom: 10px;
+      border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+      font-weight: 600;
+    }
+
+    .checklist-section {
+      background: var(--card-bg);
+      border-radius: var(--radius-md);
+      padding: 16px;
+      margin-bottom: 14px;
+      border: 1px solid var(--border-color);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .section-headline {
+      font-size: 14.5px;
+      font-weight: 800;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      color: var(--text-main);
+      border-bottom: 1px solid var(--border-color);
+      padding-bottom: 8px;
+    }
+
+    .check-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      margin-bottom: 12px;
+      cursor: pointer;
+    }
+    .check-item:last-child { margin-bottom: 0; }
+
+    .check-box {
+      width: 19px;
+      height: 19px;
+      border-radius: 5px;
+      border: 1.5px solid var(--text-muted);
+      margin-top: 1px;
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.15s ease;
+    }
+
+    .check-item.checked .check-box {
+      background: var(--success);
+      border-color: var(--success);
+    }
+
+    .check-item.checked .check-box::after {
+      content: "✔";
+      color: #fff;
+      font-size: 11px;
+    }
+
+    .check-item.checked .check-text-title {
+      text-decoration: line-through;
+      color: var(--text-muted);
+    }
+
+    .check-text-title {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--text-main);
+    }
+
+    .check-text-desc {
+      font-size: 12px;
+      color: var(--text-sub);
+      line-height: 1.45;
+      margin-top: 2px;
+    }
+
+    nav.tab-bar {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      background: var(--nav-glass);
+      backdrop-filter: blur(25px);
+      -webkit-backdrop-filter: blur(25px);
+      border-top: 1px solid var(--nav-border);
+      padding-bottom: var(--safe-bottom);
+      height: calc(var(--safe-bottom) + 54px);
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      max-width: 640px;
+      margin: 0 auto;
+    }
+
+    .tab-btn {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      background: none;
+      border: none;
+      padding: 4px 0 2px;
+      color: var(--text-muted);
+      cursor: pointer;
+      text-decoration: none;
+    }
+
+    .tab-btn svg {
+      width: 22px;
+      height: 22px;
+      margin-bottom: 2px;
+      fill: currentColor;
+    }
+
+    .tab-btn span {
+      font-size: 10px;
+      font-weight: 700;
+    }
+
+    .tab-btn.active {
+      color: var(--primary);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- 頂部 Sticky 導航區 -->
+  <header class="city-header">
+    <div class="header-nav-top">
+      <a href="index.html" class="btn-back-home">⌂ 所有行程</a>
+      <span class="header-danger-pill">🚢 17:00 啟航 ⚠️ 16:15 返船</span>
+    </div>
+    <div class="header-nav-bottom">
+      <div class="city-heading">
+        馬爾他 瓦萊塔
+        <small>Day 5 · 10/07 (二)</small>
+      </div>
+      <div class="port-cross-nav">
+        <a href="1006_義大利_墨西拿.html" class="btn-port-link">← 上一站</a>
+        <a href="1008_海上日.html" class="btn-port-link">下一站 ➔</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- 主要內容區 -->
+  <main class="city-main">
+
+    <!-- Tab 1: 行程時間軸 -->
+    <section id="tab-timeline" class="tab-view active">
+      
+      <div class="urgent-banner">
+        <div class="urgent-title">⚡ 10/7 當日重要行程策略（特殊開放日）</div>
+        <div class="urgent-desc">
+          • <strong>聖若望共主教座堂當日 12:00 開門且無預約票</strong>：採取晨間先訪大團長宮 ➔ 11:45 上巴拉卡花園觀禮 12:00 正午鳴砲 ➔ 百年咖啡午餐 ➔ 13:15 錯峰現場購票入場。<br>
+          • 巴拉卡升降梯單程 25 秒（上行 €1，下午回程下行完全免費）。<br>
+          • 務必於 15:55 抵達升降梯頂，最晚 16:15 刷卡登船完畢（17:00 啟航）！
+        </div>
+      </div>
+
+      <div class="timeline">
+
+        <!-- 08:00 - 08:30 -->
+        <div class="timeline-item">
+          <div class="timeline-dot success"></div>
+          <div class="card">
+            <div class="card-header">
+              <span class="card-time">08:00 – 08:30</span>
+              <span class="card-tag transit">下船出港</span>
+            </div>
+            <div class="card-title">郵輪靠泊大港碼頭</div>
+            <div class="card-body">
+              郵輪抵達大港 Valletta Cruise Port（Pinto Wharf）。完成海關查驗後輕裝下船，出碼頭沿著平坦海濱步道向東南方步行約 6 至 8 分鐘。
+            </div>
+            <a href="https://www.google.com/maps/search/?api=1&query=Valletta+Cruise+Port+Valletta" target="_blank" rel="noopener noreferrer" class="btn-nav">
+              📍 導航至碼頭
+            </a>
+          </div>
+        </div>
+
+        <!-- 08:30 - 08:50 -->
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <div class="card">
+            <div class="card-header">
+              <span class="card-time">08:30 – 08:50</span>
+              <span class="card-tag transit">交通轉乘</span>
+            </div>
+            <div class="card-title">巴拉卡升降梯直升城頂</div>
+            <div class="card-body">
+              搭乘 25 秒垂直電梯直達 58 公尺高的堡壘花園頂部，完全免除攀爬陡坡體力消耗（上樓票價 €1，支援感應刷卡或現金）。
+            </div>
+            <a href="https://www.google.com/maps/search/?api=1&query=Barrakka+Lift+Valletta" target="_blank" rel="noopener noreferrer" class="btn-nav">
+              📍 導航升降梯
+            </a>
+          </div>
+        </div>
+
+        <!-- 08:50 - 09:15 -->
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <div class="card">
+            <div class="card-header">
+              <span class="card-time">08:50 – 09:15</span>
+              <span class="card-tag spot">經典地標</span>
+            </div>
+            <div class="card-title">特里同噴泉與正門城廊</div>
+            <div class="card-body">
+              步出花園前往城門前廣場欣賞青銅特里同噴泉，再穿過建築大師倫佐·皮亞諾設計的現代城門與國會大廈，邁入主幹道共和國街。
+            </div>
+            <a href="https://www.google.com/maps/search/?api=1&query=Tritons+Fountain+Valletta" target="_blank" rel="noopener noreferrer" class="btn-nav">
+              📍 導航噴泉廣場
+            </a>
+          </div>
+        </div>
+
+        <!-- 09:15 - 10:30 -->
+        <div class="timeline-item">
+          <div class="timeline-dot accent"></div>
+          <div class="card">
+            <div class="card-header">
+              <span class="card-time">09:15 – 10:30</span>
+              <span class="card-tag spot">晨間錯峰</span>
+            </div>
+            <div class="card-title">大團長宮與騎士軍械庫</div>
+            <div class="card-body">
+              【行程調整亮點】大團長宮 09:00 即開館！趁早晨遊客稀少搶先走訪聖喬治廣場，悠閒參觀富麗堂皇的國事廳與全歐洲最完備的中世紀騎士盔甲武器庫。
+            </div>
+            <a href="https://www.google.com/maps/search/?api=1&query=Grand+Master%27s+Palace+Valletta" target="_blank" rel="noopener noreferrer" class="btn-nav">
+              📍 導航大團長宮
+            </a>
+          </div>
+        </div>
+
+        <!-- 10:30 - 11:35 -->
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <div class="card">
+            <div class="card-header">
+              <span class="card-time">10:30 – 11:35</span>
+              <span class="card-tag spot">老城街景</span>
+            </div>
+            <div class="card-title">舊薄荷街經典視角與老城漫步</div>
+            <div class="card-body">
+              漫步至著名坡道 Old Mint Street，拍攝瓦萊塔起伏跌宕的石板路與彩色木雕挑樓陽台，順路仰望天際線地標聖母聖衣聖殿的高聳圓頂。
+            </div>
+            <a href="https://www.google.com/maps/search/?api=1&query=Old+Mint+Street+Valletta" target="_blank" rel="noopener noreferrer" class="btn-nav">
+              📍 導航舊薄荷街
+            </a>
+          </div>
+        </div>
+
+        <!-- 11:45 - 12:15 -->
+        <div class="timeline-item">
+          <div class="timeline-dot accent"></div>
+          <div class="card">
+            <div class="card-header">
+              <span class="card-time">11:45 – 12:15</span>
+              <span class="card-tag spot">正午儀式</span>
+            </div>
+            <div class="card-title">上巴拉卡花園 12:00 正午禮炮</div>
+            <div class="card-body">
+              提前抵達花園露台護牆佔據最佳觀景位置，俯瞰大港無敵海景並觀看禮炮台（Saluting Battery）正午 12 點準時鳴放的傳統皇家禮炮軍儀。
+            </div>
+            <a href="https://www.google.com/maps/search/?api=1&query=Upper+Barrakka+Gardens+Valletta" target="_blank" rel="noopener noreferrer" class="btn-nav">
+              📍 導航觀禮露台
+            </a>
+          </div>
+        </div>
+
+        <!-- 12:15 - 13:10 -->
+        <div class="timeline-item">
+          <div class="timeline-dot accent"></div>
+          <div class="card">
+            <div class="card-header">
+              <span class="card-time">12:15 – 13:10</span>
+              <span class="card-tag food">美饌佳餚</span>
+            </div>
+            <div class="card-title">百年老店 Caffe Cordina 悠閒午餐</div>
+            <div class="card-body">
+              創立於 1837 年的國寶級名店。品嘗馬爾他酥皮點心 Pastizzi、鮪魚 Ftira 麵包與蜜糖圈，正好避開教堂 12:00 剛開門時的排隊人潮與正午豔陽。
+            </div>
+            <a href="https://www.google.com/maps/search/?api=1&query=Caffe+Cordina+Valletta" target="_blank" rel="noopener noreferrer" class="btn-nav">
+              📍 導航百年名店
+            </a>
+          </div>
+        </div>
+
+        <!-- 13:15 - 14:30 -->
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <div class="card">
+            <div class="card-header">
+              <span class="card-time">13:15 – 14:30</span>
+              <span class="card-tag spot">現場售票</span>
+            </div>
+            <div class="card-title">聖若望共主教座堂與博物館</div>
+            <div class="card-body">
+              【10/7 現場買票時段】從咖啡館步行 1 分鐘抵達。此時 12:00 開門的排隊高峰已完全消化，至門口 Ticket Desk 直接購票入場，欣賞金箔巴洛克大殿與卡拉瓦喬真跡。
+            </div>
+            <a href="https://www.google.com/maps/search/?api=1&query=St.+John%27s+Co-Cathedral+Valletta" target="_blank" rel="noopener noreferrer" class="btn-nav">
+              📍 導航主教座堂
+            </a>
+          </div>
+        </div>
+
+        <!-- 14:30 - 15:30 -->
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <div class="card">
+            <div class="card-header">
+              <span class="card-time">14:30 – 15:30</span>
+              <span class="card-tag spot">海防要塞</span>
+            </div>
+            <div class="card-title">聖埃爾莫要塞與國立戰爭博物館</div>
+            <div class="card-body">
+              沿共和國街平緩下坡直行至半島最尖端星形堡壘，見證 1565 年大圍攻歷史與二戰喬治十字勳章真本，享有 360 度大港入海口的澎湃海景。
+            </div>
+            <a href="https://www.google.com/maps/search/?api=1&query=Fort+St.+Elmo+Valletta" target="_blank" rel="noopener noreferrer" class="btn-nav">
+              📍 導航海防要塞
+            </a>
+          </div>
+        </div>
+
+        <!-- 15:30 - 15:55 -->
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <div class="card">
+            <div class="card-header">
+              <span class="card-time">15:30 – 15:55</span>
+              <span class="card-tag spot">私房海景</span>
+            </div>
+            <div class="card-title">地中海大道海景與二戰圍城鐘</div>
+            <div class="card-body">
+              避開主街人潮，沿外環高台散步至二戰圍城鐘紀念碑，遠眺對岸聖安吉洛堡，再經由聖烏蘇拉街（Triq Sant' Orsla）平緩上坡走回上巴拉卡花園。
+            </div>
+            <a href="https://www.google.com/maps/search/?api=1&query=Siege+Bell+War+Memorial+Valletta" target="_blank" rel="noopener noreferrer" class="btn-nav">
+              📍 導航圍城鐘樓
+            </a>
+          </div>
+        </div>
+
+        <!-- 15:55 - 16:15 -->
+        <div class="timeline-item">
+          <div class="timeline-dot danger"></div>
+          <div class="card" style="border-left: 4px solid var(--danger);">
+            <div class="card-header">
+              <span class="card-time" style="color:var(--danger);">15:55 – 16:15</span>
+              <span class="card-tag alert">安全回船</span>
+            </div>
+            <div class="card-title">搭升降梯返回碼頭 登船完畢</div>
+            <div class="card-body">
+              穿過上巴拉卡花園搭乘垂直升降梯直降海濱（下行免費），步行 5 分鐘安全抵達登船口。務必於 16:15 前刷卡登船，為 17:00 啟航預留充分緩衝！
+            </div>
+            <a href="https://www.google.com/maps/search/?api=1&query=Valletta+Cruise+Port+Valletta" target="_blank" rel="noopener noreferrer" class="btn-nav" style="background:var(--danger); color:#fff; border-color:var(--danger);">
+              📍 導航回登船碼頭
+            </a>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Tab 2: 景點地圖 -->
+    <section id="tab-map" class="tab-view">
+      <a href="https://www.google.com/maps/d/viewer?mid=1Iqqwf_AMwgUufOikeVVLRb_3W_gdiyM" target="_blank" rel="noopener noreferrer" class="btn-full-map">
+        📲 在 Google Maps App 全螢幕開啟完整地圖
+      </a>
+
+      <div class="map-frame-box">
+        <iframe 
+          src="https://www.google.com/maps/d/embed?mid=1Iqqwf_AMwgUufOikeVVLRb_3W_gdiyM&ehbc=2E312F" 
+          allowfullscreen="" 
+          loading="lazy">
+        </iframe>
+      </div>
+    </section>
+
+    <!-- Tab 3: 景點導覽 -->
+    <section id="tab-guide" class="tab-view">
+      
+      <div class="filter-scroll-wrapper">
+        <div class="category-pills">
+          <button class="cat-pill active" onclick="filterPlaces('all', this)">全部 (14)</button>
+          <button class="cat-pill" onclick="filterPlaces('must-see', this)">必訪名勝 (4)</button>
+          <button class="cat-pill" onclick="filterPlaces('viewpoint', this)">景觀地標 (4)</button>
+          <button class="cat-pill" onclick="filterPlaces('historic', this)">老城街景 (3)</button>
+          <button class="cat-pill" onclick="filterPlaces('food-transit', this)">美饌與交通 (3)</button>
+        </div>
+      </div>
+
+      <div id="places-list">
+
+        <!-- 1. 聖若望共主教座堂 -->
+        <article class="guide-card" data-category="must-see">
+          <div class="guide-names">
+            <div class="guide-cn">聖若望共主教座堂與博物館</div>
+            <div class="guide-native">St. John's Co-Cathedral & Museum</div>
+          </div>
+          <div class="guide-desc">
+            聖約翰騎士團統治時期的宗教信仰中心。看似簡約堡壘的外觀內，蘊藏著極盡繁複華麗的巴洛克金箔浮雕與近 400 塊歷代貴族騎士的大理石彩色墓碑地磚。附設演講廳珍藏卡拉瓦喬唯一簽名巨幅傳世畫作《被斬首的聖若望》。
+          </div>
+          <div class="guide-highlight">特色亮點：卡拉瓦喬唯一簽名名作、全殿金雕與大理石墓碑。</div>
+          <a href="https://www.google.com/maps/search/?api=1&query=St.+John%27s+Co-Cathedral+Valletta" target="_blank" rel="noopener noreferrer" class="btn-nav">
+            📍 Google Maps 導航
+          </a>
+        </article>
+
+        <!-- 2. 大團長宮與軍械庫 -->
+        <article class="guide-card" data-category="must-see">
+          <div class="guide-names">
+            <div class="guide-cn">大團長宮與軍械庫</div>
+            <div class="guide-native">Grand Master's Palace & Armory</div>
+          </div>
+          <div class="guide-desc">
+            自 16 世紀起就是馬爾他最高執政者的中樞所在地，現為總統府並對外開放。內部國事廳擁有長達百米的宏偉長廊與描繪大圍攻史詩的精緻壁畫；附設軍械庫珍藏了全歐洲保存最完備的中世紀全套板金盔甲、騎士長戟與古火器。
+          </div>
+          <div class="guide-highlight">特色亮點：歐洲頂級騎士板金盔甲軍械庫、國事廳長廊。</div>
+          <a href="https://www.google.com/maps/search/?api=1&query=Grand+Master%27s+Palace+Valletta" target="_blank" rel="noopener noreferrer" class="btn-nav">
+            📍 Google Maps 導航
+          </a>
+        </article>
+
+        <!-- 3. 上巴拉卡花園與禮炮台 -->
+        <article class="guide-card" data-category="viewpoint">
+          <div class="guide-names">
+            <div class="guide-cn">上巴拉卡花園與禮炮台</div>
+            <div class="guide-native">Upper Barrakka Gardens & Saluting Battery</div>
+          </div>
+          <div class="guide-desc">
+            建於高聳的聖彼得與聖保羅堡壘頂端，是俯瞰整個大港全景與對岸三姐妹城最壯麗的制高點。花園下方禮炮台每天正午 12 點準時舉行歷史悠久的傳統鳴砲儀式。園內設有通往底層海濱碼頭的垂直升降梯入口。
+          </div>
+          <div class="guide-highlight">特色亮點：正午 12 點鳴砲軍儀、俯瞰郵輪港灣大景。</div>
+          <a href="https://www.google.com/maps/search/?api=1&query=Upper+Barrakka+Gardens+Valletta" target="_blank" rel="noopener noreferrer" class="btn-nav">
+            📍 Google Maps 導航
+          </a>
+        </article>
+
+        <!-- 4. 柯迪納百年咖啡館 -->
+        <article class="guide-card" data-category="food-transit">
+          <div class="guide-names">
+            <div class="guide-cn">柯迪納百年咖啡館</div>
+            <div class="guide-native">Caffe Cordina</div>
+          </div>
+          <div class="guide-desc">
+            創立於 1837 年的國寶級老字號名店，位在共和國廣場核心。挑高室內穹頂由著名畫家繪滿華麗壁畫，宛如小型宮殿。推薦必點剛出爐的馬爾他國民酥皮點心 Pastizzi、傳統鮪魚番茄硬麵包 Ftira，以及甘醇的仙人掌甜酒。
+          </div>
+          <div class="guide-highlight">特色亮點：宮殿級彩繪穹頂、正宗酥皮點心 Pastizzi 與蜜糖圈。</div>
+          <a href="https://www.google.com/maps/search/?api=1&query=Caffe+Cordina+Valletta" target="_blank" rel="noopener noreferrer" class="btn-nav">
+            📍 Google Maps 導航
+          </a>
+        </article>
+
+        <!-- 5. 聖埃爾莫要塞與國立戰爭博物館 -->
+        <article class="guide-card" data-category="must-see">
+          <div class="guide-names">
+            <div class="guide-cn">聖埃爾莫要塞與國立戰爭博物館</div>
+            <div class="guide-native">Fort St. Elmo & National War Museum</div>
+          </div>
+          <div class="guide-desc">
+            座落於半島尖端的海防星形要塞，是 1565 年抵抗鄂圖曼土耳其大軍圍攻的最前線。內部戰爭博物館展示了英國二戰頒贈予全島軍民的「喬治十字勳章」真品與古堡砲台重裝備。漫步在臨海城垛上，可一覽大港出海口廣角全景。
+          </div>
+          <div class="guide-highlight">特色亮點：大圍攻前線遺址、二戰喬治十字勳章真本。</div>
+          <a href="https://www.google.com/maps/search/?api=1&query=Fort+St.+Elmo+Valletta" target="_blank" rel="noopener noreferrer" class="btn-nav">
+            📍 Google Maps 導航
+          </a>
+        </article>
+
+        <!-- 6. 二次世界大戰圍城鐘紀念碑 -->
+        <article class="guide-card" data-category="viewpoint">
+          <div class="guide-names">
+            <div class="guide-cn">二次世界大戰圍城鐘紀念碑</div>
+            <div class="guide-native">Siege Bell War Memorial</div>
+          </div>
+          <div class="guide-desc">
+            矗立於大港東南側外環高台邊緣的新古典主義圓亭，懸掛著重達數十噸的青銅巨鐘，基座安放悼念陣亡將士的青銅雕像。此處正對著對岸巍峨的聖安吉洛堡，是安靜拍攝大港出海口與出港船隻航向蔚藍海平面的絕美私房點位。
+          </div>
+          <div class="guide-highlight">特色亮點：新古典圓亭、正對對岸聖安吉洛堡要塞絕景。</div>
+          <a href="https://www.google.com/maps/search/?api=1&query=Siege+Bell+War+Memorial+Valletta" target="_blank" rel="noopener noreferrer" class="btn-nav">
+            📍 Google Maps 導航
+          </a>
+        </article>
+
+        <!-- 7. 舊薄荷街經典視角 -->
+        <article class="guide-card" data-category="historic">
+          <div class="guide-names">
+            <div class="guide-cn">舊薄荷街經典視角</div>
+            <div class="guide-native">Old Mint Street Viewpoint</div>
+          </div>
+          <div class="guide-desc">
+            瓦萊塔最廣為流傳的明信片取景地。狹窄幽深的石板路依半島地形劇烈上下起伏，兩側外牆鑲嵌著整排紅、綠、藍色木雕凸肚百葉陽台（Gallarija），層層遞進一路延伸至遠方的蔚藍海灣，完美展現山城立體特色。
+          </div>
+          <div class="guide-highlight">特色亮點：馬爾他彩色凸肚陽台、縱向大坡度街道視角。</div>
+          <a href="https://www.google.com/maps/search/?api=1&query=Old+Mint+Street+Valletta" target="_blank" rel="noopener noreferrer" class="btn-nav">
+            📍 Google Maps 導航
+          </a>
+        </article>
+
+        <!-- 8. 馬爾他國會大廈與城門 -->
+        <article class="guide-card" data-category="historic">
+          <div class="guide-names">
+            <div class="guide-cn">馬爾他國會大廈與城門</div>
+            <div class="guide-native">Parliament Building & City Gate</div>
+          </div>
+          <div class="guide-desc">
+            由現代建築大師倫佐·皮亞諾操刀規劃，將古老石灰岩轉化為高科技立體蜂巢雕鑿立面。兩棟懸挑大樓橫跨步道上方，與一旁保留二戰炸毀痕跡的舊皇家歌劇院遺址露天劇場和諧交融。
+          </div>
+          <div class="guide-highlight">特色亮點：倫佐·皮亞諾設計、石材立體穿孔雕塑外牆。</div>
+          <a href="https://www.google.com/maps/search/?api=1&query=Parliament+Building+Valletta" target="_blank" rel="noopener noreferrer" class="btn-nav">
+            📍 Google Maps 導航
+          </a>
+        </article>
+
+        <!-- 9. 特里同噴泉 -->
+        <article class="guide-card" data-category="viewpoint">
+          <div class="guide-names">
+            <div class="guide-cn">特里同噴泉</div>
+            <div class="guide-native">Tritons' Fountain</div>
+          </div>
+          <div class="guide-desc">
+            座落於古城護城壕溝外開闊的迎賓圓環廣場，由三尊神態逼真的青銅海神之子雕像共同托舉著巨大盛水圓盤。這裡是全島巴士總站交會樞紐，水柱噴射在陽光下經常能看見彩虹。
+          </div>
+          <div class="guide-highlight">特色亮點：海神青銅巨型雕像、進城主要動線起點。</div>
+          <a href="https://www.google.com/maps/search/?api=1&query=Tritons+Fountain+Valletta" target="_blank" rel="noopener noreferrer" class="btn-nav">
+            📍 Google Maps 導航
+          </a>
+        </article>
+
+        <!-- 10. 聖母聖衣聖殿 -->
+        <article class="guide-card" data-category="historic">
+          <div class="guide-names">
+            <div class="guide-cn">聖母聖衣聖殿</div>
+            <div class="guide-native">Basilica of Our Lady of Mount Carmel</div>
+          </div>
+          <div class="guide-desc">
+            高達 42 公尺的巨大橢圓形穹頂是瓦萊塔在所有海面與對岸明信片中最震撼的視覺標誌。這座宏偉的巴洛克天主教聖殿建於二戰損毀的原址之上，內部擁有挑高壯觀的大理石柱廊與細緻壁畫。
+          </div>
+          <div class="guide-highlight">特色亮點：瓦萊塔最高天際線圓頂、大理石神聖殿堂。</div>
+          <a href="https://www.google.com/maps/search/?api=1&query=Basilica+of+Our+Lady+of+Mount+Carmel+Valletta" target="_blank" rel="noopener noreferrer" class="btn-nav">
+            📍 Google Maps 導航
+          </a>
+        </article>
+
+        <!-- 11. 羅卡皮可拉宮 -->
+        <article class="guide-card" data-category="must-see">
+          <div class="guide-names">
+            <div class="guide-cn">羅卡皮可拉宮</div>
+            <div class="guide-native">Casa Rocca Piccola</div>
+          </div>
+          <div class="guide-desc">
+            建於 16 世紀晚期的古典宅邸，是瓦萊塔少數至今仍由第九代貴族家族實際居住並對外開放的宮殿博物館。館內展出 50 多間奢華房間與歷代油畫，更可深入探索二戰地下避難防空洞通道。
+          </div>
+          <div class="guide-highlight">特色亮點：走訪真實貴族生活私宅、二戰地下防空壕。</div>
+          <a href="https://www.google.com/maps/search/?api=1&query=Casa+Rocca+Piccola+Valletta" target="_blank" rel="noopener noreferrer" class="btn-nav">
+            📍 Google Maps 導航
+          </a>
+        </article>
+
+        <!-- 12. 黑斯廷斯花園 -->
+        <article class="guide-card" data-category="viewpoint">
+          <div class="guide-names">
+            <div class="guide-cn">黑斯廷斯花園</div>
+            <div class="guide-native">Hastings Gardens</div>
+          </div>
+          <div class="guide-desc">
+            位於城門西側聖約翰堡壘頂部，紀念英國總督黑斯廷斯侯爵。此花園主要俯瞰西面的馬薩姆克塞特港（Marsamxett Harbour）、馬諾埃爾島以及斯利馬現代天際線，園區平坦幽靜。
+          </div>
+          <div class="guide-highlight">特色亮點：眺望斯利馬水岸全景、幽靜少人的林蔭道。</div>
+          <a href="https://www.google.com/maps/search/?api=1&query=Hastings+Gardens+Valletta" target="_blank" rel="noopener noreferrer" class="btn-nav">
+            📍 Google Maps 導航
+          </a>
+        </article>
+
+        <!-- 13. 巴拉卡升降梯 -->
+        <article class="guide-card" data-category="food-transit">
+          <div class="guide-names">
+            <div class="guide-cn">巴拉卡升降梯</div>
+            <div class="guide-native">Barrakka Lift</div>
+          </div>
+          <div class="guide-desc">
+            連接海平面海濱步道與高達 58 公尺上巴拉卡花園的關鍵垂直升降系統。單程僅需 25 秒。由下往上搭乘每人收取 €1（支援感應信用卡），下午由古城向下返回碼頭時完全免費。
+          </div>
+          <div class="guide-highlight">特色亮點：25秒直升城頂、回程下行完全免費。</div>
+          <a href="https://www.google.com/maps/search/?api=1&query=Barrakka+Lift+Valletta" target="_blank" rel="noopener noreferrer" class="btn-nav">
+            📍 Google Maps 導航
+          </a>
+        </article>
+
+        <!-- 14. 瓦萊塔郵輪碼頭 -->
+        <article class="guide-card" data-category="food-transit">
+          <div class="guide-names">
+            <div class="guide-cn">瓦萊塔郵輪碼頭</div>
+            <div class="guide-native">Valletta Cruise Port (Pinto Wharf)</div>
+          </div>
+          <div class="guide-desc">
+            一排色彩斑斕的黃色石灰岩倉庫群建於巴洛克全盛時期，現規劃為聚集多間景觀餐廳與免稅服務的 Valletta Waterfront。沿平坦步道步行約 6 至 8 分鐘即可抵達升降梯底層。
+          </div>
+          <div class="guide-highlight">特色亮點：彩色巴洛克倉庫海濱、出關即漫步古城。</div>
+          <a href="https://www.google.com/maps/search/?api=1&query=Valletta+Cruise+Port+Valletta" target="_blank" rel="noopener noreferrer" class="btn-nav">
+            📍 Google Maps 導航
+          </a>
+        </article>
+
+      </div>
+    </section>
+
+    <!-- Tab 4: 預約錦囊 -->
+    <section id="tab-checklist" class="tab-view">
+      
+      <div class="checklist-section">
+        <div class="section-headline">
+          <span>✅</span> 10/7 當天重要檢查清單
+        </div>
+
+        <div class="check-item" onclick="toggleCheckItem(this, 'day5_cathedral_1007')">
+          <div class="check-box"></div>
+          <div>
+            <div class="check-text-title">聖若望共主教座堂 10/7 特殊日現場購票</div>
+            <div class="check-text-desc">當天 12:00 開門且無預約票，改於 13:15 至門口現場買票（成人約 €15，備妥感應信用卡/現金）。</div>
+          </div>
+        </div>
+
+        <div class="check-item" onclick="toggleCheckItem(this, 'day5_dress_code')">
+          <div class="check-box"></div>
+          <div>
+            <div class="check-text-title">大教堂穿著禁忌</div>
+            <div class="check-text-desc">肩膀與膝蓋需覆蓋，且嚴禁穿著細跟高跟鞋（以防損壞百年大理石騎士彩繪地磚）。</div>
+          </div>
+        </div>
+
+        <div class="check-item" onclick="toggleCheckItem(this, 'day5_gun_salute')">
+          <div class="check-box"></div>
+          <div>
+            <div class="check-text-title">正午鳴砲儀式卡位</div>
+            <div class="check-text-desc">上午 11:45 前必須抵達上巴拉卡花園露台護牆佔位（12:00 準時鳴砲）。</div>
+          </div>
+        </div>
+
+        <div class="check-item" onclick="toggleCheckItem(this, 'day5_lift_fare')">
+          <div class="check-box"></div>
+          <div>
+            <div class="check-text-title">巴拉卡升降梯交通費</div>
+            <div class="check-text-desc">上行每人 €1（支援感應信用卡），下午回程下樓搭乘完全免費。</div>
+          </div>
+        </div>
+
+        <div class="check-item" onclick="toggleCheckItem(this, 'day5_safe_onboard')">
+          <div class="check-box"></div>
+          <div>
+            <div class="check-text-title">返船安全邊界：16:15 刷卡登船</div>
+            <div class="check-text-desc">下午 15:55 前抵達升降梯頂，最晚 16:15 刷船卡登船完畢（17:00 啟航）。</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="checklist-section">
+        <div class="section-headline">
+          <span>💡</span> 當地實用指南與規範
+        </div>
+        <div class="check-text-desc" style="margin-bottom: 8px;">
+          • <strong>錯峰排隊戰術：</strong>10/7 當天大教堂 12:00 剛開門時人潮最擠，此時先去觀看 12:00 正午鳴砲並在 Caffe Cordina 享用午餐，等 13:15 人潮消化後再去現場購票入場排隊最短。
+        </div>
+        <div class="check-text-desc" style="margin-bottom: 8px;">
+          • <strong>貨幣支付與感應扣款：</strong>馬爾他官方貨幣為歐元（EUR）。景點售票處、咖啡廳、升降梯與商店均全面支援 Apple Pay 及感應信用卡。
+        </div>
+        <div class="check-text-desc" style="margin-bottom: 8px;">
+          • <strong>購物退稅：</strong>馬爾他標準增值稅為 18%。非歐盟居民在同一參與店家消費滿額（通常 €100 以上）可索取退稅單。
+        </div>
+        <div class="check-text-desc">
+          • <strong>啟航甲板觀景推薦：</strong>下午 17:00 郵輪啟航時，提前 15 分鐘登上頂層戶外甲板。從狹長大港水道緩緩航向地中海，兩岸金黃石灰岩要塞在夕陽斜照下熠熠生輝，是整趟航程最震撼的出港景致！
+        </div>
+      </div>
+
+    </section>
+
+  </main>
+
+  <!-- 底部固定 5 鍵 Tab Bar -->
+  <nav class="tab-bar">
+    <a href="index.html" class="tab-btn">
+      <svg viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
+      <span>首頁</span>
+    </a>
+    <button class="tab-btn active" onclick="switchTab('tab-timeline', this)">
+      <svg viewBox="0 0 24 24"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z"/></svg>
+      <span>行程</span>
+    </button>
+    <button class="tab-btn" onclick="switchTab('tab-map', this)">
+      <svg viewBox="0 0 24 24"><path d="M20.5 3l-.16.03L15 5.1 9 3 3.36 4.9c-.21.07-.36.25-.36.48V20.5c0 .28.22.5.5.5l.16-.03L9 18.9l6 2.1 5.64-1.9c.21-.07.36-.25.36-.48V3.5c0-.28-.22-.5-.5-.5zM15 19l-6-2.11V5l6 2.11V19z"/></svg>
+      <span>地圖</span>
+    </button>
+    <button class="tab-btn" onclick="switchTab('tab-guide', this)">
+      <svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+      <span>景點</span>
+    </button>
+    <button class="tab-btn" onclick="switchTab('tab-checklist', this)">
+      <svg viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-9 14l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
+      <span>錦囊</span>
+    </button>
+  </nav>
+
+  <script>
+    function switchTab(tabId, btn) {
+      document.querySelectorAll('.tab-view').forEach(function(view) {
+        view.classList.remove('active');
+      });
+      document.querySelectorAll('.tab-bar .tab-btn').forEach(function(item) {
+        item.classList.remove('active');
+      });
+
+      const target = document.getElementById(tabId);
+      if (target) {
+        target.classList.add('active');
+      }
+      btn.classList.add('active');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function filterPlaces(category, btn) {
+      document.querySelectorAll('.cat-pill').forEach(function(el) {
+        el.classList.remove('active');
+      });
+      btn.classList.add('active');
+
+      const cards = document.querySelectorAll('.guide-card');
+      cards.forEach(function(card) {
+        if (category === 'all' || card.getAttribute('data-category') === category) {
+          card.style.display = 'block';
+        } else {
+          card.style.display = 'none';
+        }
+      });
+    }
+
+    function toggleCheckItem(el, storageKey) {
+      el.classList.toggle('checked');
+      const isChecked = el.classList.contains('checked');
+      localStorage.setItem(storageKey, isChecked);
+    }
+
+    document.addEventListener('DOMContentLoaded', function() {
+      document.querySelectorAll('.check-item').forEach(function(item) {
+        const onclickAttr = item.getAttribute('onclick');
+        if (onclickAttr) {
+          const match = onclickAttr.match(/'([^']+)'/);
+          if (match && match[1]) {
+            const saved = localStorage.getItem(match[1]);
+            if (saved === 'true') {
+              item.classList.add('checked');
+            }
+          }
+        }
+      });
+    });
+  </script>
+</body>
+</html>

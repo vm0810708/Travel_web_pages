@@ -1,0 +1,1200 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, maximum-scale=1.0, user-scalable=no">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="theme-color" content="#0F4C81">
+  <title>Day 3 · 拿坡里＆龐貝古城 | MSC World Europa</title>
+  <style>
+    :root {
+      --primary: #0F4C81;
+      --primary-dark: #0A3258;
+      --primary-light: #EBF3FA;
+      --accent: #D97706;
+      --accent-light: #FEF3C7;
+      --danger: #DC2626;
+      --danger-light: #FEE2E2;
+      --success: #059669;
+      --success-light: #D1FAE5;
+      --bg-system: #F4F6F9;
+      --card-bg: #FFFFFF;
+      --text-main: #0F172A;
+      --text-sub: #475569;
+      --text-muted: #94A3B8;
+      --border-color: #E2E8F0;
+      --nav-glass: rgba(255, 255, 255, 0.88);
+      --nav-border: rgba(0, 0, 0, 0.08);
+      --radius-sm: 8px;
+      --radius-md: 14px;
+      --radius-lg: 20px;
+      --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.05);
+      --shadow-md: 0 4px 14px rgba(15, 23, 42, 0.08);
+      --safe-top: env(safe-area-inset-top, 0px);
+      --safe-bottom: env(safe-area-inset-bottom, 0px);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      touch-action: manipulation;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Pro Display", "PingFang TC", "Helvetica Neue", Arial, sans-serif;
+      background-color: var(--bg-system);
+      color: var(--text-main);
+      line-height: 1.5;
+      padding-top: calc(var(--safe-top) + 90px);
+      padding-bottom: calc(var(--safe-bottom) + 72px);
+      -webkit-font-smoothing: antialiased;
+    }
+
+    header.city-header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      background: var(--nav-glass);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--nav-border);
+      padding: calc(var(--safe-top) + 8px) 16px 8px;
+    }
+
+    .header-nav-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 6px;
+    }
+
+    .btn-back-home {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--primary);
+      text-decoration: none;
+      background: var(--primary-light);
+      padding: 4px 10px;
+      border-radius: 20px;
+    }
+
+    .header-danger-pill {
+      font-size: 11px;
+      font-weight: 700;
+      background: var(--danger-light);
+      color: var(--danger);
+      padding: 4px 9px;
+      border-radius: 20px;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .header-nav-bottom {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .city-heading {
+      font-size: 18px;
+      font-weight: 800;
+      color: var(--text-main);
+      display: flex;
+      align-items: baseline;
+      gap: 6px;
+    }
+
+    .city-heading small {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--text-muted);
+    }
+
+    .port-cross-nav {
+      display: flex;
+      gap: 6px;
+    }
+
+    .btn-port-link {
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--primary);
+      text-decoration: none;
+      background: #F1F5F9;
+      padding: 3px 8px;
+      border-radius: 6px;
+      display: inline-flex;
+      align-items: center;
+      gap: 3px;
+    }
+
+    main.city-main {
+      padding: 12px 16px;
+      max-width: 640px;
+      margin: 0 auto;
+    }
+
+    .tab-view {
+      display: none;
+      animation: fadeIn 0.22s ease-out;
+    }
+
+    .tab-view.active {
+      display: block;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(4px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .urgent-banner {
+      background: linear-gradient(135deg, var(--primary) 0%, #1a629e 100%);
+      color: #fff;
+      border-radius: var(--radius-md);
+      padding: 14px 16px;
+      margin-bottom: 16px;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .urgent-title {
+      font-size: 13.5px;
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      margin-bottom: 5px;
+    }
+
+    .urgent-desc {
+      font-size: 12px;
+      line-height: 1.5;
+      opacity: 0.94;
+    }
+
+    .timeline {
+      position: relative;
+      padding-left: 20px;
+    }
+
+    .timeline::before {
+      content: "";
+      position: absolute;
+      left: 6px;
+      top: 14px;
+      bottom: 20px;
+      width: 2px;
+      background: #CBD5E1;
+    }
+
+    .timeline-node {
+      position: relative;
+      margin-bottom: 18px;
+    }
+
+    .timeline-dot {
+      position: absolute;
+      left: -20px;
+      top: 14px;
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      background: var(--card-bg);
+      border: 3px solid var(--primary);
+      z-index: 1;
+    }
+
+    .timeline-dot.danger { border-color: var(--danger); }
+    .timeline-dot.accent { border-color: var(--accent); }
+    .timeline-dot.success { border-color: var(--success); }
+
+    .card {
+      background: var(--card-bg);
+      border-radius: var(--radius-md);
+      padding: 14px 16px;
+      box-shadow: var(--shadow-sm);
+      border: 1px solid var(--border-color);
+    }
+
+    .card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 6px;
+    }
+
+    .card-time {
+      font-size: 12.5px;
+      font-weight: 800;
+      color: var(--primary);
+    }
+
+    .card-tag {
+      font-size: 10px;
+      font-weight: 700;
+      padding: 2px 7px;
+      border-radius: 4px;
+      background: #F1F5F9;
+      color: var(--text-sub);
+    }
+
+    .card-tag.transit { background: #E0F2FE; color: #0369A1; }
+    .card-tag.spot { background: #DCFCE7; color: #15803D; }
+    .card-tag.food { background: #FEF3C7; color: #B45309; }
+    .card-tag.alert { background: #FEE2E2; color: #B91C1C; }
+
+    .card-title {
+      font-size: 15px;
+      font-weight: 800;
+      color: var(--text-main);
+      margin-bottom: 5px;
+    }
+
+    .card-body {
+      font-size: 12.5px;
+      color: var(--text-sub);
+      line-height: 1.5;
+      margin-bottom: 10px;
+    }
+
+    .btn-nav {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      background: #F8FAFC;
+      color: var(--primary);
+      text-decoration: none;
+      font-size: 12px;
+      font-weight: 700;
+      padding: 6px 12px;
+      border-radius: var(--radius-sm);
+      border: 1px solid #BAE6FD;
+      transition: background 0.15s;
+    }
+
+    .btn-nav:active {
+      background: #E0F2FE;
+    }
+
+    .btn-full-map {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      background: linear-gradient(135deg, var(--success) 0%, #047857 100%);
+      color: #fff;
+      font-size: 14px;
+      font-weight: 700;
+      padding: 12px 16px;
+      border-radius: var(--radius-md);
+      text-decoration: none;
+      margin-bottom: 12px;
+      box-shadow: 0 4px 10px rgba(5, 150, 105, 0.25);
+    }
+
+    .map-frame-box {
+      width: 100%;
+      height: 62vh;
+      min-height: 400px;
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      border: 1px solid var(--border-color);
+      box-shadow: var(--shadow-sm);
+      background: #E2E8F0;
+    }
+
+    .map-frame-box iframe {
+      width: 100%;
+      height: 100%;
+      border: 0;
+    }
+
+    .filter-scroll-wrapper {
+      margin: -4px -16px 14px;
+      padding: 0 16px;
+      overflow-x: auto;
+      white-space: nowrap;
+      scrollbar-width: none;
+    }
+    .filter-scroll-wrapper::-webkit-scrollbar { display: none; }
+
+    .category-pills {
+      display: inline-flex;
+      gap: 8px;
+    }
+
+    .cat-pill {
+      font-size: 12px;
+      font-weight: 700;
+      padding: 6px 13px;
+      border-radius: 20px;
+      background: #FFFFFF;
+      border: 1px solid var(--border-color);
+      color: var(--text-sub);
+      cursor: pointer;
+    }
+
+    .cat-pill.active {
+      background: var(--primary);
+      color: #FFFFFF;
+      border-color: var(--primary);
+    }
+
+    .guide-card {
+      background: var(--card-bg);
+      border-radius: var(--radius-md);
+      padding: 14px 16px;
+      margin-bottom: 12px;
+      border: 1px solid var(--border-color);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .guide-names {
+      margin-bottom: 6px;
+    }
+
+    .guide-cn {
+      font-size: 15.5px;
+      font-weight: 800;
+      color: var(--text-main);
+    }
+
+    .guide-native {
+      font-size: 12px;
+      color: var(--text-muted);
+      font-weight: 500;
+    }
+
+    .guide-desc {
+      font-size: 12.5px;
+      color: var(--text-sub);
+      line-height: 1.55;
+      margin-bottom: 8px;
+    }
+
+    .guide-highlight {
+      background: #F8FAFC;
+      border-left: 3px solid var(--primary);
+      padding: 6px 10px;
+      font-size: 11.5px;
+      color: var(--primary);
+      margin-bottom: 10px;
+      border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+      font-weight: 600;
+    }
+
+    .checklist-section {
+      background: var(--card-bg);
+      border-radius: var(--radius-md);
+      padding: 16px;
+      margin-bottom: 14px;
+      border: 1px solid var(--border-color);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .section-headline {
+      font-size: 14.5px;
+      font-weight: 800;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      color: var(--text-main);
+      border-bottom: 1px solid var(--border-color);
+      padding-bottom: 8px;
+    }
+
+    .check-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      margin-bottom: 12px;
+      cursor: pointer;
+    }
+    .check-item:last-child { margin-bottom: 0; }
+
+    .check-box {
+      width: 19px;
+      height: 19px;
+      border-radius: 5px;
+      border: 1.5px solid var(--text-muted);
+      margin-top: 1px;
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.15s ease;
+    }
+
+    .check-item.checked .check-box {
+      background: var(--success);
+      border-color: var(--success);
+    }
+
+    .check-item.checked .check-box::after {
+      content: "✔";
+      color: #fff;
+      font-size: 11px;
+    }
+
+    .check-item.checked .check-text-title {
+      text-decoration: line-through;
+      color: var(--text-muted);
+    }
+
+    .check-text-title {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--text-main);
+    }
+
+    .check-text-desc {
+      font-size: 12px;
+      color: var(--text-sub);
+      line-height: 1.45;
+      margin-top: 2px;
+    }
+
+    nav.tab-bar {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      background: var(--nav-glass);
+      backdrop-filter: blur(25px);
+      -webkit-backdrop-filter: blur(25px);
+      border-top: 1px solid var(--nav-border);
+      padding-bottom: var(--safe-bottom);
+      height: calc(var(--safe-bottom) + 54px);
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      max-width: 640px;
+      margin: 0 auto;
+    }
+
+    .tab-btn {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      background: none;
+      border: none;
+      padding: 4px 0 2px;
+      color: var(--text-muted);
+      cursor: pointer;
+      text-decoration: none;
+    }
+
+    .tab-btn svg {
+      width: 22px;
+      height: 22px;
+      margin-bottom: 2px;
+      fill: currentColor;
+    }
+
+    .tab-btn span {
+      font-size: 10px;
+      font-weight: 700;
+    }
+
+    .tab-btn.active {
+      color: var(--primary);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- 頂部 Sticky 導航區 -->
+  <header class="city-header">
+    <div class="header-nav-top">
+      <a href="index.html" class="btn-back-home">⌂ 所有行程</a>
+      <span class="header-danger-pill">🚢 20:00 啟航 ⚠️ 19:15 返船</span>
+    </div>
+    <div class="header-nav-bottom">
+      <div class="city-heading">
+        拿坡里 ＆ 龐貝
+        <small>Day 3 · 10/05 (日)</small>
+      </div>
+      <div class="port-cross-nav">
+        <a href="1004_義大利_熱拿亞.html" class="btn-port-link">← 上一站</a>
+        <a href="1006_義大利_墨西拿.html" class="btn-port-link">下一站 ➔</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- 主要內容區 -->
+  <main class="city-main">
+
+    <!-- Tab 1: 行程時間軸 -->
+    <section id="tab-timeline" class="tab-view active">
+      
+      <div class="urgent-banner">
+        <div class="urgent-title">⚡ 今日雙重亮點：世界遺產龐貝 ＆ 拿坡里靈魂快食</div>
+        <div class="urgent-desc">
+          • 13:00 抵港迅速專車出發，掌握龐貝古城 2 小時黃金導覽 + 45 分鐘自由探索。<br>
+          • 17:35 返抵港口後漫步新堡、長廊與平民表決廣場。<br>
+          • 務必嚴格執行「外帶炸披薩」與吧台快飲咖啡，於 19:00 前抵達碼頭大樓過安檢。
+        </div>
+      </div>
+
+      <div class="timeline">
+
+        <!-- 13:00 - 13:30 -->
+        <div class="timeline-item">
+          <div class="timeline-dot success"></div>
+          <div class="card">
+            <div class="card-header">
+              <span class="card-time">13:00 – 13:30</span>
+              <span class="card-tag transit">靠港集合</span>
+            </div>
+            <div class="card-title">郵輪靠港 ＆ 專車集合</div>
+            <div class="card-body">
+              郵輪平穩停靠於拿坡里安茹碼頭（Stazione Marittima）。持票券迅速通過安檢通道出關，前往大廳遊覽車泊位集合點會合。
+            </div>
+            <a href="https://www.google.com/maps/search/?api=1&query=Stazione+Marittima+di+Napoli" target="_blank" rel="noopener noreferrer" class="btn-nav">
+              📍 導航至拿坡里郵輪碼頭
+            </a>
+          </div>
+        </div>
+
+        <!-- 13:30 - 14:15 -->
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <div class="card">
+            <div class="card-header">
+              <span class="card-time">13:30 – 14:15</span>
+              <span class="card-tag transit">專車國道</span>
+            </div>
+            <div class="card-title">專車接駁前往龐貝</div>
+            <div class="card-body">
+              搭乘空調專車沿 A3 高速公路南下，車程約 45 分鐘。沿途左側可仰望壯麗沉靜的維蘇威火山錐體，右手側為拿坡里海灣景致。
+            </div>
+          </div>
+        </div>
+
+        <!-- 14:15 - 16:15 -->
+        <div class="timeline-item">
+          <div class="timeline-dot accent"></div>
+          <div class="card">
+            <div class="card-header">
+              <span class="card-time">14:15 – 16:15</span>
+              <span class="card-tag spot">世界遺產</span>
+            </div>
+            <div class="card-title">龐貝古城考古遺址：2小時專業導覽</div>
+            <div class="card-body">
+              由官方授權導遊帶領，自海洋門入城。走過玄武岩車轍大道，依序參觀公共論壇、阿波羅神殿、斯塔比亞浴場、古羅馬妓院石床濕壁畫及農神之家。
+            </div>
+            <a href="https://www.google.com/maps/search/?api=1&query=Parco+Archeologico+di+Pompei" target="_blank" rel="noopener noreferrer" class="btn-nav">
+              📍 導航至龐貝古城遺址
+            </a>
+          </div>
+        </div>
+
+        <!-- 16:15 - 17:00 -->
+        <div class="timeline-item">
+          <div class="timeline-dot accent"></div>
+          <div class="card">
+            <div class="card-header">
+              <span class="card-time">16:15 – 17:00</span>
+              <span class="card-tag spot">深度亮點</span>
+            </div>
+            <div class="card-title">龐貝自由探索 (45分鐘)</div>
+            <div class="card-body">
+              把握 45 分鐘自由活動時間。推薦步行前往古城東南側的「逃亡者花園」悼念 13 具石膏罹難者鑄像，或前往半圓形大劇院高處俯瞰山城全貌。
+            </div>
+            <a href="https://www.google.com/maps/search/?api=1&query=Orto+dei+Fuggiaschi+Pompei" target="_blank" rel="noopener noreferrer" class="btn-nav">
+              📍 導航至逃亡者花園
+            </a>
+          </div>
+        </div>
+
+        <!-- 17:00 - 17:35 -->
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <div class="card">
+            <div class="card-header">
+              <span class="card-time">17:00 – 17:35</span>
+              <span class="card-tag transit">專車返程</span>
+            </div>
+            <div class="card-title">集合專車返抵拿坡里港</div>
+            <div class="card-body">
+              於龐貝專用停車場原車集合返程，經公路返回拿坡里市中心港區，預計於 17:35 前順利抵達碼頭廣場。
+            </div>
+          </div>
+        </div>
+
+        <!-- 17:35 - 17:50 -->
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <div class="card">
+            <div class="card-header">
+              <span class="card-time">17:35 – 17:50</span>
+              <span class="card-tag spot">港口漫步</span>
+            </div>
+            <div class="card-title">市政廳廣場 ＆ 新堡外觀拍照</div>
+            <div class="card-body">
+              下車後徒步穿過開闊的市政廳廣場與海神噴泉，步行 5 分鐘抵達新堡（安茹城堡），欣賞純白大理石文藝復興凱旋門與黑色玄武岩防禦圓塔。
+            </div>
+            <a href="https://www.google.com/maps/search/?api=1&query=Castel+Nuovo+Napoli" target="_blank" rel="noopener noreferrer" class="btn-nav">
+              📍 導航至新堡 (Castel Nuovo)
+            </a>
+          </div>
+        </div>
+
+        <!-- 17:50 - 18:10 -->
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <div class="card">
+            <div class="card-header">
+              <span class="card-time">17:50 – 18:10</span>
+              <span class="card-tag spot">核心地標</span>
+            </div>
+            <div class="card-title">翁貝托長廊、聖卡洛劇院、平民表決廣場</div>
+            <div class="card-body">
+              穿行翁貝托一世長廊欣賞透光玻璃穹頂與十二星座地磚，途經全歐現存最古老皇家聖卡洛劇院，抵達氣勢恢宏的平民表決廣場與拿坡里王宮正面立面。
+            </div>
+            <a href="https://www.google.com/maps/search/?api=1&query=Piazza+del+Plebiscito+Napoli" target="_blank" rel="noopener noreferrer" class="btn-nav">
+              📍 導航至平民表決廣場
+            </a>
+          </div>
+        </div>
+
+        <!-- 18:10 - 18:40 -->
+        <div class="timeline-item">
+          <div class="timeline-dot accent"></div>
+          <div class="card">
+            <div class="card-header">
+              <span class="card-time">18:10 – 18:40</span>
+              <span class="card-tag food">在地美饌</span>
+            </div>
+            <div class="card-title">正宗義式炸披薩 ＆ 百年文學咖啡</div>
+            <div class="card-body">
+              於 Zia Esterina 外帶窗口點一份金黃酥脆、爆漿瑞可塔起司與肉香四溢的正宗炸披薩（Pizza Fritta）。隨後至鄰近的百年 Gambrinus 吧台站飲一杯濃郁 Espresso，搭配貝殼千層酥。
+            </div>
+            <a href="https://www.google.com/maps/search/?api=1&query=Antica+Pizza+Fritta+da+Zia+Esterina+Sorbillo+Napoli" target="_blank" rel="noopener noreferrer" class="btn-nav">
+              📍 導航至 Zia Esterina 炸披薩
+            </a>
+          </div>
+        </div>
+
+        <!-- 18:40 - 19:00 -->
+        <div class="timeline-item">
+          <div class="timeline-dot danger"></div>
+          <div class="card">
+            <div class="card-header">
+              <span class="card-time">18:40 – 19:00</span>
+              <span class="card-tag alert">安全返船</span>
+            </div>
+            <div class="card-title">沿聖卡洛街返抵碼頭・登船安檢</div>
+            <div class="card-body">
+              沿聖卡洛街慢步穿過市政廳廣場返回 Stazione Marittima（步程約 10-12 分鐘）。19:00 前完成登船安檢手續，預留充足時間應對通關人流。
+            </div>
+            <a href="https://www.google.com/maps/search/?api=1&query=Stazione+Marittima+di+Napoli" target="_blank" rel="noopener noreferrer" class="btn-nav">
+              📍 導航返回客運大樓
+            </a>
+          </div>
+        </div>
+
+        <!-- 19:15 / 20:00 -->
+        <div class="timeline-item">
+          <div class="timeline-dot danger"></div>
+          <div class="card" style="border-left: 4px solid var(--danger);">
+            <div class="card-header">
+              <span class="card-time" style="color:var(--danger);">19:15 / 20:00</span>
+              <span class="card-tag alert">登船截止</span>
+            </div>
+            <div class="card-title">全體登船截止 (All Aboard) ＆ 準時啟航</div>
+            <div class="card-body">
+              19:15 為郵輪收回舷梯之最後登船底線；20:00 鳴笛解纜啟航離開拿坡里灣。
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Tab 2: 景點地圖 -->
+    <section id="tab-map" class="tab-view">
+      <a href="https://www.google.com/maps/d/u/0/viewer?mid=14KzgliAfZWM_FK6gjYRKkdNkcVj9m0w" target="_blank" rel="noopener noreferrer" class="btn-full-map">
+        📲 在 Google Maps App 全螢幕開啟完整地圖
+      </a>
+
+      <div class="map-frame-box">
+        <iframe 
+          src="https://www.google.com/maps/d/embed?mid=14KzgliAfZWM_FK6gjYRKkdNkcVj9m0w" 
+          allowfullscreen="" 
+          loading="lazy">
+        </iframe>
+      </div>
+    </section>
+
+    <!-- Tab 3: 景點導覽 -->
+    <section id="tab-guide" class="tab-view">
+      
+      <div class="filter-scroll-wrapper">
+        <div class="category-pills">
+          <button class="cat-pill active" onclick="filterPlaces('all', this)">全部點位 (20)</button>
+          <button class="cat-pill" onclick="filterPlaces('food', this)">必嚐美饌 (3)</button>
+          <button class="cat-pill" onclick="filterPlaces('pompeii', this)">龐貝古城 (9)</button>
+          <button class="cat-pill" onclick="filterPlaces('naples', this)">拿坡里名勝 (6)</button>
+          <button class="cat-pill" onclick="filterPlaces('transit', this)">港口交通 (2)</button>
+        </div>
+      </div>
+
+      <div id="places-list">
+
+        <!-- 美食 1 -->
+        <article class="guide-card" data-category="food">
+          <div class="guide-names">
+            <div class="guide-cn">艾斯特莉娜阿姨炸披薩</div>
+            <div class="guide-native">Antica Pizza Fritta da Zia Esterina Sorbillo</div>
+          </div>
+          <div class="guide-desc">
+            拿坡里傳奇披薩家族 Sorbillo 創辦的油炸披薩專門店。剛起鍋的 Pizza Fritta 外皮金黃乾爽酥脆，咬開瞬間濃郁熱燙的瑞可塔起司、煙燻 Provola 與豬油渣碎化作極致美味，出餐極快。
+          </div>
+          <div class="guide-highlight">推薦點法：經典傳統口味（Completa: Ricotta, Provola, Cicoli, Pomodoro）。</div>
+          <a href="https://www.google.com/maps/search/?api=1&query=Antica+Pizza+Fritta+da+Zia+Esterina+Sorbillo+Napoli" target="_blank" rel="noopener noreferrer" class="btn-nav">
+            📍 Google Maps 導航
+          </a>
+        </article>
+
+        <!-- 美食 2 -->
+        <article class="guide-card" data-category="food">
+          <div class="guide-names">
+            <div class="guide-cn">索比洛錢包與炸披薩</div>
+            <div class="guide-native">Sorbillo Wallet and Fried Pizza</div>
+          </div>
+          <div class="guide-desc">
+            專門供應街頭快食的知名外帶分店，主打拿坡里最具平民智慧的「折疊錢包披薩」（Pizza a Portafoglio）。將現烤出爐的瑪格麗特披薩對折兩次成口袋狀包裹於牛皮紙中，方便邊走邊吃。
+          </div>
+          <div class="guide-highlight">特色亮點：經典瑪格麗特錢包披薩僅需數歐元，現點現取無需排隊候位。</div>
+          <a href="https://www.google.com/maps/search/?api=1&query=Sorbillo+Wallet+and+Fried+Pizza+Napoli" target="_blank" rel="noopener noreferrer" class="btn-nav">
+            📍 Google Maps 導航
+          </a>
+        </article>
+
+        <!-- 美食 3 -->
+        <article class="guide-card" data-category="food">
+          <div class="guide-names">
+            <div class="guide-cn">甘布里努斯咖啡館</div>
+            <div class="guide-native">Gran Caffè Gambrinus</div>
+          </div>
+          <div class="guide-desc">
+            創立於 1860 年的義大利國家歷史文化咖啡館，室內洋溢 19 世紀新藝術風格金箔與濕壁畫。建議跟隨當地人腳步，站在大理石吧台快速點一杯濃烈稠密的 Espresso，並搭配外皮千層酥脆的貝殼酥（Sfogliatella）。
+          </div>
+          <div class="guide-highlight">老饕秘訣：先在收銀台點單結帳拿收據，再移步吧台交給咖啡師，省時且便宜。</div>
+          <a href="https://www.google.com/maps/search/?api=1&query=Gran+Caffe+Gambrinus+Napoli" target="_blank" rel="noopener noreferrer" class="btn-nav">
+            📍 Google Maps 導航
+          </a>
+        </article>
+
+        <!-- 龐貝 1 -->
+        <article class="guide-card" data-category="pompeii">
+          <div class="guide-names">
+            <div class="guide-cn">龐貝公共論壇與神殿群</div>
+            <div class="guide-native">Foro di Pompei & Templi</div>
+          </div>
+          <div class="guide-desc">
+            古城的核心行政與宗教廣場，四周環繞雙層多立克式石柱。北面聳立著朱庇特神殿，在此可拍下神殿斷垣殘壁與後方維蘇威火山殘峰同框的傳世明信片景致；西側為優雅的阿波羅神殿。
+          </div>
+          <div class="guide-highlight">特色亮點：古城政經中心、維蘇威火山合影最佳拍攝點。</div>
+          <a href="https://www.google.com/maps/search/?api=1&query=Foro+Pompei" target="_blank" rel="noopener noreferrer" class="btn-nav">
+            📍 Google Maps 導航
+          </a>
+        </article>
+
+        <!-- 龐貝 2 -->
+        <article class="guide-card" data-category="pompeii">
+          <div class="guide-names">
+            <div class="guide-cn">龐貝巴西利卡大殿</div>
+            <div class="guide-native">Basilica di Pompei</div>
+          </div>
+          <div class="guide-desc">
+            建於西元前 2 世紀後半葉，是古羅馬世界現存最古老、最壯麗的公共巴西利卡建築之一。昔日作為龐貝的最高民刑裁判所與商務仲裁中心，盡頭保留雙層法官審理台。
+          </div>
+          <div class="guide-highlight">特色亮點：28 根紅磚巨柱遺跡、羅馬司法體系雛形。</div>
+          <a href="https://www.google.com/maps/search/?api=1&query=Basilica+di+Pompei" target="_blank" rel="noopener noreferrer" class="btn-nav">
+            📍 Google Maps 導航
+          </a>
+        </article>
+
+        <!-- 龐貝 3 -->
+        <article class="guide-card" data-category="pompeii">
+          <div class="guide-names">
+            <div class="guide-cn">斯塔比亞浴場</div>
+            <div class="guide-native">Terme Stabiane</div>
+          </div>
+          <div class="guide-desc">
+            龐貝最古老、規模最完備的公共浴場，具體展現古羅馬人超越時代的熱水力學工藝。劃分冷水室、溫水室與高溫蒸氣發汗室，雙層懸空地板（Hypocaust）設計生動還原市民休閒日常。
+          </div>
+          <div class="guide-highlight">特色亮點：天花板灰泥浮雕、古羅馬地熱循環管道系統。</div>
+          <a href="https://www.google.com/maps/search/?api=1&query=Terme+Stabiane+Pompei" target="_blank" rel="noopener noreferrer" class="btn-nav">
+            📍 Google Maps 導航
+          </a>
+        </article>
+
+        <!-- 龐貝 4 -->
+        <article class="guide-card" data-category="pompeii">
+          <div class="guide-names">
+            <div class="guide-cn">古羅馬妓院</div>
+            <div class="guide-native">Lupanare di Pompei</div>
+          </div>
+          <div class="guide-desc">
+            龐貝古城中最著名的雙層官方妓院。一樓走廊兩側分佈五間石床隔間，門楣上方完整保留多幅露骨的情色濕壁畫作為「點選價目選單」，牆面刻滿各國恩客留言塗鴉。
+          </div>
+          <div class="guide-highlight">特色亮點：兩千年前情色濕壁畫真跡、古羅馬市井庶民生活縮影。</div>
+          <a href="https://www.google.com/maps/search/?api=1&query=Lupanare+Pompei" target="_blank" rel="noopener noreferrer" class="btn-nav">
+            📍 Google Maps 導航
+          </a>
+        </article>
+
+        <!-- 龐貝 5 -->
+        <article class="guide-card" data-category="pompeii">
+          <div class="guide-names">
+            <div class="guide-cn">農神之家</div>
+            <div class="guide-native">Casa del Fauno</div>
+          </div>
+          <div class="guide-desc">
+            佔地近三千平方公尺的龐貝最大私人豪邸，佔據整整一整個街區。中庭蓄水池中央立有著名的優雅青銅小農神（Faun）躍舞雕像，後方曾出土《亞歷山大擊敗大流士三世》大型伊蘇斯戰役馬賽克地磚。
+          </div>
+          <div class="guide-highlight">特色亮點：青銅小農神雕像、古羅馬頂級貴族奢華庭院格局。</div>
+          <a href="https://www.google.com/maps/search/?api=1&query=Casa+del+Fauno+Pompei" target="_blank" rel="noopener noreferrer" class="btn-nav">
+            📍 Google Maps 導航
+          </a>
+        </article>
+
+        <!-- 龐貝 6 -->
+        <article class="guide-card" data-category="pompeii">
+          <div class="guide-names">
+            <div class="guide-cn">維提之家</div>
+            <div class="guide-native">Casa dei Vettii</div>
+          </div>
+          <div class="guide-desc">
+            由兩位致富的解放奴隸兄弟所建，經歷長達二十年修復後重新開放。門廳繪有普里阿普斯神像，內庭環繞壯麗立柱花園，牆面覆蓋鮮豔飽滿的龐貝紅「第四風格」濕壁畫。
+          </div>
+          <div class="guide-highlight">特色亮點：十二幅描繪邱比特從事釀酒、打鐵工匠的精美飾帶。</div>
+          <a href="https://www.google.com/maps/search/?api=1&query=Casa+dei+Vettii+Pompei" target="_blank" rel="noopener noreferrer" class="btn-nav">
+            📍 Google Maps 導航
+          </a>
+        </article>
+
+        <!-- 龐貝 7 -->
+        <article class="guide-card" data-category="pompeii">
+          <div class="guide-names">
+            <div class="guide-cn">龐貝大劇院與四方柱廊</div>
+            <div class="guide-native">Teatro Grande e Quadriportico</div>
+          </div>
+          <div class="guide-desc">
+            依天然山丘弧度開鑿建成的希臘化風格半圓形露天劇場，可容納五千名觀眾。站在樂池中央輕聲拍手即可感受極致音場；後方的四方列柱中庭在帝國末期改建為角鬥士營房。
+          </div>
+          <div class="guide-highlight">特色亮點：五千人音場半圓形劇院、角鬥士兵營中庭。</div>
+          <a href="https://www.google.com/maps/search/?api=1&query=Teatro+Grande+Pompei" target="_blank" rel="noopener noreferrer" class="btn-nav">
+            📍 Google Maps 導航
+          </a>
+        </article>
+
+        <!-- 龐貝 8 -->
+        <article class="guide-card" data-category="pompeii">
+          <div class="guide-names">
+            <div class="guide-cn">逃亡者花園</div>
+            <div class="guide-native">Orto dei Fuggiaschi</div>
+          </div>
+          <div class="guide-desc">
+            位於古城東南隅，是全城最震撼人心的歷史凝固點。西元 79 年火山爆發時，包括農夫與孩童在內的 13 位罹難者在此遭火山碎屑流吞噬，考古學家以石膏灌注灰燼空腔重現悲劇姿態。
+          </div>
+          <div class="guide-highlight">特色亮點：13 具凝固罹難者石膏鑄像、生命定格震撼場景。</div>
+          <a href="https://www.google.com/maps/search/?api=1&query=Orto+dei+Fuggiaschi+Pompei" target="_blank" rel="noopener noreferrer" class="btn-nav">
+            📍 Google Maps 導航
+          </a>
+        </article>
+
+        <!-- 龐貝 9 -->
+        <article class="guide-card" data-category="pompeii">
+          <div class="guide-names">
+            <div class="guide-cn">神秘別墅</div>
+            <div class="guide-native">Villa dei Misteri</div>
+          </div>
+          <div class="guide-desc">
+            坐落於古城西北門外海濱高台上的郊外豪華別墅。其主餐廳四面牆上繪有全古羅馬世界保存最完好的連續巨型濕壁畫，描繪新娘加入酒神狄奧尼索斯秘儀教派的儀式過程。
+          </div>
+          <div class="guide-highlight">特色亮點：酒神神秘教派儀式壁畫、龐貝紅巨幅連貫畫作。</div>
+          <a href="https://www.google.com/maps/search/?api=1&query=Villa+dei+Misteri+Pompei" target="_blank" rel="noopener noreferrer" class="btn-nav">
+            📍 Google Maps 導航
+          </a>
+        </article>
+
+        <!-- 拿坡里 1 -->
+        <article class="guide-card" data-category="naples">
+          <div class="guide-names">
+            <div class="guide-cn">市政廳廣場</div>
+            <div class="guide-native">Piazza Municipio</div>
+          </div>
+          <div class="guide-desc">
+            歐洲最大的城市廣場之一，是走出郵輪碼頭後的門戶。廣場中央座落著壯麗的巴洛克海神噴泉（Fontana del Nettuno），回首可望見碼頭與維蘇威火山，前望即是新堡要塞。
+          </div>
+          <div class="guide-highlight">特色亮點：海神噴泉、古羅馬港口出土遺址地鐵站。</div>
+          <a href="https://www.google.com/maps/search/?api=1&query=Piazza+Municipio+Napoli" target="_blank" rel="noopener noreferrer" class="btn-nav">
+            📍 Google Maps 導航
+          </a>
+        </article>
+
+        <!-- 拿坡里 2 -->
+        <article class="guide-card" data-category="naples">
+          <div class="guide-names">
+            <div class="guide-cn">新堡 (安茹城堡)</div>
+            <div class="guide-native">Castel Nuovo / Maschio Angioino</div>
+          </div>
+          <div class="guide-desc">
+            建於 1279 年安茹王朝，由五座雄厚巨大的黑色玄武岩圓柱塔樓環衛。入口中央鑲嵌純白大理石雙層文藝復興凱旋門，精雕細琢的浮雕與粗獷石牆形成強烈對比。
+          </div>
+          <div class="guide-highlight">特色亮點：白大理石阿方索凱旋門、黑色巨型圓柱塔樓。</div>
+          <a href="https://www.google.com/maps/search/?api=1&query=Castel+Nuovo+Napoli" target="_blank" rel="noopener noreferrer" class="btn-nav">
+            📍 Google Maps 導航
+          </a>
+        </article>
+
+        <!-- 拿坡里 3 -->
+        <article class="guide-card" data-category="naples">
+          <div class="guide-names">
+            <div class="guide-cn">翁貝托一世長廊</div>
+            <div class="guide-native">Galleria Umberto I</div>
+          </div>
+          <div class="guide-desc">
+            19 世紀末新古典主義風格的宏偉十字購物拱廊。建築以 56 公尺高的鋼骨玻璃十字穹頂震撼人心，十字交叉點正下方的地面鋪設著十二星座大理石精美馬賽克圖騰。
+          </div>
+          <div class="guide-highlight">特色亮點：56米鋼骨玻璃穹頂、十二星座大理石地磚。</div>
+          <a href="https://www.google.com/maps/search/?api=1&query=Galleria+Umberto+I+Napoli" target="_blank" rel="noopener noreferrer" class="btn-nav">
+            📍 Google Maps 導航
+          </a>
+        </article>
+
+        <!-- 拿坡里 4 -->
+        <article class="guide-card" data-category="naples">
+          <div class="guide-names">
+            <div class="guide-cn">聖卡洛劇院</div>
+            <div class="guide-native">Teatro di San Carlo</div>
+          </div>
+          <div class="guide-desc">
+            創立於 1737 年，為歐洲現存持續營運中最古老的皇家歌劇院，歷史比米蘭斯卡拉大劇院還早 41 年。外觀立面為嚴整肅穆的新古典主義石柱長廊，曾培育羅西尼等多位巨擘。
+          </div>
+          <div class="guide-highlight">特色亮點：歐洲最古老營運中劇院、新古典大理石騎樓。</div>
+          <a href="https://www.google.com/maps/search/?api=1&query=Teatro+di+San+Carlo+Napoli" target="_blank" rel="noopener noreferrer" class="btn-nav">
+            📍 Google Maps 導航
+          </a>
+        </article>
+
+        <!-- 拿坡里 5 -->
+        <article class="guide-card" data-category="naples">
+          <div class="guide-names">
+            <div class="guide-cn">平民表決廣場</div>
+            <div class="guide-native">Piazza del Plebiscito</div>
+          </div>
+          <div class="guide-desc">
+            拿坡里規模最宏大的半圓形露天廣場。西側被保羅聖方濟各聖殿的新古典弧形大理石柱廊優雅環抱；東側則正對拿坡里王宮正面，中央矗立查理三世騎馬銅像。
+          </div>
+          <div class="guide-highlight">特色亮點：半圓形大理石柱廊、拿坡里第一大皇家廣場。</div>
+          <a href="https://www.google.com/maps/search/?api=1&query=Piazza+del+Plebiscito+Napoli" target="_blank" rel="noopener noreferrer" class="btn-nav">
+            📍 Google Maps 導航
+          </a>
+        </article>
+
+        <!-- 拿坡里 6 -->
+        <article class="guide-card" data-category="naples">
+          <div class="guide-names">
+            <div class="guide-cn">那不勒斯王宮</div>
+            <div class="guide-native">Palazzo Reale di Napoli</div>
+          </div>
+          <div class="guide-desc">
+            17 世紀波旁王朝兩西西里王國統治者宮邸。長達 169 公尺的宮殿正立面壁龕內，安放著由翁貝托一世指派雕塑的八尊歷史統治者大理石雕像，步行返回碼頭僅需 10 分鐘。
+          </div>
+          <div class="guide-highlight">特色亮點：波旁王朝王宮、八尊歷代統治者雕像外立面。</div>
+          <a href="https://www.google.com/maps/search/?api=1&query=Palazzo+Reale+di+Napoli" target="_blank" rel="noopener noreferrer" class="btn-nav">
+            📍 Google Maps 導航
+          </a>
+        </article>
+
+        <!-- 碼頭 1 -->
+        <article class="guide-card" data-category="transit">
+          <div class="guide-names">
+            <div class="guide-cn">拿坡里郵輪碼頭</div>
+            <div class="guide-native">Stazione Marittima di Napoli</div>
+          </div>
+          <div class="guide-desc">
+            座落於安茹碼頭（Molo Angioino），下船步出大廳即銜接市政廳廣場，是前往龐貝與市區步行快閃的起點與終點站。
+          </div>
+          <div class="guide-highlight">特色亮點：現代化客運樞紐、直通市政廳廣場。</div>
+          <a href="https://www.google.com/maps/search/?api=1&query=Stazione+Marittima+di+Napoli" target="_blank" rel="noopener noreferrer" class="btn-nav">
+            📍 Google Maps 導航
+          </a>
+        </article>
+
+        <!-- 碼頭 2 -->
+        <article class="guide-card" data-category="transit">
+          <div class="guide-names">
+            <div class="guide-cn">貝維雷洛碼頭</div>
+            <div class="guide-native">Molo Beverello</div>
+          </div>
+          <div class="guide-desc">
+            緊鄰新堡與郵輪大樓的重要渡輪碼頭，專門停靠前往卡布里島、伊斯基亞島及索倫托半島的高速水翼船（Aliscafi）。
+          </div>
+          <div class="guide-highlight">特色亮點：水翼快船樞紐、遠眺維蘇威海灣。</div>
+          <a href="https://www.google.com/maps/search/?api=1&query=Molo+Beverello+Napoli" target="_blank" rel="noopener noreferrer" class="btn-nav">
+            📍 Google Maps 導航
+          </a>
+        </article>
+
+      </div>
+    </section>
+
+    <!-- Tab 4: 預約錦囊 -->
+    <section id="tab-checklist" class="tab-view">
+      
+      <div class="checklist-section">
+        <div class="section-headline">
+          <span>🚢</span> 返船安全與防呆檢核
+        </div>
+
+        <div class="check-item" onclick="toggleCheckItem(this, 'day3_safe_return')">
+          <div class="check-box"></div>
+          <div>
+            <div class="check-text-title">19:00 前必須抵達客運碼頭大樓</div>
+            <div class="check-text-desc">郵輪 20:00 啟航，最後登船截止（All Aboard）為 19:15。碼頭安檢排隊耗時，19:00 前過 X 光機最保險。</div>
+          </div>
+        </div>
+
+        <div class="check-item" onclick="toggleCheckItem(this, 'day3_id_card')">
+          <div class="check-box"></div>
+          <div>
+            <div class="check-text-title">隨身證件與船卡核對</div>
+            <div class="check-text-desc">離船請備妥郵輪房卡（Cruise Card）與護照影本，返港管制口必須出示船卡。</div>
+          </div>
+        </div>
+
+        <div class="check-item" onclick="toggleCheckItem(this, 'day3_shoes')">
+          <div class="check-box"></div>
+          <div>
+            <div class="check-text-title">龐貝古城穿著耐磨厚底鞋</div>
+            <div class="check-text-desc">龐貝為 2000 年玄武岩巨石路面，石縫深且光滑，嚴禁穿高跟鞋或薄底平底鞋。</div>
+          </div>
+        </div>
+
+        <div class="check-item" onclick="toggleCheckItem(this, 'day3_alarm')">
+          <div class="check-box"></div>
+          <div>
+            <div class="check-text-title">設定 16:50 龐貝集合鬧鐘</div>
+            <div class="check-text-desc">龐貝佔地 66 公頃容易迷路，自由活動請緊鄰主幹道，16:50 鬧鐘提醒走向停車場。</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="checklist-section">
+        <div class="section-headline">
+          <span>🍕</span> 在地快食與文化秘訣
+        </div>
+        <div class="check-text-desc" style="margin-bottom: 8px;">
+          • <strong>外帶炸披薩省時策略：</strong>傳統坐席披薩店通常 19:00 或 19:30 才開門且大排長龍。Zia Esterina 專營外帶炸披薩，現炸 3-5 分鐘即可帶走，口感外酥脆內爆漿，完全不耽誤返船時間！
+        </div>
+        <div class="check-text-desc" style="margin-bottom: 8px;">
+          • <strong>Gambrinus 吧台站飲文化 (Al Banco)：</strong>站在大理石吧台喝濃縮咖啡與吃甜點，價格通常只有內用座位服務費（Coperto）的 1/3。先在收銀台結帳再拿單給吧台師傅。
+        </div>
+        <div class="check-text-desc">
+          • <strong>防竊提醒：</strong>拿坡里市區人潮密集，手機切勿放後口袋，後背包請一律前背，防範街頭扒手。
+        </div>
+      </div>
+
+    </section>
+
+  </main>
+
+  <!-- 底部固定 5 鍵 Tab Bar -->
+  <nav class="tab-bar">
+    <a href="index.html" class="tab-btn">
+      <svg viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
+      <span>首頁</span>
+    </a>
+    <button class="tab-btn active" onclick="switchTab('tab-timeline', this)">
+      <svg viewBox="0 0 24 24"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z"/></svg>
+      <span>行程</span>
+    </button>
+    <button class="tab-btn" onclick="switchTab('tab-map', this)">
+      <svg viewBox="0 0 24 24"><path d="M20.5 3l-.16.03L15 5.1 9 3 3.36 4.9c-.21.07-.36.25-.36.48V20.5c0 .28.22.5.5.5l.16-.03L9 18.9l6 2.1 5.64-1.9c.21-.07.36-.25.36-.48V3.5c0-.28-.22-.5-.5-.5zM15 19l-6-2.11V5l6 2.11V19z"/></svg>
+      <span>地圖</span>
+    </button>
+    <button class="tab-btn" onclick="switchTab('tab-guide', this)">
+      <svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+      <span>景點</span>
+    </button>
+    <button class="tab-btn" onclick="switchTab('tab-checklist', this)">
+      <svg viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-9 14l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
+      <span>錦囊</span>
+    </button>
+  </nav>
+
+  <script>
+    function switchTab(tabId, btn) {
+      document.querySelectorAll('.tab-view').forEach(function(view) {
+        view.classList.remove('active');
+      });
+      document.querySelectorAll('.tab-bar .tab-btn').forEach(function(item) {
+        item.classList.remove('active');
+      });
+
+      const target = document.getElementById(tabId);
+      if (target) {
+        target.classList.add('active');
+      }
+      btn.classList.add('active');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function filterPlaces(category, btn) {
+      document.querySelectorAll('.cat-pill').forEach(function(el) {
+        el.classList.remove('active');
+      });
+      btn.classList.add('active');
+
+      const cards = document.querySelectorAll('.guide-card');
+      cards.forEach(function(card) {
+        if (category === 'all' || card.getAttribute('data-category') === category) {
+          card.style.display = 'block';
+        } else {
+          card.style.display = 'none';
+        }
+      });
+    }
+
+    function toggleCheckItem(el, storageKey) {
+      el.classList.toggle('checked');
+      const isChecked = el.classList.contains('checked');
+      localStorage.setItem(storageKey, isChecked);
+    }
+
+    document.addEventListener('DOMContentLoaded', function() {
+      document.querySelectorAll('.check-item').forEach(function(item) {
+        const onclickAttr = item.getAttribute('onclick');
+        if (onclickAttr) {
+          const match = onclickAttr.match(/'([^']+)'/);
+          if (match && match[1]) {
+            const saved = localStorage.getItem(match[1]);
+            if (saved === 'true') {
+              item.classList.add('checked');
+            }
+          }
+        }
+      });
+    });
+  </script>
+</body>
+</html>

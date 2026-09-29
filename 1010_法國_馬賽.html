@@ -1,0 +1,1075 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, maximum-scale=1.0, user-scalable=no">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="theme-color" content="#0F4C81">
+  <title>Day 8 · 馬賽離船日 | MSC World Europa</title>
+  <style>
+    :root {
+      --primary: #0F4C81;
+      --primary-dark: #0A3258;
+      --primary-light: #EBF3FA;
+      --accent: #D97706;
+      --accent-light: #FEF3C7;
+      --danger: #DC2626;
+      --danger-light: #FEE2E2;
+      --success: #059669;
+      --success-light: #D1FAE5;
+      --bg-system: #F4F6F9;
+      --card-bg: #FFFFFF;
+      --text-main: #0F172A;
+      --text-sub: #475569;
+      --text-muted: #94A3B8;
+      --border-color: #E2E8F0;
+      --nav-glass: rgba(255, 255, 255, 0.88);
+      --nav-border: rgba(0, 0, 0, 0.08);
+      --radius-sm: 8px;
+      --radius-md: 14px;
+      --radius-lg: 20px;
+      --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.05);
+      --shadow-md: 0 4px 14px rgba(15, 23, 42, 0.08);
+      --safe-top: env(safe-area-inset-top, 0px);
+      --safe-bottom: env(safe-area-inset-bottom, 0px);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      touch-action: manipulation;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Pro Display", "PingFang TC", "Helvetica Neue", Arial, sans-serif;
+      background-color: var(--bg-system);
+      color: var(--text-main);
+      line-height: 1.5;
+      padding-top: calc(var(--safe-top) + 90px);
+      padding-bottom: calc(var(--safe-bottom) + 72px);
+      -webkit-font-smoothing: antialiased;
+    }
+
+    header.city-header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      background: var(--nav-glass);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--nav-border);
+      padding: calc(var(--safe-top) + 8px) 16px 8px;
+    }
+
+    .header-nav-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 6px;
+    }
+
+    .btn-back-home {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--primary);
+      text-decoration: none;
+      background: var(--primary-light);
+      padding: 4px 10px;
+      border-radius: 20px;
+    }
+
+    .header-accent-pill {
+      font-size: 11px;
+      font-weight: 700;
+      background: var(--accent-light);
+      color: var(--accent);
+      padding: 4px 9px;
+      border-radius: 20px;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .header-nav-bottom {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .city-heading {
+      font-size: 18px;
+      font-weight: 800;
+      color: var(--text-main);
+      display: flex;
+      align-items: baseline;
+      gap: 6px;
+    }
+
+    .city-heading small {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--text-muted);
+    }
+
+    .port-cross-nav {
+      display: flex;
+      gap: 6px;
+    }
+
+    .btn-port-link {
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--primary);
+      text-decoration: none;
+      background: #F1F5F9;
+      padding: 3px 8px;
+      border-radius: 6px;
+      display: inline-flex;
+      align-items: center;
+      gap: 3px;
+    }
+
+    main.city-main {
+      padding: 12px 16px;
+      max-width: 640px;
+      margin: 0 auto;
+    }
+
+    .tab-view {
+      display: none;
+      animation: fadeIn 0.22s ease-out;
+    }
+
+    .tab-view.active {
+      display: block;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(4px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .urgent-banner {
+      background: linear-gradient(135deg, var(--primary) 0%, #1a629e 100%);
+      color: #fff;
+      border-radius: var(--radius-md);
+      padding: 14px 16px;
+      margin-bottom: 16px;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .urgent-title {
+      font-size: 13.5px;
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      margin-bottom: 5px;
+    }
+
+    .urgent-desc {
+      font-size: 12px;
+      line-height: 1.5;
+      opacity: 0.94;
+    }
+
+    .timeline {
+      position: relative;
+      padding-left: 20px;
+    }
+
+    .timeline::before {
+      content: "";
+      position: absolute;
+      left: 6px;
+      top: 14px;
+      bottom: 20px;
+      width: 2px;
+      background: #CBD5E1;
+    }
+
+    .timeline-node {
+      position: relative;
+      margin-bottom: 18px;
+    }
+
+    .timeline-dot {
+      position: absolute;
+      left: -20px;
+      top: 14px;
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      background: var(--card-bg);
+      border: 3px solid var(--primary);
+      z-index: 1;
+    }
+
+    .timeline-dot.danger { border-color: var(--danger); }
+    .timeline-dot.accent { border-color: var(--accent); }
+    .timeline-dot.success { border-color: var(--success); }
+
+    .card {
+      background: var(--card-bg);
+      border-radius: var(--radius-md);
+      padding: 14px 16px;
+      box-shadow: var(--shadow-sm);
+      border: 1px solid var(--border-color);
+    }
+
+    .card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 6px;
+    }
+
+    .card-time {
+      font-size: 12.5px;
+      font-weight: 800;
+      color: var(--primary);
+    }
+
+    .card-tag {
+      font-size: 10px;
+      font-weight: 700;
+      padding: 2px 7px;
+      border-radius: 4px;
+      background: #F1F5F9;
+      color: var(--text-sub);
+    }
+
+    .card-tag.transit { background: #E0F2FE; color: #0369A1; }
+    .card-tag.luggage { background: #FEF3C7; color: #B45309; }
+    .card-tag.food { background: #FEE2E2; color: #B91C1C; }
+    .card-tag.sight { background: #DCFCE7; color: #15803D; }
+
+    .card-title {
+      font-size: 15px;
+      font-weight: 800;
+      color: var(--text-main);
+      margin-bottom: 5px;
+    }
+
+    .card-body {
+      font-size: 12.5px;
+      color: var(--text-sub);
+      line-height: 1.5;
+      margin-bottom: 10px;
+    }
+
+    .btn-nav {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      background: #F8FAFC;
+      color: var(--primary);
+      text-decoration: none;
+      font-size: 12px;
+      font-weight: 700;
+      padding: 6px 12px;
+      border-radius: var(--radius-sm);
+      border: 1px solid #BAE6FD;
+      transition: background 0.15s;
+    }
+
+    .btn-nav:active {
+      background: #E0F2FE;
+    }
+
+    .btn-full-map {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      background: linear-gradient(135deg, var(--success) 0%, #047857 100%);
+      color: #fff;
+      font-size: 14px;
+      font-weight: 700;
+      padding: 12px 16px;
+      border-radius: var(--radius-md);
+      text-decoration: none;
+      margin-bottom: 12px;
+      box-shadow: 0 4px 10px rgba(5, 150, 105, 0.25);
+    }
+
+    .map-frame-box {
+      width: 100%;
+      height: 62vh;
+      min-height: 400px;
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      border: 1px solid var(--border-color);
+      box-shadow: var(--shadow-sm);
+      background: #E2E8F0;
+    }
+
+    .map-frame-box iframe {
+      width: 100%;
+      height: 100%;
+      border: 0;
+    }
+
+    .filter-scroll-wrapper {
+      margin: -4px -16px 14px;
+      padding: 0 16px;
+      overflow-x: auto;
+      white-space: nowrap;
+      scrollbar-width: none;
+    }
+    .filter-scroll-wrapper::-webkit-scrollbar { display: none; }
+
+    .category-pills {
+      display: inline-flex;
+      gap: 8px;
+    }
+
+    .cat-pill {
+      font-size: 12px;
+      font-weight: 700;
+      padding: 6px 13px;
+      border-radius: 20px;
+      background: #FFFFFF;
+      border: 1px solid var(--border-color);
+      color: var(--text-sub);
+      cursor: pointer;
+    }
+
+    .cat-pill.active {
+      background: var(--primary);
+      color: #FFFFFF;
+      border-color: var(--primary);
+    }
+
+    .guide-card {
+      background: var(--card-bg);
+      border-radius: var(--radius-md);
+      padding: 14px 16px;
+      margin-bottom: 12px;
+      border: 1px solid var(--border-color);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .guide-names {
+      margin-bottom: 6px;
+    }
+
+    .guide-cn {
+      font-size: 15.5px;
+      font-weight: 800;
+      color: var(--text-main);
+    }
+
+    .guide-native {
+      font-size: 12px;
+      color: var(--text-muted);
+      font-weight: 500;
+    }
+
+    .guide-desc {
+      font-size: 12.5px;
+      color: var(--text-sub);
+      line-height: 1.55;
+      margin-bottom: 8px;
+    }
+
+    .guide-highlight {
+      background: #F8FAFC;
+      border-left: 3px solid var(--primary);
+      padding: 6px 10px;
+      font-size: 11.5px;
+      color: var(--primary);
+      margin-bottom: 10px;
+      border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+      font-weight: 600;
+    }
+
+    .checklist-section {
+      background: var(--card-bg);
+      border-radius: var(--radius-md);
+      padding: 16px;
+      margin-bottom: 14px;
+      border: 1px solid var(--border-color);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .section-headline {
+      font-size: 14.5px;
+      font-weight: 800;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      color: var(--text-main);
+      border-bottom: 1px solid var(--border-color);
+      padding-bottom: 8px;
+    }
+
+    .check-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      margin-bottom: 12px;
+      cursor: pointer;
+    }
+    .check-item:last-child { margin-bottom: 0; }
+
+    .check-box {
+      width: 19px;
+      height: 19px;
+      border-radius: 5px;
+      border: 1.5px solid var(--text-muted);
+      margin-top: 1px;
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.15s ease;
+    }
+
+    .check-item.checked .check-box {
+      background: var(--success);
+      border-color: var(--success);
+    }
+
+    .check-item.checked .check-box::after {
+      content: "✔";
+      color: #fff;
+      font-size: 11px;
+    }
+
+    .check-item.checked .check-text-title {
+      text-decoration: line-through;
+      color: var(--text-muted);
+    }
+
+    .check-text-title {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--text-main);
+    }
+
+    .check-text-desc {
+      font-size: 12px;
+      color: var(--text-sub);
+      line-height: 1.45;
+      margin-top: 2px;
+    }
+
+    nav.tab-bar {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      background: var(--nav-glass);
+      backdrop-filter: blur(25px);
+      -webkit-backdrop-filter: blur(25px);
+      border-top: 1px solid var(--nav-border);
+      padding-bottom: var(--safe-bottom);
+      height: calc(var(--safe-bottom) + 54px);
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      max-width: 640px;
+      margin: 0 auto;
+    }
+
+    .tab-btn {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      background: none;
+      border: none;
+      padding: 4px 0 2px;
+      color: var(--text-muted);
+      cursor: pointer;
+      text-decoration: none;
+    }
+
+    .tab-btn svg {
+      width: 22px;
+      height: 22px;
+      margin-bottom: 2px;
+      fill: currentColor;
+    }
+
+    .tab-btn span {
+      font-size: 10px;
+      font-weight: 700;
+    }
+
+    .tab-btn.active {
+      color: var(--primary);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- 頂部 Sticky 導航區 -->
+  <header class="city-header">
+    <div class="header-nav-top">
+      <a href="index.html" class="btn-back-home">⌂ 所有行程</a>
+      <span class="header-accent-pill">✈ 17:30 起飛 (離船返程)</span>
+    </div>
+    <div class="header-nav-bottom">
+      <div class="city-heading">
+        馬賽 Marseille
+        <small>Day 8 · 10/10 (五)</small>
+      </div>
+      <div class="port-cross-nav">
+        <a href="1009_西班牙_巴塞隆納.html" class="btn-port-link">← 上一站</a>
+        <!-- 最後一天無下一站 -->
+      </div>
+    </div>
+  </header>
+
+  <!-- 主要內容區 -->
+  <main class="city-main">
+
+    <!-- Tab 1: 行程時間軸 -->
+    <section id="tab-timeline" class="tab-view active">
+      
+      <div class="urgent-banner">
+        <div class="urgent-title">✈️ 離船返程：行李中繼 ＆ 預約馬賽魚湯</div>
+        <div class="urgent-desc">
+          • 08:00 靠港提領行李，直奔聖夏爾火車站寄放大型行李，轉為輕裝漫步舊港。<br>
+          • 12:00 Chez Madie 傳統二道式馬賽魚湯（已預約，需於 13:45 前用畢）。<br>
+          • 搭乘 14:40 火車站發車之 L91 快線巴士，15:15 抵達機場辦理託運、退稅與登機！
+        </div>
+      </div>
+
+      <div class="timeline">
+
+        <!-- 08:00 - 09:15 -->
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <div class="card">
+            <div class="card-header">
+              <span class="card-time">08:00 – 09:15</span>
+              <span class="card-tag luggage">碼頭下船</span>
+            </div>
+            <div class="card-title">郵輪靠港與提領行李</div>
+            <div class="card-body">
+              依序辦理離船手續，前往行李大廳提取所有托運的大型行李箱。
+            </div>
+            <a href="https://www.google.com/maps/search/?api=1&query=Marseille+Cruise+Terminal+MPCC" target="_blank" rel="noopener noreferrer" class="btn-nav">
+              📍 導航至郵輪碼頭
+            </a>
+          </div>
+        </div>
+
+        <!-- 09:15 - 09:45 -->
+        <div class="timeline-item">
+          <div class="timeline-dot accent"></div>
+          <div class="card">
+            <div class="card-header">
+              <span class="card-time">09:15 – 09:45</span>
+              <span class="card-tag transit">專車接駁</span>
+            </div>
+            <div class="card-title">直奔火車站寄放大型行李</div>
+            <div class="card-body">
+              在碼頭搭計程車或叫 Uber 直達聖夏爾火車站（約 20 分鐘）。於站內官方寄物處（La Bag Mobile）完成寄放，轉為輕裝！
+            </div>
+            <a href="https://www.google.com/maps/search/?api=1&query=Gare+de+Marseille+Saint+Charles" target="_blank" rel="noopener noreferrer" class="btn-nav">
+              📍 導航至火車站
+            </a>
+          </div>
+        </div>
+
+        <!-- 09:45 - 10:00 -->
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <div class="card">
+            <div class="card-header">
+              <span class="card-time">09:45 – 10:00</span>
+              <span class="card-tag transit">地鐵轉乘</span>
+            </div>
+            <div class="card-title">地鐵 M1 線直達舊港</div>
+            <div class="card-body">
+              於火車站 B1 直接持 Apple Pay/感應信用卡感應過閘門（單程 €1.7），搭往 La Rose 方向僅 1 站（約 2 分鐘）即達 Vieux-Port 站。
+            </div>
+          </div>
+        </div>
+
+        <!-- 10:00 - 11:55 -->
+        <div class="timeline-item">
+          <div class="timeline-dot success"></div>
+          <div class="card">
+            <div class="card-header">
+              <span class="card-time">10:00 – 11:55</span>
+              <span class="card-tag sight">順坡漫步</span>
+            </div>
+            <div class="card-title">舊港與老城漫步路線</div>
+            <div class="card-body">
+              1. <strong>鏡面遮陽棚</strong>拍照留念<br>
+              2. 漫步 <strong>Le Panier 籃筐老街</strong>彩繪階梯與肥皂店<br>
+              3. 造訪 <strong>老濟貧院</strong>巴洛克拱廊<br>
+              4. 漫步至臨海 <strong>馬賽主教座堂</strong>遠眺地中海<br>
+              5. 經 <strong>朗什廣場</strong>順坡走下市政廳
+            </div>
+            <a href="https://www.google.com/maps/search/?api=1&query=L%27Ombriere+du+Vieux+Port+Marseille" target="_blank" rel="noopener noreferrer" class="btn-nav">
+              📍 導航至鏡面遮陽棚
+            </a>
+          </div>
+        </div>
+
+        <!-- 12:00 - 13:45 -->
+        <div class="timeline-item">
+          <div class="timeline-dot accent"></div>
+          <div class="card" style="border-left: 4px solid var(--accent);">
+            <div class="card-header">
+              <span class="card-time" style="color:var(--accent);">12:00 – 13:45</span>
+              <span class="card-tag food">已預訂 12:00</span>
+            </div>
+            <div class="card-title">Chez Madie 傳統馬賽魚湯</div>
+            <div class="card-body">
+              女主廚掌勺 30 年名店。品嘗正統二道式魚湯（濃郁岩魚湯佐 Rouille 辣醬烤麵包 ➔ 鮮魚切盤佐馬鈴薯）。入座時可告知需於 13:45 前用畢。
+            </div>
+            <a href="https://www.google.com/maps/search/?api=1&query=Chez+Madie+Les+Galinettes+Marseille" target="_blank" rel="noopener noreferrer" class="btn-nav">
+              📍 導航至 Chez Madie
+            </a>
+          </div>
+        </div>
+
+        <!-- 13:45 - 14:25 -->
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <div class="card">
+            <div class="card-header">
+              <span class="card-time">13:45 – 14:25</span>
+              <span class="card-tag transit">採買回站</span>
+            </div>
+            <div class="card-title">伴手禮採買 ➔ 返回火車站</div>
+            <div class="card-body">
+              購買正宗馬賽肥皂，或步行 5 分鐘至老佛爺百貨/Centre Bourse 採買。隨後於 Vieux-Port 搭地鐵 M1 返回聖夏爾車站。
+            </div>
+            <a href="https://www.google.com/maps/search/?api=1&query=Galeries+Lafayette+Marseille+Bourse" target="_blank" rel="noopener noreferrer" class="btn-nav">
+              📍 導航至老佛爺百貨
+            </a>
+          </div>
+        </div>
+
+        <!-- 14:25 - 14:40 -->
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <div class="card">
+            <div class="card-header">
+              <span class="card-time">14:25 – 14:40</span>
+              <span class="card-tag luggage">取回行李</span>
+            </div>
+            <div class="card-title">提領行李 ➔ 前往客運站</div>
+            <div class="card-body">
+              於車站寄存處憑單取回大件行李，穿過車站大廳至北側長途客運站（Gare Routière）。
+            </div>
+          </div>
+        </div>
+
+        <!-- 14:40 - 15:15 -->
+        <div class="timeline-item">
+          <div class="timeline-dot success"></div>
+          <div class="card">
+            <div class="card-header">
+              <span class="card-time">14:40 – 15:15</span>
+              <span class="card-tag transit">機場直達</span>
+            </div>
+            <div class="card-title">機場快線直達巴士 (L91)</div>
+            <div class="card-body">
+              搭乘 Navette 130 / L91 直達巴士，高速直奔機場航廈（單程票約 €10，現場直接刷卡即可）。
+            </div>
+          </div>
+        </div>
+
+        <!-- 15:15 - 17:30 -->
+        <div class="timeline-item">
+          <div class="timeline-dot accent"></div>
+          <div class="card">
+            <div class="card-header">
+              <span class="card-time">15:15 – 17:30</span>
+              <span class="card-tag transit">17:30 起飛</span>
+            </div>
+            <div class="card-title">機場託運、退稅與登機</div>
+            <div class="card-body">
+              預留 2 小時 15 分鐘：辦理託運手續、PABLO 機台掃描退稅、通過安檢，登機返程！
+            </div>
+            <a href="https://www.google.com/maps/search/?api=1&query=Aeroport+Marseille+Provence" target="_blank" rel="noopener noreferrer" class="btn-nav">
+              📍 導航至馬賽機場
+            </a>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Tab 2: 景點地圖 -->
+    <section id="tab-map" class="tab-view">
+      <a href="https://www.google.com/maps/d/viewer?mid=1gVs8Rvpspg-LIsL9lfQB9ptPY_nlVnU" target="_blank" rel="noopener noreferrer" class="btn-full-map">
+        📲 在 Google Maps App 全螢幕開啟完整地圖
+      </a>
+
+      <div class="map-frame-box">
+        <iframe 
+          src="https://www.google.com/maps/d/embed?mid=1gVs8Rvpspg-LIsL9lfQB9ptPY_nlVnU" 
+          allowfullscreen="" 
+          loading="lazy">
+        </iframe>
+      </div>
+    </section>
+
+    <!-- Tab 3: 景點導覽 (包含全部 15 個完整地點) -->
+    <section id="tab-guide" class="tab-view">
+      
+      <div class="filter-scroll-wrapper">
+        <div class="category-pills">
+          <button class="cat-pill active" onclick="filterPlaces('all', this)">全部 (15)</button>
+          <button class="cat-pill" onclick="filterPlaces('dining', this)">預訂餐廳 (1)</button>
+          <button class="cat-pill" onclick="filterPlaces('oldtown', this)">舊港老城 (8)</button>
+          <button class="cat-pill" onclick="filterPlaces('shopping', this)">百貨購物 (3)</button>
+          <button class="cat-pill" onclick="filterPlaces('transit', this)">交通樞紐 (3)</button>
+        </div>
+      </div>
+
+      <div id="places-list">
+
+        <!-- 預訂餐廳 -->
+        <article class="guide-card" data-category="dining">
+          <div class="guide-names">
+            <div class="guide-cn">瑪迪與小母雞普羅旺斯海鮮餐館</div>
+            <div class="guide-native">Chez Madie Les Galinettes</div>
+          </div>
+          <div class="guide-desc">
+            女主廚 Delphine Roux 掌勺近三十年老店，坐落於舊港市政廳旁。主打正統二道式馬賽魚湯（Bouillabaisse en deux temps）：濃郁岩魚湯佐 Rouille 蒜辣醬烤麵包，接著呈上當季現煮鮮魚與馬鈴薯。
+          </div>
+          <div class="guide-highlight">特色亮點：12:00 已預約、正統二道式馬賽魚湯。</div>
+          <a href="https://www.google.com/maps/search/?api=1&query=Chez+Madie+Les+Galinettes+Marseille" target="_blank" rel="noopener noreferrer" class="btn-nav">📍 Google Maps 導航</a>
+        </article>
+
+        <!-- 舊港與老城區 (8) -->
+        <article class="guide-card" data-category="oldtown">
+          <div class="guide-names">
+            <div class="guide-cn">舊港鏡面遮陽棚</div>
+            <div class="guide-native">L'Ombrière du Vieux-Port</div>
+          </div>
+          <div class="guide-desc">
+            由英國建築大師諾曼·福斯特打造。薄型拋光不銹鋼鏡面頂棚將碼頭帆船波光、往來行旅與晴空顛倒映照，是舊港最具創意的拍照打卡點。
+          </div>
+          <div class="guide-highlight">特色亮點：福斯特大師作品、鏡面天地倒影打卡地標。</div>
+          <a href="https://www.google.com/maps/search/?api=1&query=L%27Ombriere+du+Vieux+Port+Marseille" target="_blank" rel="noopener noreferrer" class="btn-nav">📍 Google Maps 導航</a>
+        </article>
+
+        <article class="guide-card" data-category="oldtown">
+          <div class="guide-names">
+            <div class="guide-cn">籃筐老城區</div>
+            <div class="guide-native">Le Panier</div>
+          </div>
+          <div class="guide-desc">
+            馬賽歷史最悠久的核心發祥地，始建於西元前 600 年。街區依山緩建，彩色老屋、石階巷弄間滿布生動彩繪壁畫、手作工坊與天然馬賽肥皂老鋪。
+          </div>
+          <div class="guide-highlight">特色亮點：彩色老屋彩繪階梯、馬賽香皂創始街區。</div>
+          <a href="https://www.google.com/maps/search/?api=1&query=Le+Panier+Marseille" target="_blank" rel="noopener noreferrer" class="btn-nav">📍 Google Maps 導航</a>
+        </article>
+
+        <article class="guide-card" data-category="oldtown">
+          <div class="guide-names">
+            <div class="guide-cn">老濟貧院文化中心</div>
+            <div class="guide-native">Centre de la Vieille Charité</div>
+          </div>
+          <div class="guide-desc">
+            建於 17 世紀路易十四統治時期，由建築師皮埃爾·普吉設計。三層淡粉色石灰岩拱廊環抱中央壯麗的橢圓形圓頂禮拜堂，環境靜謐雅致。
+          </div>
+          <div class="guide-highlight">特色亮點：三層粉石灰岩拱廊、巴洛克穹頂禮拜堂。</div>
+          <a href="https://www.google.com/maps/search/?api=1&query=Centre+de+la+Vieille+Charite+Marseille" target="_blank" rel="noopener noreferrer" class="btn-nav">📍 Google Maps 導航</a>
+        </article>
+
+        <article class="guide-card" data-category="oldtown">
+          <div class="guide-names">
+            <div class="guide-cn">馬賽主教座堂</div>
+            <div class="guide-native">Cathédrale La Major</div>
+          </div>
+          <div class="guide-desc">
+            建於 19 世紀拿破崙三世時期。外觀以卡拉拉白大理石與佛羅倫斯綠大理石交替砌築出標誌性的斑馬條紋立面，殿外臨海廣場可遠眺蔚藍地中海。
+          </div>
+          <div class="guide-highlight">特色亮點：雙色斑馬紋大理石、地中海臨海氣魄。</div>
+          <a href="https://www.google.com/maps/search/?api=1&query=Cathedrale+La+Major+Marseille" target="_blank" rel="noopener noreferrer" class="btn-nav">📍 Google Maps 導航</a>
+        </article>
+
+        <article class="guide-card" data-category="oldtown">
+          <div class="guide-names">
+            <div class="guide-cn">朗什廣場</div>
+            <div class="guide-native">Place de Lenche</div>
+          </div>
+          <div class="guide-desc">
+            相傳建於古希臘市集遺址之上，綠蔭掩映，環繞著露天咖啡館與手工冰淇淋店。廣場開闊處可越過港灣遠眺對岸山頂守護聖母聖殿。
+          </div>
+          <div class="guide-highlight">特色亮點：古希臘市集遺址、遠眺守護聖母殿視角。</div>
+          <a href="https://www.google.com/maps/search/?api=1&query=Place+de+Lenche+Marseille" target="_blank" rel="noopener noreferrer" class="btn-nav">📍 Google Maps 導航</a>
+        </article>
+
+        <article class="guide-card" data-category="oldtown">
+          <div class="guide-names">
+            <div class="guide-cn">馬賽市政廳</div>
+            <div class="guide-native">Hôtel de Ville de Marseille</div>
+          </div>
+          <div class="guide-desc">
+            建於 17 世紀路易十四時代的熱那亞巴洛克風格建築，在二戰大轟炸中奇蹟倖存。門前為開闊石板水岸步道，步行至 Chez Madie 僅需 1 分鐘。
+          </div>
+          <div class="guide-highlight">特色亮點：路易十四熱那亞巴洛克立面、緊鄰魚湯餐廳。</div>
+          <a href="https://www.google.com/maps/search/?api=1&query=Hotel+de+Ville+Marseille" target="_blank" rel="noopener noreferrer" class="btn-nav">📍 Google Maps 導航</a>
+        </article>
+
+        <article class="guide-card" data-category="oldtown">
+          <div class="guide-names">
+            <div class="guide-cn">歐洲及地中海文明博物館與聖若望堡</div>
+            <div class="guide-native">MuCEM & Fort Saint-Jean</div>
+          </div>
+          <div class="guide-desc">
+            黑色混凝土鏤空屏風建築，以懸空海景天橋串聯 17 世紀路易十四時期的軍事要塞聖若望堡，呈現前衛美學與古老堡壘的完美對話。
+          </div>
+          <div class="guide-highlight">特色亮點：2013 歐洲文化之都地標、跨海懸空天橋步道。</div>
+          <a href="https://www.google.com/maps/search/?api=1&query=MuCEM+Marseille" target="_blank" rel="noopener noreferrer" class="btn-nav">📍 Google Maps 導航</a>
+        </article>
+
+        <article class="guide-card" data-category="oldtown">
+          <div class="guide-names">
+            <div class="guide-cn">守護聖母聖殿</div>
+            <div class="guide-native">Basilique Notre-Dame de la Garde</div>
+          </div>
+          <div class="guide-desc">
+            聳立於海拔 149 公尺石灰岩山巔，金色聖母抱子像守護航海者，戶外露台提供 360 度俯瞰整座馬賽城、舊港與海灣的壯麗全景。
+          </div>
+          <div class="guide-highlight">特色亮點：馬賽城市精神象徵、360度制高海灣全景。</div>
+          <a href="https://www.google.com/maps/search/?api=1&query=Basilique+Notre-Dame+de+la+Garde" target="_blank" rel="noopener noreferrer" class="btn-nav">📍 Google Maps 導航</a>
+        </article>
+
+        <!-- 百貨購物 (3) -->
+        <article class="guide-card" data-category="shopping">
+          <div class="guide-names">
+            <div class="guide-cn">馬賽老佛爺百貨 (證券交易所門市)</div>
+            <div class="guide-native">Galeries Lafayette Marseille Bourse</div>
+          </div>
+          <div class="guide-desc">
+            法國百年高級百貨公司，距舊港步行僅需 3 分鐘。館內匯聚國際精品、法式美妝香氛與皮件，設有專用退稅服務處。
+          </div>
+          <div class="guide-highlight">特色亮點：精品退稅、法式美妝香氛專櫃。</div>
+          <a href="https://www.google.com/maps/search/?api=1&query=Galeries+Lafayette+Marseille+Bourse" target="_blank" rel="noopener noreferrer" class="btn-nav">📍 Google Maps 導航</a>
+        </article>
+
+        <article class="guide-card" data-category="shopping">
+          <div class="guide-names">
+            <div class="guide-cn">證券交易所購物中心</div>
+            <div class="guide-native">Centre Bourse</div>
+          </div>
+          <div class="guide-desc">
+            與老佛爺百貨相連的大型多層室內商場，入駐文化電子商城 FNAC、流行服飾與大型超市，是採買伴手禮與普羅旺斯紅酒的好去處。
+          </div>
+          <div class="guide-highlight">特色亮點：室內大型商場、FNAC 電子生活館、大型超市。</div>
+          <a href="https://www.google.com/maps/search/?api=1&query=Centre+Bourse+Marseille" target="_blank" rel="noopener noreferrer" class="btn-nav">📍 Google Maps 導航</a>
+        </article>
+
+        <article class="guide-card" data-category="shopping">
+          <div class="guide-names">
+            <div class="guide-cn">港灣露台購物中心</div>
+            <div class="guide-native">Les Terrasses du Port</div>
+          </div>
+          <div class="guide-desc">
+            坐落於 Joliette 碼頭邊的高檔濱海商城，頂樓擁有長達 260 公尺的面海大露台，可一邊購物用餐、一邊俯瞰大型郵輪進出港口。
+          </div>
+          <div class="guide-highlight">特色亮點：260米海景觀景露台、200家國際品牌。</div>
+          <a href="https://www.google.com/maps/search/?api=1&query=Les+Terrasses+du+Port+Marseille" target="_blank" rel="noopener noreferrer" class="btn-nav">📍 Google Maps 導航</a>
+        </article>
+
+        <!-- 交通樞紐 (3) -->
+        <article class="guide-card" data-category="transit">
+          <div class="guide-names">
+            <div class="guide-cn">馬賽聖夏爾中央火車站</div>
+            <div class="guide-native">Gare de Marseille Saint-Charles</div>
+          </div>
+          <div class="guide-desc">
+            建於 1848 年的百年中央門戶，站內設有官方行李寄存處（La Bag Mobile），地下一樓直通地鐵 M1 線，北側客運站為直達機場快線（L91）發車站。
+          </div>
+          <div class="guide-highlight">特色亮點：行李寄放樞紐、L91機場快線巴士起點。</div>
+          <a href="https://www.google.com/maps/search/?api=1&query=Gare+de+Marseille+Saint+Charles" target="_blank" rel="noopener noreferrer" class="btn-nav">📍 Google Maps 導航</a>
+        </article>
+
+        <article class="guide-card" data-category="transit">
+          <div class="guide-names">
+            <div class="guide-cn">馬賽郵輪中心 (MPCC / Porte 4)</div>
+            <div class="guide-native">Marseille Cruise Terminal - MPCC</div>
+          </div>
+          <div class="guide-desc">
+            地中海大型豪華郵輪停靠點，位於馬賽市區西北約 7 至 8 公里處。下船領取大件行李後，建議直接搭乘計程車前往聖夏爾火車站寄物展開輕裝行程。
+          </div>
+          <div class="guide-highlight">特色亮點：郵輪終點下船碼頭、大件行李提取處。</div>
+          <a href="https://www.google.com/maps/search/?api=1&query=Marseille+Cruise+Terminal+MPCC" target="_blank" rel="noopener noreferrer" class="btn-nav">📍 Google Maps 導航</a>
+        </article>
+
+        <article class="guide-card" data-category="transit">
+          <div class="guide-names">
+            <div class="guide-cn">馬賽普羅旺斯機場</div>
+            <div class="guide-native">Aéroport Marseille Provence (MRS)</div>
+          </div>
+          <div class="guide-desc">
+            17:30 航班起飛地，位於市中心西北約 25 公里處。設有 PABLO 電子退稅機台、免稅店與南法特產店，請於 15:15 前抵達航廈。
+          </div>
+          <div class="guide-highlight">特色亮點：KLM 17:30 起飛、PABLO 電子退稅。</div>
+          <a href="https://www.google.com/maps/search/?api=1&query=Aeroport+Marseille+Provence" target="_blank" rel="noopener noreferrer" class="btn-nav">📍 Google Maps 導航</a>
+        </article>
+
+      </div>
+    </section>
+
+    <!-- Tab 4: 預約錦囊 -->
+    <section id="tab-checklist" class="tab-view">
+      
+      <div class="checklist-section">
+        <div class="section-headline">
+          <span>📌</span> 離船返程重要核對清單
+        </div>
+
+        <div class="check-item" onclick="toggleCheckItem(this, 'day8_madie_confirm')">
+          <div class="check-box"></div>
+          <div>
+            <div class="check-text-title">Chez Madie 餐廳確認</div>
+            <div class="check-text-desc">已預約 12:00 入座，並確認品嚐正統「Bouillabaisse（馬賽魚湯）」。</div>
+          </div>
+        </div>
+
+        <div class="check-item" onclick="toggleCheckItem(this, 'day8_luggage_drop')">
+          <div class="check-box"></div>
+          <div>
+            <div class="check-text-title">大件行李寄放策略</div>
+            <div class="check-text-desc">下船搭車至聖夏爾火車站內 La Bag Mobile 寄存；備案可使用 Bounce 或 Nannybag App。</div>
+          </div>
+        </div>
+
+        <div class="check-item" onclick="toggleCheckItem(this, 'day8_metro_card')">
+          <div class="check-box"></div>
+          <div>
+            <div class="check-text-title">地鐵一人一卡原則</div>
+            <div class="check-text-desc">馬賽地鐵支援 Apple Pay 與感應卡過閘（€1.7/程），注意不可多人共用同一張實體卡。</div>
+          </div>
+        </div>
+
+        <div class="check-item" onclick="toggleCheckItem(this, 'day8_pablo_tax')">
+          <div class="check-box"></div>
+          <div>
+            <div class="check-text-title">購物退稅提醒 (PABLO)</div>
+            <div class="check-text-desc">老佛爺百貨單日消費滿 €100 可索取退稅單，抵達機場安檢前至 PABLO 機台掃描條碼完成核銷。</div>
+          </div>
+        </div>
+
+        <div class="check-item" onclick="toggleCheckItem(this, 'day8_l91_bus')">
+          <div class="check-box"></div>
+          <div>
+            <div class="check-text-title">火車站直達機場快線 (L91)</div>
+            <div class="check-text-desc">班次密集（10-15 分一班），直達僅 25-30 分鐘，司機旁可直接信用卡感應購票（約 €10）。</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="checklist-section">
+        <div class="section-headline">
+          <span>✈️</span> 機場通關與安全邊際
+        </div>
+        <div class="check-text-desc" style="margin-bottom: 8px;">
+          • <strong>時間底線：</strong>荷航班機為 17:30 起飛，最遲務必於 15:15 前抵達馬賽機場 Terminal 1，為行李托運與海關退稅保留充分餘裕。
+        </div>
+        <div class="check-text-desc">
+          • <strong>隨身物品收納：</strong>在火車站取回大件行李時，務必將剛購買的馬賽肥皂液體或橄欖油等商品放入大行李箱托運，不可隨身帶上飛機。
+        </div>
+      </div>
+
+    </section>
+
+  </main>
+
+  <!-- 底部固定 5 鍵 Tab Bar -->
+  <nav class="tab-bar">
+    <a href="index.html" class="tab-btn">
+      <svg viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
+      <span>首頁</span>
+    </a>
+    <button class="tab-btn active" onclick="switchTab('tab-timeline', this)">
+      <svg viewBox="0 0 24 24"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z"/></svg>
+      <span>行程</span>
+    </button>
+    <button class="tab-btn" onclick="switchTab('tab-map', this)">
+      <svg viewBox="0 0 24 24"><path d="M20.5 3l-.16.03L15 5.1 9 3 3.36 4.9c-.21.07-.36.25-.36.48V20.5c0 .28.22.5.5.5l.16-.03L9 18.9l6 2.1 5.64-1.9c.21-.07.36-.25.36-.48V3.5c0-.28-.22-.5-.5-.5zM15 19l-6-2.11V5l6 2.11V19z"/></svg>
+      <span>地圖</span>
+    </button>
+    <button class="tab-btn" onclick="switchTab('tab-guide', this)">
+      <svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+      <span>景點</span>
+    </button>
+    <button class="tab-btn" onclick="switchTab('tab-checklist', this)">
+      <svg viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-9 14l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
+      <span>錦囊</span>
+    </button>
+  </nav>
+
+  <script>
+    function switchTab(tabId, btn) {
+      document.querySelectorAll('.tab-view').forEach(function(view) {
+        view.classList.remove('active');
+      });
+      document.querySelectorAll('.tab-bar .tab-btn').forEach(function(item) {
+        item.classList.remove('active');
+      });
+
+      const target = document.getElementById(tabId);
+      if (target) {
+        target.classList.add('active');
+      }
+      btn.classList.add('active');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function filterPlaces(category, btn) {
+      document.querySelectorAll('.cat-pill').forEach(function(el) {
+        el.classList.remove('active');
+      });
+      btn.classList.add('active');
+
+      const cards = document.querySelectorAll('.guide-card');
+      cards.forEach(function(card) {
+        if (category === 'all' || card.getAttribute('data-category') === category) {
+          card.style.display = 'block';
+        } else {
+          card.style.display = 'none';
+        }
+      });
+    }
+
+    function toggleCheckItem(el, storageKey) {
+      el.classList.toggle('checked');
+      const isChecked = el.classList.contains('checked');
+      localStorage.setItem(storageKey, isChecked);
+    }
+
+    document.addEventListener('DOMContentLoaded', function() {
+      document.querySelectorAll('.check-item').forEach(function(item) {
+        const onclickAttr = item.getAttribute('onclick');
+        if (onclickAttr) {
+          const match = onclickAttr.match(/'([^']+)'/);
+          if (match && match[1]) {
+            const saved = localStorage.getItem(match[1]);
+            if (saved === 'true') {
+              item.classList.add('checked');
+            }
+          }
+        }
+      });
+    });
+  </script>
+</body>
+</html>

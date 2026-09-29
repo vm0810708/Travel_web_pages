@@ -1,0 +1,858 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, maximum-scale=1.0, user-scalable=no">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="theme-color" content="#0F4C81">
+  <title>Day 1 · 馬賽登船日 | MSC World Europa</title>
+  <style>
+    /* 統一 Design System 變數 */
+    :root {
+      --primary: #0F4C81;
+      --primary-dark: #0A3258;
+      --primary-light: #EBF3FA;
+      --accent: #D97706;
+      --accent-light: #FEF3C7;
+      --danger: #DC2626;
+      --danger-light: #FEE2E2;
+      --success: #059669;
+      --success-light: #D1FAE5;
+      --bg-system: #F4F6F9;
+      --card-bg: #FFFFFF;
+      --text-main: #0F172A;
+      --text-sub: #475569;
+      --text-muted: #94A3B8;
+      --border-color: #E2E8F0;
+      --nav-glass: rgba(255, 255, 255, 0.88);
+      --nav-border: rgba(0, 0, 0, 0.08);
+      --radius-sm: 8px;
+      --radius-md: 14px;
+      --radius-lg: 20px;
+      --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.05);
+      --shadow-md: 0 4px 14px rgba(15, 23, 42, 0.08);
+      --safe-top: env(safe-area-inset-top, 0px);
+      --safe-bottom: env(safe-area-inset-bottom, 0px);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      touch-action: manipulation;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Pro Display", "PingFang TC", "Helvetica Neue", Arial, sans-serif;
+      background-color: var(--bg-system);
+      color: var(--text-main);
+      line-height: 1.5;
+      padding-top: calc(var(--safe-top) + 90px);
+      padding-bottom: calc(var(--safe-bottom) + 72px);
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* 頂部固定 Sticky 雙層毛玻璃導航 */
+    header.city-header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      background: var(--nav-glass);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--nav-border);
+      padding: calc(var(--safe-top) + 8px) 16px 8px;
+    }
+
+    .header-nav-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 6px;
+    }
+
+    .btn-back-home {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--primary);
+      text-decoration: none;
+      background: var(--primary-light);
+      padding: 4px 10px;
+      border-radius: 20px;
+    }
+
+    .header-danger-pill {
+      font-size: 11px;
+      font-weight: 700;
+      background: var(--danger-light);
+      color: var(--danger);
+      padding: 4px 9px;
+      border-radius: 20px;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .header-nav-bottom {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .city-heading {
+      font-size: 18px;
+      font-weight: 800;
+      color: var(--text-main);
+      display: flex;
+      align-items: baseline;
+      gap: 6px;
+    }
+
+    .city-heading small {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--text-muted);
+    }
+
+    .port-cross-nav {
+      display: flex;
+      gap: 6px;
+    }
+
+    .btn-port-link {
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--primary);
+      text-decoration: none;
+      background: #F1F5F9;
+      padding: 3px 8px;
+      border-radius: 6px;
+      display: inline-flex;
+      align-items: center;
+      gap: 3px;
+    }
+
+    /* 主要容器 */
+    main.city-main {
+      padding: 12px 16px;
+      max-width: 640px;
+      margin: 0 auto;
+    }
+
+    .tab-view {
+      display: none;
+      animation: fadeIn 0.22s ease-out;
+    }
+
+    .tab-view.active {
+      display: block;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(4px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* 醒目警示卡 */
+    .urgent-banner {
+      background: linear-gradient(135deg, var(--primary) 0%, #1a629e 100%);
+      color: #fff;
+      border-radius: var(--radius-md);
+      padding: 14px 16px;
+      margin-bottom: 16px;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .urgent-title {
+      font-size: 13.5px;
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      margin-bottom: 5px;
+    }
+
+    .urgent-desc {
+      font-size: 12px;
+      line-height: 1.5;
+      opacity: 0.94;
+    }
+
+    /* ================= 統一時間軸 (Timeline) ================= */
+    .timeline {
+      position: relative;
+      padding-left: 20px;
+    }
+
+    .timeline::before {
+      content: "";
+      position: absolute;
+      left: 6px;
+      top: 14px;
+      bottom: 20px;
+      width: 2px;
+      background: #CBD5E1;
+    }
+
+    .timeline-node {
+      position: relative;
+      margin-bottom: 18px;
+    }
+
+    .timeline-dot {
+      position: absolute;
+      left: -20px;
+      top: 14px;
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      background: var(--card-bg);
+      border: 3px solid var(--primary);
+      z-index: 1;
+    }
+
+    .timeline-dot.danger { border-color: var(--danger); }
+    .timeline-dot.accent { border-color: var(--accent); }
+    .timeline-dot.success { border-color: var(--success); }
+
+    .card {
+      background: var(--card-bg);
+      border-radius: var(--radius-md);
+      padding: 14px 16px;
+      box-shadow: var(--shadow-sm);
+      border: 1px solid var(--border-color);
+    }
+
+    .card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 6px;
+    }
+
+    .card-time {
+      font-size: 12.5px;
+      font-weight: 800;
+      color: var(--primary);
+    }
+
+    .card-tag {
+      font-size: 10px;
+      font-weight: 700;
+      padding: 2px 7px;
+      border-radius: 4px;
+      background: #F1F5F9;
+      color: var(--text-sub);
+    }
+
+    .card-tag.flight { background: #E0E7FF; color: #4338CA; }
+    .card-tag.pickup { background: #FEF3C7; color: #B45309; }
+    .card-tag.boarding { background: #DCFCE7; color: #15803D; }
+    .card-tag.drill { background: #FEE2E2; color: #B91C1C; }
+    .card-tag.theater { background: #FAE8FF; color: #86198F; }
+    .card-tag.sail { background: #E0F2FE; color: #0369A1; }
+
+    .card-title {
+      font-size: 15px;
+      font-weight: 800;
+      color: var(--text-main);
+      margin-bottom: 5px;
+    }
+
+    .card-body {
+      font-size: 12.5px;
+      color: var(--text-sub);
+      line-height: 1.5;
+      margin-bottom: 10px;
+    }
+
+    .btn-nav {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      background: #F8FAFC;
+      color: var(--primary);
+      text-decoration: none;
+      font-size: 12px;
+      font-weight: 700;
+      padding: 6px 12px;
+      border-radius: var(--radius-sm);
+      border: 1px solid #BAE6FD;
+      transition: background 0.15s;
+    }
+
+    .btn-nav:active {
+      background: #E0F2FE;
+    }
+
+    /* ================= 統一地圖視圖 ================= */
+    .btn-full-map {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      background: linear-gradient(135deg, var(--success) 0%, #047857 100%);
+      color: #fff;
+      font-size: 14px;
+      font-weight: 700;
+      padding: 12px 16px;
+      border-radius: var(--radius-md);
+      text-decoration: none;
+      margin-bottom: 12px;
+      box-shadow: 0 4px 10px rgba(5, 150, 105, 0.25);
+    }
+
+    .map-frame-box {
+      width: 100%;
+      height: 62vh;
+      min-height: 400px;
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      border: 1px solid var(--border-color);
+      box-shadow: var(--shadow-sm);
+      background: #E2E8F0;
+    }
+
+    .map-frame-box iframe {
+      width: 100%;
+      height: 100%;
+      border: 0;
+    }
+
+    /* ================= 統一景點導覽 ================= */
+    .guide-category-title {
+      font-size: 12.5px;
+      font-weight: 800;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      margin: 18px 0 8px 4px;
+    }
+    .guide-category-title:first-of-type { margin-top: 4px; }
+
+    .guide-card {
+      background: var(--card-bg);
+      border-radius: var(--radius-md);
+      padding: 14px 16px;
+      margin-bottom: 12px;
+      border: 1px solid var(--border-color);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .guide-names {
+      margin-bottom: 6px;
+    }
+
+    .guide-cn {
+      font-size: 15.5px;
+      font-weight: 800;
+      color: var(--text-main);
+    }
+
+    .guide-native {
+      font-size: 12px;
+      color: var(--text-muted);
+      font-weight: 500;
+    }
+
+    .guide-desc {
+      font-size: 12.5px;
+      color: var(--text-sub);
+      line-height: 1.55;
+      margin-bottom: 8px;
+    }
+
+    .guide-highlight {
+      background: #F8FAFC;
+      border-left: 3px solid var(--primary);
+      padding: 6px 10px;
+      font-size: 11.5px;
+      color: var(--primary);
+      margin-bottom: 10px;
+      border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+      font-weight: 600;
+    }
+
+    /* ================= 統一預約錦囊 ================= */
+    .checklist-section {
+      background: var(--card-bg);
+      border-radius: var(--radius-md);
+      padding: 16px;
+      margin-bottom: 14px;
+      border: 1px solid var(--border-color);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .section-headline {
+      font-size: 14.5px;
+      font-weight: 800;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      color: var(--text-main);
+      border-bottom: 1px solid var(--border-color);
+      padding-bottom: 8px;
+    }
+
+    .check-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      margin-bottom: 12px;
+      cursor: pointer;
+    }
+    .check-item:last-child { margin-bottom: 0; }
+
+    .check-box {
+      width: 19px;
+      height: 19px;
+      border-radius: 5px;
+      border: 1.5px solid var(--text-muted);
+      margin-top: 1px;
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.15s ease;
+    }
+
+    .check-item.checked .check-box {
+      background: var(--success);
+      border-color: var(--success);
+    }
+
+    .check-item.checked .check-box::after {
+      content: "✔";
+      color: #fff;
+      font-size: 11px;
+    }
+
+    .check-item.checked .check-text-title {
+      text-decoration: line-through;
+      color: var(--text-muted);
+    }
+
+    .check-text-title {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--text-main);
+    }
+
+    .check-text-desc {
+      font-size: 12px;
+      color: var(--text-sub);
+      line-height: 1.45;
+      margin-top: 2px;
+    }
+
+    /* ================= 統一固定底部 Tab Bar ================= */
+    nav.tab-bar {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      background: var(--nav-glass);
+      backdrop-filter: blur(25px);
+      -webkit-backdrop-filter: blur(25px);
+      border-top: 1px solid var(--nav-border);
+      padding-bottom: var(--safe-bottom);
+      height: calc(var(--safe-bottom) + 54px);
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      max-width: 640px;
+      margin: 0 auto;
+    }
+
+    .tab-btn {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      background: none;
+      border: none;
+      padding: 4px 0 2px;
+      color: var(--text-muted);
+      cursor: pointer;
+      text-decoration: none;
+    }
+
+    .tab-btn svg {
+      width: 22px;
+      height: 22px;
+      margin-bottom: 2px;
+      fill: currentColor;
+    }
+
+    .tab-btn span {
+      font-size: 10px;
+      font-weight: 700;
+    }
+
+    .tab-btn.active {
+      color: var(--primary);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- 頂部 Sticky 導航區 -->
+  <header class="city-header">
+    <div class="header-nav-top">
+      <a href="index.html" class="btn-back-home">⌂ 所有行程</a>
+      <span class="header-danger-pill">🚢 18:00 啟航出港</span>
+    </div>
+    <div class="header-nav-bottom">
+      <div class="city-heading">
+        馬賽 Marseille
+        <small>Day 1 · 登船日</small>
+      </div>
+      <div class="port-cross-nav">
+        <!-- Day 1 無上一站，僅有下一站 -->
+        <a href="1004_義大利_熱拿亞.html" class="btn-port-link">下一站：熱那亞 ➔</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- 主要內容區 -->
+  <main class="city-main">
+
+    <!-- Tab 1: 行程時間軸 -->
+    <section id="tab-timeline" class="tab-view active">
+      
+      <div class="urgent-banner">
+        <div class="urgent-title">⚡ 登船日三大核心任務</div>
+        <div class="urgent-desc">
+          1. 12:50 機場接機專車直達碼頭 Porte 4 辦理托運<br>
+          2. 連線船上 WiFi 打開 MSC for Me App 觀看安全演習影片並撥 881 認證<br>
+          3. 下午首度進入 App 即刻搶約今晚主劇院表演席位
+        </div>
+      </div>
+
+      <div class="timeline">
+
+        <!-- 節點 1 -->
+        <div class="timeline-item">
+          <div class="timeline-dot success"></div>
+          <div class="card">
+            <div class="card-header">
+              <span class="card-time">11:30 – 12:40</span>
+              <span class="card-tag flight">航班降落</span>
+            </div>
+            <div class="card-title">抵達馬賽機場（MRS）提領行李</div>
+            <div class="card-body">
+              荷航 KLM 1465 自阿姆斯特丹飛抵馬賽普羅旺斯機場（Terminal 1 降落）。全員依循指標提領 6 件大行李。若有延誤，請透過 Welcome Pickups App 與司機即時通訊回報位置。
+            </div>
+            <a href="https://www.google.com/maps/search/?api=1&query=Aeroport+Marseille+Provence+Marignane" target="_blank" rel="noopener noreferrer" class="btn-nav">
+              📍 導航至馬賽普羅旺斯機場
+            </a>
+          </div>
+        </div>
+
+        <!-- 節點 2 -->
+        <div class="timeline-item">
+          <div class="timeline-dot accent"></div>
+          <div class="card">
+            <div class="card-header">
+              <span class="card-time">12:50 – 13:25</span>
+              <span class="card-tag pickup">專車接送</span>
+            </div>
+            <div class="card-title">Welcome Pickups 專車出發往郵輪碼頭</div>
+            <div class="card-body">
+              司機於接機大廳舉牌等候。6 人及大件行李全數入座預訂車款。車程約 25–35 分鐘直達馬賽郵輪碼頭 4 號門（Port de Marseille - Terminal Croisières Porte 4）。
+            </div>
+            <a href="https://www.google.com/maps/search/?api=1&query=Port+Marseille+Fos+Porte+4+Marseille" target="_blank" rel="noopener noreferrer" class="btn-nav">
+              📍 導航至馬賽碼頭 4 號門
+            </a>
+          </div>
+        </div>
+
+        <!-- 節點 3 -->
+        <div class="timeline-item">
+          <div class="timeline-dot success"></div>
+          <div class="card">
+            <div class="card-header">
+              <span class="card-time">13:30 – 14:30</span>
+              <span class="card-tag boarding">碼頭手續</span>
+            </div>
+            <div class="card-title">行李托運與櫃檯辦理 Check-in</div>
+            <div class="card-body">
+              下車後先將大件行李交給穿著 MSC 制服的行李員托運（已繫好郵輪行李條）。隨後全員攜帶護照、電子船票進入候船大廳安檢並領取船卡（Cruise Card）。
+            </div>
+            <a href="https://www.google.com/maps/search/?api=1&query=Marseille+Provence+Cruise+Terminal+Marseille" target="_blank" rel="noopener noreferrer" class="btn-nav">
+              📍 導航至 MSC 客運大樓
+            </a>
+          </div>
+        </div>
+
+        <!-- 節點 4 -->
+        <div class="timeline-item">
+          <div class="timeline-dot danger"></div>
+          <div class="card">
+            <div class="card-header">
+              <span class="card-time">14:30 – 15:30</span>
+              <span class="card-tag theater">數位搶約</span>
+            </div>
+            <div class="card-title">登船、連線 WiFi 與預約夜間劇場秀</div>
+            <div class="card-body">
+              登船後立即連上客輪內網 Wi-Fi，打開 <strong>MSC for Me App</strong>：<br>
+              ① 預約今晚主劇院（Main Theatre）的百老匯級特技與歌舞表演場次（每晚 2-3 場，極易額滿）。<br>
+              ② 前往自助餐廳享用登船便餐。
+            </div>
+          </div>
+        </div>
+
+        <!-- 節點 5 -->
+        <div class="timeline-item">
+          <div class="timeline-dot danger"></div>
+          <div class="card">
+            <div class="card-header">
+              <span class="card-time">15:30 – 16:30</span>
+              <span class="card-tag drill">法定演習</span>
+            </div>
+            <div class="card-title">完成全船法定安全演習（Muster Drill）</div>
+            <div class="card-body">
+              海事法強制要求全員參加：<br>
+              1. 於艙房電視或手機 App 完整觀看演習影片。<br>
+              2. 影片播畢後使用客房電話撥打 881 確認。<br>
+              3. 攜帶船卡至指定的集合站（Muster Station，標記於房卡及門背）感應刷卡完成報到。
+            </div>
+          </div>
+        </div>
+
+        <!-- 節點 6 -->
+        <div class="timeline-item">
+          <div class="timeline-dot accent"></div>
+          <div class="card">
+            <div class="card-header">
+              <span class="card-time">18:00 出港</span>
+              <span class="card-tag sail">啟航離港</span>
+            </div>
+            <div class="card-title">甲板眺望伊夫島與馬賽日落 Sailaway</div>
+            <div class="card-body">
+              郵輪駛出馬賽港！建議 17:45 前往頂層甲板，遠眺外海伊夫島古堡（Château d'If）與守護聖母聖殿山丘，享受地中海落日啟航派對。
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Tab 2: 景點地圖 -->
+    <section id="tab-map" class="tab-view">
+      <a href="https://www.google.com/maps/dir/Aeroport+Marseille+Provence+Marignane/Port+Marseille+Fos+Porte+4+Marseille" target="_blank" rel="noopener noreferrer" class="btn-full-map">
+        📲 在 Google Maps App 開啟接駁路徑
+      </a>
+
+      <div class="map-frame-box">
+        <iframe 
+          src="https://www.google.com/maps/embed?pb=!1m28!1m12!1m3!1d92737.58739194206!2d5.203649419612716!3d43.4178550186985!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!4m13!3e0!4m5!1s0x12c9e422ec2ff125%3A0xb5b7b9ea3ea16999!2sA%C3%A9roport+Marseille+Provence!3m2!1d43.4384!2d5.2144!4m5!1s0x12c9c1b3f71c356b%3A0x6b490f845d4c8fa7!2sPort+de+Marseille+Fos+-+Porte+4!3m2!1d43.342416!2d5.352467!5e0!3m2!1szh-TW!2stw!4v1700000000000"
+          allowfullscreen="" 
+          loading="lazy" 
+          referrerpolicy="no-referrer-when-downgrade">
+        </iframe>
+      </div>
+    </section>
+
+    <!-- Tab 3: 景點導覽 -->
+    <section id="tab-guide" class="tab-view">
+      
+      <div class="guide-category-title">交通樞紐與港務設施</div>
+
+      <div class="guide-card">
+        <div class="guide-names">
+          <div class="guide-cn">馬賽普羅旺斯機場</div>
+          <div class="guide-native">Aéroport Marseille Provence (MRS)</div>
+        </div>
+        <div class="guide-desc">
+          法國南部重要航空樞紐，距市區西北約 27 公里。荷航 KLM 班機降落於第一航廈（Terminal 1），出關提領行李後，前往迎賓大廳即可看到接送司機。
+        </div>
+        <div class="guide-highlight">特色亮點：接機大廳指標清晰，便利商店與換幣機均設於 Terminal 1。</div>
+        <a href="https://www.google.com/maps/search/?api=1&query=Aeroport+Marseille+Provence+Marignane" target="_blank" rel="noopener noreferrer" class="btn-nav">
+          📍 Google Maps 導航
+        </a>
+      </div>
+
+      <div class="guide-card">
+        <div class="guide-names">
+          <div class="guide-cn">馬賽郵輪碼頭（4號管制門）</div>
+          <div class="guide-native">Port de Marseille Fos - Porte 4</div>
+        </div>
+        <div class="guide-desc">
+          地中海大型郵輪母港之一。大型現代化郵輪（如 MSC 系列）停靠於客運站（MPCT / Terminals A, B, C）。所有專車均由 Porte 4 門哨進入，直達客運大樓前方便卸下行李。
+        </div>
+        <div class="guide-highlight">特色亮點：行李託運直達轉盤，安檢大廳寬敞、通關效率高。</div>
+        <a href="https://www.google.com/maps/search/?api=1&query=Port+Marseille+Fos+Porte+4+Marseille" target="_blank" rel="noopener noreferrer" class="btn-nav">
+          📍 Google Maps 導航
+        </a>
+      </div>
+
+      <div class="guide-category-title">航行出港地標</div>
+
+      <div class="guide-card">
+        <div class="guide-names">
+          <div class="guide-cn">伊夫堡（出海眺望）</div>
+          <div class="guide-native">Château d%27If</div>
+        </div>
+        <div class="guide-desc">
+          坐落於外海弗留爾群島的小島上，因大仲馬《基度山恩仇記》中主角被囚禁於此而聞名世界。郵輪啟航離港時由頂層甲板右舷可清晰飽覽整座海島城堡要塞。
+        </div>
+        <div class="guide-highlight">特色亮點：經典文學傳奇誕生地，啟航時絕佳攝影地標。</div>
+        <a href="https://www.google.com/maps/search/?api=1&query=Chateau+d%27If+Marseille" target="_blank" rel="noopener noreferrer" class="btn-nav">
+          📍 Google Maps 導航
+        </a>
+      </div>
+
+      <div class="guide-card">
+        <div class="guide-names">
+          <div class="guide-cn">守護聖母聖殿（遠眺）</div>
+          <div class="guide-native">Basilique Notre-Dame de la Garde</div>
+        </div>
+        <div class="guide-desc">
+          高聳於馬賽 149 公尺石灰岩山頂的地標教堂，頂端金光閃閃的聖母瑪利亞像長年守護出海船隻平安歸來。當郵輪轉向公海時，整座聖殿山丘會成為地平線最醒目的背景。
+        </div>
+        <div class="guide-highlight">特色亮點：馬賽城市最高象徵，出港向船長與水手揮手祈福。</div>
+        <a href="https://www.google.com/maps/search/?api=1&query=Basilique+Notre-Dame+de+la+Garde+Marseille" target="_blank" rel="noopener noreferrer" class="btn-nav">
+          📍 Google Maps 導航
+        </a>
+      </div>
+
+    </section>
+
+    <!-- Tab 4: 預約錦囊 -->
+    <section id="tab-checklist" class="tab-view">
+      
+      <div class="checklist-section">
+        <div class="section-headline">
+          <span>📋</span> 登船日必檢清單（可點擊打勾）
+        </div>
+
+        <div class="check-item" onclick="toggleCheckItem(this, 'day1_luggage_tag')">
+          <div class="check-box"></div>
+          <div>
+            <div class="check-text-title">出發前行李條列印與綁定</div>
+            <div class="check-text-desc">已印出 MSC 標註艙房號碼之紙本行李吊牌，並釘牢於 6 件大行李把手上。</div>
+          </div>
+        </div>
+
+        <div class="check-item" onclick="toggleCheckItem(this, 'day1_docs')">
+          <div class="check-box"></div>
+          <div>
+            <div class="check-text-title">隨身手提包保留重要證件</div>
+            <div class="check-text-desc">護照本、申根簽證、郵輪登船憑證（Web Check-in Ticket）請勿放入托運行李。</div>
+          </div>
+        </div>
+
+        <div class="check-item" onclick="toggleCheckItem(this, 'day1_pickup')">
+          <div class="check-box"></div>
+          <div>
+            <div class="check-text-title">Welcome Pickups 司機聯繫確認</div>
+            <div class="check-text-desc">手機裝妥 Welcome Pickups App，出關前連上機場 WiFi 掌握司機車牌與位置。</div>
+          </div>
+        </div>
+
+        <div class="check-item" onclick="toggleCheckItem(this, 'day1_msc_app')">
+          <div class="check-box"></div>
+          <div>
+            <div class="check-text-title">下載並登入 MSC for Me App</div>
+            <div class="check-text-desc">出發前下載官方 App，登船連上內網即可立即操作安全演習與劇場預約。</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="checklist-section">
+        <div class="section-headline">
+          <span>🎭</span> 表演預約與船上實用錦囊
+        </div>
+        <div class="check-text-desc" style="margin-bottom: 8px;">
+          • <strong>劇院預約機制：</strong>每晚表演需於登船當日透過 App 或中庭觸控螢幕登記座席，建議於 15:00 登船後第一時間完成預訂，避免晚間晚餐時段與秀場衝堂。
+        </div>
+        <div class="check-text-desc" style="margin-bottom: 8px;">
+          • <strong>信用卡扣款綁定：</strong>可於登船後至 6 樓或 7 樓中庭之「自動信用卡綁定機」感應房卡與實體信用卡完成授權，省去下船日前一晚排隊結帳的麻煩。
+        </div>
+        <div class="check-text-desc">
+          • <strong>飛航模式提醒：</strong>郵輪離港進入公海後，務必將手機關閉行動網路或開啟「飛航模式」，僅連線船上 Wi-Fi，以免誤連高額的衛星海事漫遊通訊（Cellular at Sea）[cite: 1, 2]。
+        </div>
+      </div>
+
+    </section>
+
+  </main>
+
+  <!-- 底部固定 5 鍵 Tab Bar -->
+  <nav class="tab-bar">
+    <a href="index.html" class="tab-btn">
+      <svg viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
+      <span>首頁</span>
+    </a>
+    <button class="tab-btn active" onclick="switchTab('tab-timeline', this)">
+      <svg viewBox="0 0 24 24"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z"/></svg>
+      <span>行程</span>
+    </button>
+    <button class="tab-btn" onclick="switchTab('tab-map', this)">
+      <svg viewBox="0 0 24 24"><path d="M20.5 3l-.16.03L15 5.1 9 3 3.36 4.9c-.21.07-.36.25-.36.48V20.5c0 .28.22.5.5.5l.16-.03L9 18.9l6 2.1 5.64-1.9c.21-.07.36-.25.36-.48V3.5c0-.28-.22-.5-.5-.5zM15 19l-6-2.11V5l6 2.11V19z"/></svg>
+      <span>路線</span>
+    </button>
+    <button class="tab-btn" onclick="switchTab('tab-guide', this)">
+      <svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+      <span>景點</span>
+    </button>
+    <button class="tab-btn" onclick="switchTab('tab-checklist', this)">
+      <svg viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-9 14l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
+      <span>錦囊</span>
+    </button>
+  </nav>
+
+  <script>
+    // Tab 分頁切換
+    function switchTab(tabId, btn) {
+      document.querySelectorAll('.tab-view').forEach(function(view) {
+        view.classList.remove('active');
+      });
+      document.querySelectorAll('.tab-bar .tab-btn').forEach(function(item) {
+        item.classList.remove('active');
+      });
+
+      const target = document.getElementById(tabId);
+      if (target) {
+        target.classList.add('active');
+      }
+      btn.classList.add('active');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    // 交互 Checkbox 與 LocalStorage 存儲
+    function toggleCheckItem(el, storageKey) {
+      el.classList.toggle('checked');
+      const isChecked = el.classList.contains('checked');
+      localStorage.setItem(storageKey, isChecked);
+    }
+
+    // 初始化讀取 Checkbox 狀態
+    document.addEventListener('DOMContentLoaded', function() {
+      document.querySelectorAll('.check-item').forEach(function(item) {
+        const onclickAttr = item.getAttribute('onclick');
+        if (onclickAttr) {
+          const match = onclickAttr.match(/'([^']+)'/);
+          if (match && match[1]) {
+            const saved = localStorage.getItem(match[1]);
+            if (saved === 'true') {
+              item.classList.add('checked');
+            }
+          }
+        }
+      });
+    });
+  </script>
+</body>
+</html>

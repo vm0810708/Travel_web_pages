@@ -1,0 +1,1016 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, maximum-scale=1.0, user-scalable=no">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="theme-color" content="#0F4C81">
+  <title>Day 4 · 墨西拿＆陶爾米娜 | MSC World Europa</title>
+  <style>
+    :root {
+      --primary: #0F4C81;
+      --primary-dark: #0A3258;
+      --primary-light: #EBF3FA;
+      --accent: #D97706;
+      --accent-light: #FEF3C7;
+      --danger: #DC2626;
+      --danger-light: #FEE2E2;
+      --success: #059669;
+      --success-light: #D1FAE5;
+      --bg-system: #F4F6F9;
+      --card-bg: #FFFFFF;
+      --text-main: #0F172A;
+      --text-sub: #475569;
+      --text-muted: #94A3B8;
+      --border-color: #E2E8F0;
+      --nav-glass: rgba(255, 255, 255, 0.88);
+      --nav-border: rgba(0, 0, 0, 0.08);
+      --radius-sm: 8px;
+      --radius-md: 14px;
+      --radius-lg: 20px;
+      --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.05);
+      --shadow-md: 0 4px 14px rgba(15, 23, 42, 0.08);
+      --safe-top: env(safe-area-inset-top, 0px);
+      --safe-bottom: env(safe-area-inset-bottom, 0px);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      touch-action: manipulation;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Pro Display", "PingFang TC", "Helvetica Neue", Arial, sans-serif;
+      background-color: var(--bg-system);
+      color: var(--text-main);
+      line-height: 1.5;
+      padding-top: calc(var(--safe-top) + 90px);
+      padding-bottom: calc(var(--safe-bottom) + 72px);
+      -webkit-font-smoothing: antialiased;
+    }
+
+    header.city-header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      background: var(--nav-glass);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--nav-border);
+      padding: calc(var(--safe-top) + 8px) 16px 8px;
+    }
+
+    .header-nav-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 6px;
+    }
+
+    .btn-back-home {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--primary);
+      text-decoration: none;
+      background: var(--primary-light);
+      padding: 4px 10px;
+      border-radius: 20px;
+    }
+
+    .header-danger-pill {
+      font-size: 11px;
+      font-weight: 700;
+      background: var(--danger-light);
+      color: var(--danger);
+      padding: 4px 9px;
+      border-radius: 20px;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .header-nav-bottom {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .city-heading {
+      font-size: 18px;
+      font-weight: 800;
+      color: var(--text-main);
+      display: flex;
+      align-items: baseline;
+      gap: 6px;
+    }
+
+    .city-heading small {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--text-muted);
+    }
+
+    .port-cross-nav {
+      display: flex;
+      gap: 6px;
+    }
+
+    .btn-port-link {
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--primary);
+      text-decoration: none;
+      background: #F1F5F9;
+      padding: 3px 8px;
+      border-radius: 6px;
+      display: inline-flex;
+      align-items: center;
+      gap: 3px;
+    }
+
+    main.city-main {
+      padding: 12px 16px;
+      max-width: 640px;
+      margin: 0 auto;
+    }
+
+    .tab-view {
+      display: none;
+      animation: fadeIn 0.22s ease-out;
+    }
+
+    .tab-view.active {
+      display: block;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(4px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .urgent-banner {
+      background: linear-gradient(135deg, var(--primary) 0%, #1a629e 100%);
+      color: #fff;
+      border-radius: var(--radius-md);
+      padding: 14px 16px;
+      margin-bottom: 16px;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .urgent-title {
+      font-size: 13.5px;
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      margin-bottom: 5px;
+    }
+
+    .urgent-desc {
+      font-size: 12px;
+      line-height: 1.5;
+      opacity: 0.94;
+    }
+
+    .timeline {
+      position: relative;
+      padding-left: 20px;
+    }
+
+    .timeline::before {
+      content: "";
+      position: absolute;
+      left: 6px;
+      top: 14px;
+      bottom: 20px;
+      width: 2px;
+      background: #CBD5E1;
+    }
+
+    .timeline-node {
+      position: relative;
+      margin-bottom: 18px;
+    }
+
+    .timeline-dot {
+      position: absolute;
+      left: -20px;
+      top: 14px;
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      background: var(--card-bg);
+      border: 3px solid var(--primary);
+      z-index: 1;
+    }
+
+    .timeline-dot.danger { border-color: var(--danger); }
+    .timeline-dot.accent { border-color: var(--accent); }
+    .timeline-dot.success { border-color: var(--success); }
+
+    .card {
+      background: var(--card-bg);
+      border-radius: var(--radius-md);
+      padding: 14px 16px;
+      box-shadow: var(--shadow-sm);
+      border: 1px solid var(--border-color);
+    }
+
+    .card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 6px;
+    }
+
+    .card-time {
+      font-size: 12.5px;
+      font-weight: 800;
+      color: var(--primary);
+    }
+
+    .card-tag {
+      font-size: 10px;
+      font-weight: 700;
+      padding: 2px 7px;
+      border-radius: 4px;
+      background: #F1F5F9;
+      color: var(--text-sub);
+    }
+
+    .card-tag.transit { background: #E0F2FE; color: #0369A1; }
+    .card-tag.spot { background: #DCFCE7; color: #15803D; }
+    .card-tag.food { background: #FEF3C7; color: #B45309; }
+    .card-tag.alert { background: #FEE2E2; color: #B91C1C; }
+
+    .card-title {
+      font-size: 15px;
+      font-weight: 800;
+      color: var(--text-main);
+      margin-bottom: 5px;
+    }
+
+    .card-body {
+      font-size: 12.5px;
+      color: var(--text-sub);
+      line-height: 1.5;
+      margin-bottom: 10px;
+    }
+
+    .btn-nav {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      background: #F8FAFC;
+      color: var(--primary);
+      text-decoration: none;
+      font-size: 12px;
+      font-weight: 700;
+      padding: 6px 12px;
+      border-radius: var(--radius-sm);
+      border: 1px solid #BAE6FD;
+      transition: background 0.15s;
+    }
+
+    .btn-nav:active {
+      background: #E0F2FE;
+    }
+
+    .btn-full-map {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      background: linear-gradient(135deg, var(--success) 0%, #047857 100%);
+      color: #fff;
+      font-size: 14px;
+      font-weight: 700;
+      padding: 12px 16px;
+      border-radius: var(--radius-md);
+      text-decoration: none;
+      margin-bottom: 12px;
+      box-shadow: 0 4px 10px rgba(5, 150, 105, 0.25);
+    }
+
+    .map-frame-box {
+      width: 100%;
+      height: 62vh;
+      min-height: 400px;
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      border: 1px solid var(--border-color);
+      box-shadow: var(--shadow-sm);
+      background: #E2E8F0;
+    }
+
+    .map-frame-box iframe {
+      width: 100%;
+      height: 100%;
+      border: 0;
+    }
+
+    .filter-scroll-wrapper {
+      margin: -4px -16px 14px;
+      padding: 0 16px;
+      overflow-x: auto;
+      white-space: nowrap;
+      scrollbar-width: none;
+    }
+    .filter-scroll-wrapper::-webkit-scrollbar { display: none; }
+
+    .category-pills {
+      display: inline-flex;
+      gap: 8px;
+    }
+
+    .cat-pill {
+      font-size: 12px;
+      font-weight: 700;
+      padding: 6px 13px;
+      border-radius: 20px;
+      background: #FFFFFF;
+      border: 1px solid var(--border-color);
+      color: var(--text-sub);
+      cursor: pointer;
+    }
+
+    .cat-pill.active {
+      background: var(--primary);
+      color: #FFFFFF;
+      border-color: var(--primary);
+    }
+
+    .guide-card {
+      background: var(--card-bg);
+      border-radius: var(--radius-md);
+      padding: 14px 16px;
+      margin-bottom: 12px;
+      border: 1px solid var(--border-color);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .guide-names {
+      margin-bottom: 6px;
+    }
+
+    .guide-cn {
+      font-size: 15.5px;
+      font-weight: 800;
+      color: var(--text-main);
+    }
+
+    .guide-native {
+      font-size: 12px;
+      color: var(--text-muted);
+      font-weight: 500;
+    }
+
+    .guide-desc {
+      font-size: 12.5px;
+      color: var(--text-sub);
+      line-height: 1.55;
+      margin-bottom: 8px;
+    }
+
+    .guide-highlight {
+      background: #F8FAFC;
+      border-left: 3px solid var(--primary);
+      padding: 6px 10px;
+      font-size: 11.5px;
+      color: var(--primary);
+      margin-bottom: 10px;
+      border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+      font-weight: 600;
+    }
+
+    .checklist-section {
+      background: var(--card-bg);
+      border-radius: var(--radius-md);
+      padding: 16px;
+      margin-bottom: 14px;
+      border: 1px solid var(--border-color);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .section-headline {
+      font-size: 14.5px;
+      font-weight: 800;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      color: var(--text-main);
+      border-bottom: 1px solid var(--border-color);
+      padding-bottom: 8px;
+    }
+
+    .check-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      margin-bottom: 12px;
+      cursor: pointer;
+    }
+    .check-item:last-child { margin-bottom: 0; }
+
+    .check-box {
+      width: 19px;
+      height: 19px;
+      border-radius: 5px;
+      border: 1.5px solid var(--text-muted);
+      margin-top: 1px;
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.15s ease;
+    }
+
+    .check-item.checked .check-box {
+      background: var(--success);
+      border-color: var(--success);
+    }
+
+    .check-item.checked .check-box::after {
+      content: "✔";
+      color: #fff;
+      font-size: 11px;
+    }
+
+    .check-item.checked .check-text-title {
+      text-decoration: line-through;
+      color: var(--text-muted);
+    }
+
+    .check-text-title {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--text-main);
+    }
+
+    .check-text-desc {
+      font-size: 12px;
+      color: var(--text-sub);
+      line-height: 1.45;
+      margin-top: 2px;
+    }
+
+    nav.tab-bar {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      background: var(--nav-glass);
+      backdrop-filter: blur(25px);
+      -webkit-backdrop-filter: blur(25px);
+      border-top: 1px solid var(--nav-border);
+      padding-bottom: var(--safe-bottom);
+      height: calc(var(--safe-bottom) + 54px);
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      max-width: 640px;
+      margin: 0 auto;
+    }
+
+    .tab-btn {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      background: none;
+      border: none;
+      padding: 4px 0 2px;
+      color: var(--text-muted);
+      cursor: pointer;
+      text-decoration: none;
+    }
+
+    .tab-btn svg {
+      width: 22px;
+      height: 22px;
+      margin-bottom: 2px;
+      fill: currentColor;
+    }
+
+    .tab-btn span {
+      font-size: 10px;
+      font-weight: 700;
+    }
+
+    .tab-btn.active {
+      color: var(--primary);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- 頂部 Sticky 導航區 -->
+  <header class="city-header">
+    <div class="header-nav-top">
+      <a href="index.html" class="btn-back-home">⌂ 所有行程</a>
+      <span class="header-danger-pill">🚢 18:00 啟航 ⚠️ 17:15 返船</span>
+    </div>
+    <div class="header-nav-bottom">
+      <div class="city-heading">
+        墨西拿 ＆ 陶爾米娜
+        <small>Day 4 · 10/06 (一)</small>
+      </div>
+      <div class="port-cross-nav">
+        <a href="1005_義大利_拿坡里.html" class="btn-port-link">← 上一站</a>
+        <a href="1007_馬爾他_瓦萊塔.html" class="btn-port-link">下一站 ➔</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- 主要內容區 -->
+  <main class="city-main">
+
+    <!-- Tab 1: 行程時間軸 -->
+    <section id="tab-timeline" class="tab-view active">
+      
+      <div class="urgent-banner">
+        <div class="urgent-title">🌋 今日核心亮點：西西里雙城記與埃特納火山遠眺</div>
+        <div class="urgent-desc">
+          • 上午專車接駁直奔陶爾米娜懸崖山城，探訪古希臘羅馬劇場與四月九日全景露台。<br>
+          • 午後返回墨西拿享受全程平路漫步，造訪世界最大天文鐘與百年甜點 Irrera 1910。<br>
+          • 碼頭距市區僅 500–750 公尺，步行 10 分鐘即達，無塞車風險，請於 17:15 前登船。
+        </div>
+      </div>
+
+      <div class="timeline">
+
+        <!-- 09:00 - 09:30 -->
+        <div class="timeline-item">
+          <div class="timeline-dot success"></div>
+          <div class="card">
+            <div class="card-header">
+              <span class="card-time">09:00 – 09:30</span>
+              <span class="card-tag transit">靠港清關</span>
+            </div>
+            <div class="card-title">墨西拿港靠泊與清關</div>
+            <div class="card-body">
+              郵輪平穩靠泊墨西拿天然鐮刀港。攜帶房卡與身分證件下船，步行至客運大樓官方大巴接駁區集合。
+            </div>
+            <a href="https://www.google.com/maps/search/?api=1&query=Terminal+Crociere+Messina" target="_blank" rel="noopener noreferrer" class="btn-nav">
+              📍 導航至碼頭位置
+            </a>
+          </div>
+        </div>
+
+        <!-- 09:30 - 10:30 -->
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <div class="card">
+            <div class="card-header">
+              <span class="card-time">09:30 – 10:30</span>
+              <span class="card-tag transit">官方接駁</span>
+            </div>
+            <div class="card-title">搭乘大巴前往陶爾米娜</div>
+            <div class="card-body">
+              車程約 50 分鐘，沿愛奧尼亞海峽行駛。大巴抵達山腳倫比停車場（Parcheggio Lumbi），換乘短程接駁小巴抵達北門梅西納門。
+            </div>
+            <a href="https://www.google.com/maps/search/?api=1&query=Parcheggio+Lumbi+Taormina" target="_blank" rel="noopener noreferrer" class="btn-nav">
+              📍 導航至倫比停車場
+            </a>
+          </div>
+        </div>
+
+        <!-- 10:45 - 11:45 -->
+        <div class="timeline-item">
+          <div class="timeline-dot accent"></div>
+          <div class="card">
+            <div class="card-header">
+              <span class="card-time">10:45 – 11:45</span>
+              <span class="card-tag spot">陶爾米娜</span>
+            </div>
+            <div class="card-title">古希臘羅馬劇場 (Teatro Antico)</div>
+            <div class="card-body">
+              從梅西納門步行約 5 分鐘抵達。趁團客湧入前優先入場（建議停留 45-60 分鐘），透過千年石柱遠眺愛奧尼亞海與埃特納火山。
+            </div>
+            <a href="https://www.google.com/maps/search/?api=1&query=Teatro+Antico+di+Taormina+Taormina" target="_blank" rel="noopener noreferrer" class="btn-nav">
+              📍 導航至古劇場
+            </a>
+          </div>
+        </div>
+
+        <!-- 11:45 - 12:30 -->
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <div class="card">
+            <div class="card-header">
+              <span class="card-time">11:45 – 12:30</span>
+              <span class="card-tag spot">景觀拍照</span>
+            </div>
+            <div class="card-title">四月九日廣場 ＆ 時計塔</div>
+            <div class="card-body">
+              漫步至最著名的黑白棋盤格露台廣場，飽覽懸崖海灣全景，參觀粉色聖約瑟夫教堂與古老中門鐘樓。
+            </div>
+            <a href="https://www.google.com/maps/search/?api=1&query=Piazza+IX+Aprile+Taormina" target="_blank" rel="noopener noreferrer" class="btn-nav">
+              📍 導航至廣場
+            </a>
+          </div>
+        </div>
+
+        <!-- 12:30 - 13:20 -->
+        <div class="timeline-item">
+          <div class="timeline-dot accent"></div>
+          <div class="card">
+            <div class="card-header">
+              <span class="card-time">12:30 – 13:20</span>
+              <span class="card-tag food">西西里美饌</span>
+            </div>
+            <div class="card-title">翁貝托大道漫步 ＆ 品嘗甜點</div>
+            <div class="card-body">
+              沿主街往南行至卡塔尼亞門，欣賞摩爾人頭像陶器。必吃現點現灌瑞可塔乳酪 Cannoli、開心果雪酪配布里歐麵包，或炸飯糰（Arancini）。
+            </div>
+            <a href="https://www.google.com/maps/search/?api=1&query=Corso+Umberto+Taormina" target="_blank" rel="noopener noreferrer" class="btn-nav">
+              📍 導航至翁貝托大道
+            </a>
+          </div>
+        </div>
+
+        <!-- 13:20 - 13:50 -->
+        <div class="timeline-item">
+          <div class="timeline-dot alert"></div>
+          <div class="card">
+            <div class="card-header">
+              <span class="card-time">13:20 – 13:50</span>
+              <span class="card-tag alert">回程集合</span>
+            </div>
+            <div class="card-title">沿主街折返北門梅西納門</div>
+            <div class="card-body">
+              從南端卡塔尼亞門預留 20-25 分鐘沿主街散步折返北門，搭乘接駁車回倫比停車場準時上車。
+            </div>
+            <a href="https://www.google.com/maps/search/?api=1&query=Porta+Messina+Taormina" target="_blank" rel="noopener noreferrer" class="btn-nav">
+              📍 導航至梅西納門
+            </a>
+          </div>
+        </div>
+
+        <!-- 14:40 - 15:30 -->
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <div class="card">
+            <div class="card-header">
+              <span class="card-time">14:40 – 15:30</span>
+              <span class="card-tag spot">墨西拿平路</span>
+            </div>
+            <div class="card-title">返抵碼頭 ＆ 漫步主教堂廣場</div>
+            <div class="card-body">
+              大巴返抵碼頭。下車後沿平路步行約 7 分鐘（500 公尺）直達主教座堂廣場，仰望 60 公尺天文鐘樓與奧利安噴泉。
+            </div>
+            <a href="https://www.google.com/maps/search/?api=1&query=Piazza+Duomo+Messina" target="_blank" rel="noopener noreferrer" class="btn-nav">
+              📍 導航至主教堂廣場
+            </a>
+          </div>
+        </div>
+
+        <!-- 15:30 - 16:00 -->
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <div class="card">
+            <div class="card-header">
+              <span class="card-time">15:30 – 16:00</span>
+              <span class="card-tag spot">歷史建築</span>
+            </div>
+            <div class="card-title">加泰隆尼亞聖母堂 ＆ 玻璃拱廊</div>
+            <div class="card-body">
+              步行 3 分鐘探訪地基深陷的諾曼古蹟加泰隆尼亞聖母堂，隨後前往旁邊採光絕佳的維托里奧·埃馬努埃萊三世拱廊街拍照。
+            </div>
+            <a href="https://www.google.com/maps/search/?api=1&query=Chiesa+Santissima+Annunziata+dei+Catalani+Messina" target="_blank" rel="noopener noreferrer" class="btn-nav">
+              📍 導航至聖母堂
+            </a>
+          </div>
+        </div>
+
+        <!-- 16:00 - 16:45 -->
+        <div class="timeline-item">
+          <div class="timeline-dot accent"></div>
+          <div class="card">
+            <div class="card-header">
+              <span class="card-time">16:00 – 16:45</span>
+              <span class="card-tag food">經典下午茶</span>
+            </div>
+            <div class="card-title">開羅利廣場 ＆ 百年老店 Irrera 1910</div>
+            <div class="card-body">
+              平路漫步至繁華的開羅利廣場。在創立於 1910 年的傳奇甜點名店享受正宗西西里雪酪與香脆捲餅，洗滌一日疲憊。
+            </div>
+            <a href="https://www.google.com/maps/search/?api=1&query=Pasticceria+Irrera+1910+Messina" target="_blank" rel="noopener noreferrer" class="btn-nav">
+              📍 導航至 Irrera 1910
+            </a>
+          </div>
+        </div>
+
+        <!-- 16:45 - 17:15 -->
+        <div class="timeline-item">
+          <div class="timeline-dot danger"></div>
+          <div class="card" style="border-left: 4px solid var(--danger);">
+            <div class="card-header">
+              <span class="card-time" style="color:var(--danger);">16:45 – 17:15</span>
+              <span class="card-tag alert">務必返船</span>
+            </div>
+            <div class="card-title">悠閒步行回船（最晚 17:15 登船）</div>
+            <div class="card-body">
+              自開羅利廣場沿海濱平路漫步約 750 公尺（約 10 分鐘）返回碼頭，順利通過安檢回艙。18:00 於頂層甲板欣賞出港海峽日落。
+            </div>
+            <a href="https://www.google.com/maps/search/?api=1&query=Terminal+Crociere+Messina" target="_blank" rel="noopener noreferrer" class="btn-nav" style="background:var(--danger); color:#fff; border-color:var(--danger);">
+              📍 導航返回碼頭
+            </a>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Tab 2: 景點地圖 -->
+    <section id="tab-map" class="tab-view">
+      <a href="https://www.google.com/maps/d/viewer?mid=1XZKnW3b5oSofJXRUp_9m5Dvp9iv-_U8" target="_blank" rel="noopener noreferrer" class="btn-full-map">
+        📲 在 Google Maps App 全螢幕開啟完整地圖
+      </a>
+
+      <div class="map-frame-box">
+        <iframe 
+          src="https://www.google.com/maps/d/embed?mid=1XZKnW3b5oSofJXRUp_9m5Dvp9iv-_U8&ehbc=2E312F" 
+          allowfullscreen="" 
+          loading="lazy">
+        </iframe>
+      </div>
+    </section>
+
+    <!-- Tab 3: 景點導覽 -->
+    <section id="tab-guide" class="tab-view">
+      
+      <div class="filter-scroll-wrapper">
+        <div class="category-pills">
+          <button class="cat-pill active" onclick="filterPlaces('all', this)">全部點位 (7)</button>
+          <button class="cat-pill" onclick="filterPlaces('taormina', this)">陶爾米娜懸崖山城 (2)</button>
+          <button class="cat-pill" onclick="filterPlaces('messina', this)">墨西拿平路精華 (4)</button>
+          <button class="cat-pill" onclick="filterPlaces('food', this)">西西里美饌 (1)</button>
+        </div>
+      </div>
+
+      <div id="places-list">
+
+        <!-- 1. 墨西拿主教座堂 ＆ 天文鐘 -->
+        <article class="guide-card" data-category="messina">
+          <div class="guide-names">
+            <div class="guide-cn">墨西拿主教座堂 ＆ 天文鐘</div>
+            <div class="guide-native">Duomo di Messina & Campanile</div>
+          </div>
+          <div class="guide-desc">
+            宏偉的諾曼哥德式大教堂，歷經 1908 年大地震後依原樣精細修復。附設高達 60 公尺的天文鐘樓，刻劃月相、黃道十二宮圖盤與自動機械報時人偶。下午 16:00 重新開放內部，挑高的彩繪木質樑頂極為壯觀。
+          </div>
+          <div class="guide-highlight">特色亮點：世界最大機械天文鐘外觀、諾曼立面雕花、下午免費參觀。</div>
+          <a href="https://www.google.com/maps/search/?api=1&query=Duomo+di+Messina" target="_blank" rel="noopener noreferrer" class="btn-nav">
+            📍 Google Maps 導航
+          </a>
+        </article>
+
+        <!-- 2. 奧利安噴泉 -->
+        <article class="guide-card" data-category="messina">
+          <div class="guide-names">
+            <div class="guide-cn">奧利安噴泉</div>
+            <div class="guide-native">Fontana di Orione</div>
+          </div>
+          <div class="guide-desc">
+            由米開朗基羅得意門生蒙托索利於 1553 年雕刻完成，坐落在大教堂廣場正中央。噴泉頂部矗立著墨西拿神話建立者獵戶座奧利安，底座水池環繞象徵四條大河神雕塑，曾被譽為 16 世紀地中海最優美的噴泉。
+          </div>
+          <div class="guide-highlight">特色亮點：文藝復興晚期水景雕塑巔峰、大教堂正面拍照最佳前景。</div>
+          <a href="https://www.google.com/maps/search/?api=1&query=Fontana+di+Orione+Messina" target="_blank" rel="noopener noreferrer" class="btn-nav">
+            📍 Google Maps 導航
+          </a>
+        </article>
+
+        <!-- 3. 加泰隆尼亞聖母領報堂 -->
+        <article class="guide-card" data-category="messina">
+          <div class="guide-names">
+            <div class="guide-cn">加泰隆尼亞聖母領報堂</div>
+            <div class="guide-native">Chiesa SS. Annunziata dei Catalani</div>
+          </div>
+          <div class="guide-desc">
+            極少數在 1908 年大地震中奇蹟生還的諾曼時期古蹟。融合了諾曼、拜占庭與阿拉伯多重圓拱風格，後殿雙色磚石極具幾何之美。因多次重建墊高街面，教堂地基顯著凹陷低於周遭路面。
+          </div>
+          <div class="guide-highlight">特色亮點：下沉式露天建築斷層、阿拉伯與諾曼折衷風格後殿。</div>
+          <a href="https://www.google.com/maps/search/?api=1&query=Chiesa+Santissima+Annunziata+dei+Catalani+Messina" target="_blank" rel="noopener noreferrer" class="btn-nav">
+            📍 Google Maps 導航
+          </a>
+        </article>
+
+        <!-- 4. 埃馬努埃萊三世拱廊街 -->
+        <article class="guide-card" data-category="messina">
+          <div class="guide-names">
+            <div class="guide-cn">埃馬努埃萊三世拱廊街</div>
+            <div class="guide-native">Galleria Vittorio Emanuele III</div>
+          </div>
+          <div class="guide-desc">
+            建於 1920 年代的封閉式宏偉商場拱廊，為義大利自由風格（Stile Liberty）的稀有代表作。挑高的鍛鐵玻璃穹頂採光極為明亮，地面鋪設華麗的彩色幾何大理石馬賽克拼花。
+          </div>
+          <div class="guide-highlight">特色亮點：挑高採光玻璃圓頂、古典幾何馬賽克拼花地面。</div>
+          <a href="https://www.google.com/maps/search/?api=1&query=Galleria+Vittorio+Emanuele+III+Messina" target="_blank" rel="noopener noreferrer" class="btn-nav">
+            📍 Google Maps 導航
+          </a>
+        </article>
+
+        <!-- 5. 百年糕點老店 Irrera 1910 -->
+        <article class="guide-card" data-category="food">
+          <div class="guide-names">
+            <div class="guide-cn">百年糕點老店 Irrera 1910</div>
+            <div class="guide-native">Pasticceria Irrera 1910</div>
+          </div>
+          <div class="guide-desc">
+            創立於 1910 年的西西里國寶級百年甜品老字號，坐落於開羅利廣場北側。必點招牌為現點現灌濃郁甜瑞可塔乳酪的西西里煎餅捲（Cannoli），以及搭佐熱布里歐麵包的手工開心果雪酪（Granita）。
+          </div>
+          <div class="guide-highlight">必吃推薦：酥脆 Cannoli、開心果/咖啡口味 Granita、外帶杏仁餅乾。</div>
+          <a href="https://www.google.com/maps/search/?api=1&query=Pasticceria+Irrera+1910+Messina" target="_blank" rel="noopener noreferrer" class="btn-nav">
+            📍 Google Maps 導航
+          </a>
+        </article>
+
+        <!-- 6. 陶爾米娜古劇場 -->
+        <article class="guide-card" data-category="taormina">
+          <div class="guide-names">
+            <div class="guide-cn">陶爾米娜古劇場</div>
+            <div class="guide-native">Teatro Antico di Taormina</div>
+          </div>
+          <div class="guide-desc">
+            建於西元前三世紀的希臘羅馬半圓形露天劇場，傲然矗立於面海懸崖巔峰。坐在階梯看台之上，殘留的古老磚石立柱恰好勾勒出遠方白雪皚皚的埃特納火山與蔚藍愛奧尼亞海，視野氣勢非凡。
+          </div>
+          <div class="guide-highlight">特色亮點：埃特納火山與海灣同框取景、古羅馬磚石拱圈殘垣。</div>
+          <a href="https://www.google.com/maps/search/?api=1&query=Teatro+Antico+di+Taormina+Taormina" target="_blank" rel="noopener noreferrer" class="btn-nav">
+            📍 Google Maps 導航
+          </a>
+        </article>
+
+        <!-- 7. 四月九日廣場 -->
+        <article class="guide-card" data-category="taormina">
+          <div class="guide-names">
+            <div class="guide-cn">四月九日廣場</div>
+            <div class="guide-native">Piazza IX Aprile</div>
+          </div>
+          <div class="guide-desc">
+            陶爾米娜最標誌性的公共休閒廣場，地面鋪滿如西洋棋盤般的黑白雙色大理石磚。景觀鐵欄杆平台能 180 度居高臨下俯瞰整座納克索斯海灣，周圍環抱時計塔與巴洛克式粉色聖約瑟夫教堂。
+          </div>
+          <div class="guide-highlight">特色亮點：黑白棋盤格拍照取景、遠眺海灣全景、中門鐘樓通道。</div>
+          <a href="https://www.google.com/maps/search/?api=1&query=Piazza+IX+Aprile+Taormina" target="_blank" rel="noopener noreferrer" class="btn-nav">
+            📍 Google Maps 導航
+          </a>
+        </article>
+
+      </div>
+    </section>
+
+    <!-- Tab 4: 預約錦囊 -->
+    <section id="tab-checklist" class="tab-view">
+      
+      <div class="checklist-section">
+        <div class="section-headline">
+          <span>🚢</span> 郵輪離港與回船安全守則
+        </div>
+
+        <div class="check-item" onclick="toggleCheckItem(this, 'day4_all_aboard')">
+          <div class="check-box"></div>
+          <div>
+            <div class="check-text-title">最晚登船時間：17:15 前刷卡上船</div>
+            <div class="check-text-desc">郵輪 18:00 準時離港啟航，所有旅客必須於 17:15 前刷卡返回船上客艙。</div>
+          </div>
+        </div>
+
+        <div class="check-item" onclick="toggleCheckItem(this, 'day4_flat_walk')">
+          <div class="check-box"></div>
+          <div>
+            <div class="check-text-title">墨西拿平路步行優勢</div>
+            <div class="check-text-desc">碼頭距主教堂廣場僅 500 公尺、開羅利廣場僅 750 公尺，全程地勢平坦，步行僅需 10 分鐘，無塞車風險。</div>
+          </div>
+        </div>
+
+        <div class="check-item" onclick="toggleCheckItem(this, 'day4_bus_confirm')">
+          <div class="check-box"></div>
+          <div>
+            <div class="check-text-title">陶爾米娜大巴發車時間確認</div>
+            <div class="check-text-desc">下大巴時務必向隨車領隊確認下午回程大巴的準確發車時間與停車號碼牌。</div>
+          </div>
+        </div>
+
+        <div class="check-item" onclick="toggleCheckItem(this, 'day4_north_gate')">
+          <div class="check-box"></div>
+          <div>
+            <div class="check-text-title">保留 20–25 分鐘折返北門</div>
+            <div class="check-text-desc">逛到南端卡塔尼亞門時，務必提前 20 至 25 分鐘沿主街走回北門梅西納門搭接駁車回停車場。</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="checklist-section">
+        <div class="section-headline">
+          <span>🍮</span> 西西里必嚐美味與消費提示
+        </div>
+        <div class="check-text-desc" style="margin-bottom: 8px;">
+          • <strong>Cannoli（西西里奶油煎餅捲）：</strong>香酥脆皮內填入純羊乳甜瑞可塔乳酪，務必挑選「現點現灌」店家才酥脆！
+        </div>
+        <div class="check-text-desc" style="margin-bottom: 8px;">
+          • <strong>Granita con Brioche（冰晶雪酪佐布里歐）：</strong>最推薦開心果（Pistacchio）或杏仁（Mandorla）口味，搭配溫熱圓頂麵包沾食。
+        </div>
+        <div class="check-text-desc" style="margin-bottom: 8px;">
+          • <strong>非接觸支付與零錢：</strong>主要商店、冰淇淋店與餐廳均全面支援 Apple Pay 及感應信用卡；但仍建議備妥 10–20 歐元小額現金購買街頭小吃。
+        </div>
+        <div class="check-text-desc">
+          • <strong>出港甲板觀景推薦：</strong>傍晚 18:00 郵輪開航時，推薦前往頂層露天甲板，可近距離眺望防波堤頂端的「金色聖母聖柱」與海峽夕陽美景。
+        </div>
+      </div>
+
+    </section>
+
+  </main>
+
+  <!-- 底部固定 5 鍵 Tab Bar -->
+  <nav class="tab-bar">
+    <a href="index.html" class="tab-btn">
+      <svg viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
+      <span>首頁</span>
+    </a>
+    <button class="tab-btn active" onclick="switchTab('tab-timeline', this)">
+      <svg viewBox="0 0 24 24"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z"/></svg>
+      <span>行程</span>
+    </button>
+    <button class="tab-btn" onclick="switchTab('tab-map', this)">
+      <svg viewBox="0 0 24 24"><path d="M20.5 3l-.16.03L15 5.1 9 3 3.36 4.9c-.21.07-.36.25-.36.48V20.5c0 .28.22.5.5.5l.16-.03L9 18.9l6 2.1 5.64-1.9c.21-.07.36-.25.36-.48V3.5c0-.28-.22-.5-.5-.5zM15 19l-6-2.11V5l6 2.11V19z"/></svg>
+      <span>地圖</span>
+    </button>
+    <button class="tab-btn" onclick="switchTab('tab-guide', this)">
+      <svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+      <span>景點</span>
+    </button>
+    <button class="tab-btn" onclick="switchTab('tab-checklist', this)">
+      <svg viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-9 14l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
+      <span>錦囊</span>
+    </button>
+  </nav>
+
+  <script>
+    function switchTab(tabId, btn) {
+      document.querySelectorAll('.tab-view').forEach(function(view) {
+        view.classList.remove('active');
+      });
+      document.querySelectorAll('.tab-bar .tab-btn').forEach(function(item) {
+        item.classList.remove('active');
+      });
+
+      const target = document.getElementById(tabId);
+      if (target) {
+        target.classList.add('active');
+      }
+      btn.classList.add('active');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function filterPlaces(category, btn) {
+      document.querySelectorAll('.cat-pill').forEach(function(el) {
+        el.classList.remove('active');
+      });
+      btn.classList.add('active');
+
+      const cards = document.querySelectorAll('.guide-card');
+      cards.forEach(function(card) {
+        if (category === 'all' || card.getAttribute('data-category') === category) {
+          card.style.display = 'block';
+        } else {
+          card.style.display = 'none';
+        }
+      });
+    }
+
+    function toggleCheckItem(el, storageKey) {
+      el.classList.toggle('checked');
+      const isChecked = el.classList.contains('checked');
+      localStorage.setItem(storageKey, isChecked);
+    }
+
+    document.addEventListener('DOMContentLoaded', function() {
+      document.querySelectorAll('.check-item').forEach(function(item) {
+        const onclickAttr = item.getAttribute('onclick');
+        if (onclickAttr) {
+          const match = onclickAttr.match(/'([^']+)'/);
+          if (match && match[1]) {
+            const saved = localStorage.getItem(match[1]);
+            if (saved === 'true') {
+              item.classList.add('checked');
+            }
+          }
+        }
+      });
+    });
+  </script>
+</body>
+</html>
