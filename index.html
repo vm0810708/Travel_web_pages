@@ -904,4 +904,11 @@
   </footer>
 
 </body>
+<script>
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('./sw.js')
+      .then(() => console.log('離線快取服務已啟動'))
+      .catch(err => console.log('登錄失敗', err));
+  }
+</script>
 </html>
