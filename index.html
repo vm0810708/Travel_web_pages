@@ -49,7 +49,7 @@
       color: var(--text-main);
       line-height: 1.5;
       padding-top: calc(var(--safe-top) + 74px);
-      padding-bottom: calc(var(--safe-bottom) + 36px);
+      padding-bottom: calc(var(--safe-bottom) + 72px);
       -webkit-font-smoothing: antialiased;
     }
 
@@ -122,6 +122,21 @@
       margin: 0 auto;
     }
 
+    /* Tab 切換樣式 */
+    .tab-view {
+      display: none;
+      animation: fadeIn 0.22s ease-out;
+    }
+
+    .tab-view.active {
+      display: block;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(4px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
     /* 頂部 Hero Banner */
     .hero-banner {
       background: linear-gradient(135deg, var(--primary) 0%, #1c6aa9 100%);
@@ -167,29 +182,6 @@
       margin-bottom: 14px;
     }
 
-    .stats-grid {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 6px;
-      background: rgba(255, 255, 255, 0.12);
-      backdrop-filter: blur(10px);
-      border-radius: var(--radius-md);
-      padding: 10px 6px;
-      text-align: center;
-    }
-
-    .stat-number {
-      font-size: 16px;
-      font-weight: 800;
-      color: #ffffff;
-    }
-
-    .stat-label {
-      font-size: 10px;
-      opacity: 0.85;
-      margin-top: 1px;
-    }
-
     .section-headline {
       font-size: 15px;
       font-weight: 800;
@@ -198,6 +190,10 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
+    }
+    .section-headline.plain {
+      border-bottom: 1px solid var(--border-color);
+      padding-bottom: 8px;
     }
 
     .section-headline span.count-tag {
@@ -231,10 +227,6 @@
       margin-bottom: 14px;
     }
 
-    .journey-timeline-node:last-child {
-      margin-bottom: 0;
-    }
-
     .timeline-dot-indicator {
       position: absolute;
       left: -20px;
@@ -262,13 +254,12 @@
       text-decoration: none;
       color: inherit;
       display: block;
-      transition: transform 0.15s ease, border-color 0.15s ease, box-shadow 0.15s ease;
+      transition: transform 0.15s ease, border-color 0.15s ease;
     }
 
     .day-card:active {
       transform: scale(0.985);
       border-color: var(--primary);
-      box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
     }
 
     .day-card-header {
@@ -344,13 +335,6 @@
       padding: 5px 10px;
       border-radius: 8px;
       flex-shrink: 0;
-      box-shadow: 0 1px 3px rgba(15, 76, 129, 0.08);
-      transition: background 0.15s ease, color 0.15s ease;
-    }
-
-    .day-card:active .btn-card-action {
-      background: var(--primary);
-      color: #ffffff;
     }
 
     .day-highlights-chips {
@@ -376,7 +360,7 @@
       color: #92400E;
     }
 
-    /* 航班卡片專用樣式 (置底) */
+    /* 航班卡片專用樣式 */
     .flight-card {
       background: var(--card-bg);
       border: 1px solid var(--border-color);
@@ -404,22 +388,9 @@
       padding: 4px 10px;
       border-radius: 8px;
     }
-
-    .flight-type-badge.outbound {
-      background: #E0F2FE;
-      color: #0369A1;
-    }
-
-    .flight-type-badge.inbound {
-      background: #FEF3C7;
-      color: #B45309;
-    }
-
-    .flight-total-time {
-      font-size: 11.5px;
-      font-weight: 600;
-      color: var(--text-sub);
-    }
+    .flight-type-badge.outbound { background: #E0F2FE; color: #0369A1; }
+    .flight-type-badge.inbound { background: #FEF3C7; color: #B45309; }
+    .flight-total-time { font-size: 11.5px; font-weight: 600; color: var(--text-sub); }
 
     .flight-route-overview {
       display: flex;
@@ -429,107 +400,104 @@
       padding: 0 4px;
     }
 
-    .route-city {
-      text-align: left;
-    }
-    .route-city.right {
-      text-align: right;
-    }
-
-    .route-time {
-      font-size: 20px;
-      font-weight: 800;
-      color: var(--text-main);
-      line-height: 1.1;
-    }
-
-    .route-code {
-      font-size: 13px;
-      font-weight: 700;
-      color: var(--primary);
-    }
-
-    .route-name {
-      font-size: 11px;
-      color: var(--text-muted);
-    }
-
+    .route-city { text-align: left; }
+    .route-city.right { text-align: right; }
+    .route-time { font-size: 20px; font-weight: 800; color: var(--text-main); line-height: 1.1; }
+    .route-code { font-size: 13px; font-weight: 700; color: var(--primary); }
+    .route-name { font-size: 11px; color: var(--text-muted); }
     .route-path {
+      flex: 1; display: flex; flex-direction: column; align-items: center; padding: 0 14px; position: relative;
+    }
+    .route-path-line {
+      width: 100%; height: 2px; background: #CBD5E1; position: relative; margin: 6px 0;
+    }
+    .route-path-line::after {
+      content: "✈"; position: absolute; top: -9px; left: calc(50% - 7px); font-size: 12px; color: var(--primary);
+    }
+    .route-stop-pill {
+      font-size: 10px; font-weight: 600; color: #C2410C; background: #FFEDD5; padding: 2px 7px; border-radius: 10px;
+    }
+
+    .flight-segments {
+      background: #F8FAFC; border-radius: var(--radius-sm); padding: 10px 12px; font-size: 12px; border: 1px solid #EEF2F6;
+    }
+    .segment-item { display: flex; justify-content: space-between; align-items: center; padding: 5px 0; }
+    .segment-flight-no { font-weight: 700; color: var(--text-main); display: flex; align-items: center; gap: 6px; }
+    .layover-divider {
+      margin: 6px 0; padding: 4px 8px; background: #FFF7ED; border-left: 3px solid #F97316; border-radius: 4px; font-size: 11px; color: #9A3412; font-weight: 600; display: flex; justify-content: space-between;
+    }
+
+    /* 共用導覽卡片與清單樣式 */
+    .guide-card {
+      background: var(--card-bg); border-radius: var(--radius-md); padding: 14px 16px; margin-bottom: 12px; border: 1px solid var(--border-color); box-shadow: var(--shadow-sm);
+    }
+    .guide-names { margin-bottom: 6px; }
+    .guide-cn { font-size: 15.5px; font-weight: 800; color: var(--text-main); }
+    .guide-native { font-size: 12px; color: var(--text-muted); font-weight: 500; }
+    .guide-desc { font-size: 12.5px; color: var(--text-sub); line-height: 1.55; margin-bottom: 8px; }
+    
+    .checklist-section {
+      background: var(--card-bg); border-radius: var(--radius-md); padding: 16px; margin-bottom: 14px; border: 1px solid var(--border-color); box-shadow: var(--shadow-sm);
+    }
+    .check-item { display: flex; align-items: flex-start; gap: 10px; margin-bottom: 12px; cursor: pointer; }
+    .check-item:last-child { margin-bottom: 0; }
+    .check-box {
+      width: 19px; height: 19px; border-radius: 5px; border: 1.5px solid var(--text-muted); margin-top: 1px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; transition: all 0.15s ease;
+    }
+    .check-item.checked .check-box { background: var(--success); border-color: var(--success); }
+    .check-item.checked .check-box::after { content: "✔"; color: #fff; font-size: 11px; }
+    .check-item.checked .check-text-title { text-decoration: line-through; color: var(--text-muted); }
+    .check-text-title { font-size: 13px; font-weight: 700; color: var(--text-main); }
+    .check-text-desc { font-size: 12px; color: var(--text-sub); line-height: 1.45; margin-top: 2px; }
+    
+    /* 底部 Tab Bar */
+    nav.tab-bar {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      background: var(--nav-glass);
+      backdrop-filter: blur(25px);
+      -webkit-backdrop-filter: blur(25px);
+      border-top: 1px solid var(--nav-border);
+      padding-bottom: var(--safe-bottom);
+      height: calc(var(--safe-bottom) + 54px);
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      max-width: 640px;
+      margin: 0 auto;
+    }
+
+    .tab-btn {
       flex: 1;
       display: flex;
       flex-direction: column;
       align-items: center;
-      padding: 0 14px;
-      position: relative;
-    }
-
-    .route-path-line {
-      width: 100%;
-      height: 2px;
-      background: #CBD5E1;
-      position: relative;
-      margin: 6px 0;
-    }
-
-    .route-path-line::after {
-      content: "✈";
-      position: absolute;
-      top: -9px;
-      left: calc(50% - 7px);
-      font-size: 12px;
-      color: var(--primary);
-    }
-
-    .route-stop-pill {
-      font-size: 10px;
-      font-weight: 600;
-      color: #C2410C;
-      background: #FFEDD5;
-      padding: 2px 7px;
-      border-radius: 10px;
-    }
-
-    .flight-segments {
-      background: #F8FAFC;
-      border-radius: var(--radius-sm);
-      padding: 10px 12px;
-      font-size: 12px;
-      border: 1px solid #EEF2F6;
-    }
-
-    .segment-item {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 5px 0;
-    }
-
-    .segment-flight-no {
-      font-weight: 700;
-      color: var(--text-main);
-      display: flex;
-      align-items: center;
-      gap: 6px;
-    }
-
-    .layover-divider {
-      margin: 6px 0;
-      padding: 4px 8px;
-      background: #FFF7ED;
-      border-left: 3px solid #F97316;
-      border-radius: 4px;
-      font-size: 11px;
-      color: #9A3412;
-      font-weight: 600;
-      display: flex;
-      justify-content: space-between;
-    }
-
-    footer.app-footer {
-      text-align: center;
-      padding: 24px 16px 12px;
-      font-size: 11px;
+      justify-content: center;
+      background: none;
+      border: none;
+      padding: 4px 0 2px;
       color: var(--text-muted);
+      cursor: pointer;
+      text-decoration: none;
+    }
+
+    .tab-btn svg {
+      width: 22px;
+      height: 22px;
+      margin-bottom: 2px;
+      fill: currentColor;
+    }
+
+    .tab-btn span {
+      font-size: 10px;
+      font-weight: 700;
+    }
+
+    .tab-btn.active {
+      color: var(--primary);
     }
   </style>
 </head>
@@ -551,364 +519,599 @@
 
   <main class="container">
 
-    <!-- 頂部旅程看板 (西地中海經典巡禮) -->
-    <div class="hero-banner">
-      <div class="hero-meta-subtitle">Western Mediterranean Cruise</div>
-      <div class="hero-meta-title">西地中海經典巡禮</div>
-      <div class="hero-desc">
-        搭乘 21 萬噸綠能旗艦 MSC World Europa，橫跨法國普羅旺斯、義大利熱那亞、拿坡里/龐貝、西西里島、馬爾他古城與西班牙加泰隆尼亞。
-      </div>
-    </div>
-
-    <!-- 每日靠港行程手冊 ＆ 航程節奏時間軸 (整合型呈現) -->
-    <div class="section-headline">
-      <span>每日靠港行程手冊 ＆ 航程節奏</span>
-      <span class="count-tag">8 日時間軸</span>
-    </div>
-
-    <div class="journey-timeline-group">
-
-      <!-- Day 1 -->
-      <div class="journey-timeline-node">
-        <div class="timeline-dot-indicator"></div>
-        <a class="day-card" href="1003_登船日.html">
-          <div class="day-card-header">
-            <div class="day-pill-wrap">
-              <span class="day-pill">Day 1</span>
-              <span class="day-date">10/03 (六)</span>
-            </div>
-            <span class="rhythm-badge danger">13:30 登船 ➔ 18:00 啟航</span>
-          </div>
-          <div class="day-card-body">
-            <div class="day-destination">
-              <h2>🇫🇷 法國 馬賽 Marseille</h2>
-              <p>📍 馬賽港 4 號門 · MPCT 客運碼頭</p>
-            </div>
-            <span class="btn-card-action">前往 ➔</span>
-          </div>
-          <div class="day-highlights-chips">
-            <span class="chip-micro">KLM 11:30 降落</span>
-            <span class="chip-micro">Welcome Pickups 專車</span>
-            <span class="chip-micro chip-highlight">⚡ 搶約劇場秀</span>
-            <span class="chip-micro">法定安全演習</span>
-            <span class="chip-micro">伊夫堡眺望</span>
-          </div>
-        </a>
-      </div>
-
-      <!-- Day 2 -->
-      <div class="journey-timeline-node">
-        <div class="timeline-dot-indicator"></div>
-        <a class="day-card" href="1004_義大利_熱拿亞.html">
-          <div class="day-card-header">
-            <div class="day-pill-wrap">
-              <span class="day-pill">Day 2</span>
-              <span class="day-date">10/04 (日)</span>
-            </div>
-            <span class="rhythm-badge danger">08:00 靠港 ➔ 16:00 (15:00 返船)</span>
-          </div>
-          <div class="day-card-body">
-            <div class="day-destination">
-              <h2>🇮🇹 義大利 熱那亞 Genoa</h2>
-              <p>📍 Ponte dei Mille · Stazioni Marittime</p>
-            </div>
-            <span class="btn-card-action">前往 ➔</span>
-          </div>
-          <div class="day-highlights-chips">
-            <span class="chip-micro">純步行 5.4 km</span>
-            <span class="chip-micro">黑白聖老楞佐座堂</span>
-            <span class="chip-micro">百年復古電梯</span>
-            <span class="chip-micro chip-highlight">🥪 正宗青醬 & 起司佛卡夏</span>
-          </div>
-        </a>
-      </div>
-
-      <!-- Day 3 -->
-      <div class="journey-timeline-node">
-        <div class="timeline-dot-indicator"></div>
-        <a class="day-card" href="1005_義大利_拿坡里.html">
-          <div class="day-card-header">
-            <div class="day-pill-wrap">
-              <span class="day-pill">Day 3</span>
-              <span class="day-date">10/05 (一)</span>
-            </div>
-            <span class="rhythm-badge danger">13:00 靠港 ➔ 20:00 (19:15 返船)</span>
-          </div>
-          <div class="day-card-body">
-            <div class="day-destination">
-              <h2>🇮🇹 義大利 拿坡里 & 龐貝</h2>
-              <p>📍 Stazione Marittima · Molo Angioino</p>
-            </div>
-            <span class="btn-card-action">前往 ➔</span>
-          </div>
-          <div class="day-highlights-chips">
-            <span class="chip-micro">龐貝古城 2hr 導覽</span>
-            <span class="chip-micro">逃亡者花園</span>
-            <span class="chip-micro">新堡安茹要塞</span>
-            <span class="chip-micro chip-highlight">🍕 外帶爆漿炸披薩</span>
-            <span class="chip-micro">百年文學咖啡</span>
-          </div>
-        </a>
-      </div>
-
-      <!-- Day 4 -->
-      <div class="journey-timeline-node">
-        <div class="timeline-dot-indicator"></div>
-        <a class="day-card" href="1006_義大利_墨西拿.html">
-          <div class="day-card-header">
-            <div class="day-pill-wrap">
-              <span class="day-pill">Day 4</span>
-              <span class="day-date">10/06 (二)</span>
-            </div>
-            <span class="rhythm-badge danger">09:00 靠港 ➔ 18:00 (17:15 返船)</span>
-          </div>
-          <div class="day-card-body">
-            <div class="day-destination">
-              <h2>🇮🇹 義大利 墨西拿 & 陶爾米娜</h2>
-              <p>📍 Terminal Crociere Messina</p>
-            </div>
-            <span class="btn-card-action">前往 ➔</span>
-          </div>
-          <div class="day-highlights-chips">
-            <span class="chip-micro">官方大巴接駁</span>
-            <span class="chip-micro">古希臘羅馬劇場</span>
-            <span class="chip-micro">四月九日全景露台</span>
-            <span class="chip-micro chip-highlight">🍮 正宗西西里 Cannoli</span>
-            <span class="chip-micro">世界最大天文鐘</span>
-          </div>
-        </a>
-      </div>
-
-      <!-- Day 5 -->
-      <div class="journey-timeline-node">
-        <div class="timeline-dot-indicator"></div>
-        <a class="day-card" href="1007_馬爾他_瓦萊塔.html">
-          <div class="day-card-header">
-            <div class="day-pill-wrap">
-              <span class="day-pill">Day 5</span>
-              <span class="day-date">10/07 (三)</span>
-            </div>
-            <span class="rhythm-badge danger">08:00 靠港 ➔ 17:00 (16:15 返船)</span>
-          </div>
-          <div class="day-card-body">
-            <div class="day-destination">
-              <h2>🇲🇹 馬爾他 瓦萊塔 Valletta</h2>
-              <p>📍 Pinto Wharf · Valletta Cruise Port</p>
-            </div>
-            <span class="btn-card-action">前往 ➔</span>
-          </div>
-          <div class="day-highlights-chips">
-            <span class="chip-micro">巴拉卡升降梯</span>
-            <span class="chip-micro">12:00 正午鳴砲</span>
-            <span class="chip-micro chip-highlight">⛪ 13:15 錯峰買票大教堂</span>
-            <span class="chip-micro">卡拉瓦喬真跡</span>
-            <span class="chip-micro">Caffe Cordina</span>
-          </div>
-        </a>
-      </div>
-
-      <!-- Day 6 -->
-      <div class="journey-timeline-node">
-        <div class="timeline-dot-indicator sea"></div>
-        <a class="day-card" href="1008_海上日.html">
-          <div class="day-card-header">
-            <div class="day-pill-wrap">
-              <span class="day-pill" style="background:#7E22CE;">Day 6</span>
-              <span class="day-date">10/08 (四)</span>
-            </div>
-            <span class="rhythm-badge sea">全日公海 ➔ Gala 正式晚宴</span>
-          </div>
-          <div class="day-card-body">
-            <div class="day-destination">
-              <h2>🛳️ 海上巡航日 At Sea</h2>
-              <p>📍 MSC World Europa 旗艦生活深度體驗</p>
-            </div>
-            <span class="btn-card-action" style="color:#7E22CE; background:#F3E8FF; border-color:rgba(126,34,206,0.25);">前往 ➔</span>
-          </div>
-          <div class="day-highlights-chips">
-            <span class="chip-micro">Venom Drop 11層旋轉滑梯</span>
-            <span class="chip-micro">Zen Pool 成人泳池</span>
-            <span class="chip-micro">海水淡化生啤酒坊</span>
-            <span class="chip-micro chip-highlight">👔 船長晚宴正式服裝</span>
-          </div>
-        </a>
-      </div>
-
-      <!-- Day 7 -->
-      <div class="journey-timeline-node">
-        <div class="timeline-dot-indicator"></div>
-        <a class="day-card" href="1009_西班牙_巴塞隆納.html">
-          <div class="day-card-header">
-            <div class="day-pill-wrap">
-              <span class="day-pill">Day 7</span>
-              <span class="day-date">10/09 (五)</span>
-            </div>
-            <span class="rhythm-badge danger">08:00 靠港 ➔ 18:00 (17:00 返船)</span>
-          </div>
-          <div class="day-card-body">
-            <div class="day-destination">
-              <h2>🇪🇸 西班牙 巴塞隆納 Barcelona</h2>
-              <p>📍 Moll Adossat · Terminal A-E</p>
-            </div>
-            <span class="btn-card-action">前往 ➔</span>
-          </div>
-          <div class="day-highlights-chips">
-            <span class="chip-micro chip-highlight">🎟️ 09:45 聖家堂 (已預約)</span>
-            <span class="chip-micro">米拉與巴特略之家</span>
-            <span class="chip-micro">El Nacional Tapas</span>
-            <span class="chip-micro">波蓋利亞市場</span>
-            <span class="chip-micro">哥特區主教橋</span>
-          </div>
-        </a>
-      </div>
-
-      <!-- Day 8 -->
-      <div class="journey-timeline-node">
-        <div class="timeline-dot-indicator"></div>
-        <a class="day-card" href="1010_法國_馬賽.html">
-          <div class="day-card-header">
-            <div class="day-pill-wrap">
-              <span class="day-pill">Day 8</span>
-              <span class="day-date">10/10 (六)</span>
-            </div>
-            <span class="rhythm-badge accent">08:00 靠港 ➔ 17:30 班機返程</span>
-          </div>
-          <div class="day-card-body">
-            <div class="day-destination">
-              <h2>🇫🇷 法國 馬賽 Marseille (回程)</h2>
-              <p>📍 MPCC 碼頭 ➔ 聖夏爾火車站 ➔ MRS 機場</p>
-            </div>
-            <span class="btn-card-action">前往 ➔</span>
-          </div>
-          <div class="day-highlights-chips">
-            <span class="chip-micro">聖夏爾火車站寄物</span>
-            <span class="chip-micro">鏡面遮陽棚</span>
-            <span class="chip-micro">籃筐老城散步</span>
-            <span class="chip-micro chip-highlight">🍲 12:00 Chez Madie 馬賽魚湯</span>
-            <span class="chip-micro">L91 機場快線直達</span>
-          </div>
-        </a>
-      </div>
-
-    </div>
-
-    <!-- ✈️ 國際航班接駁資訊 (已統一置底) -->
-    <div class="section-headline">
-      <span>✈️ 國際航班接駁資訊</span>
-      <span class="count-tag">荷蘭皇家航空 KLM</span>
-    </div>
-
-    <!-- 去程航班卡片 -->
-    <div class="flight-card">
-      <div class="flight-card-header">
-        <span class="flight-type-badge outbound">🛫 去程 · 2026/10/02 (週五)</span>
-        <span class="flight-total-time">總時長 17 小時 31 分鐘</span>
-      </div>
-
-      <div class="flight-route-overview">
-        <div class="route-city">
-          <div class="route-time">23:59</div>
-          <div class="route-code">TPE</div>
-          <div class="route-name">台北桃園</div>
-        </div>
-        <div class="route-path">
-          <span class="route-stop-pill">轉機 1 次 AMS</span>
-          <div class="route-path-line"></div>
-          <span style="font-size:10px; color:var(--text-muted);">抵達 10/03 週六</span>
-        </div>
-        <div class="route-city right">
-          <div class="route-time">11:30<span style="font-size:12px; vertical-align:super; color:var(--accent);">+1</span></div>
-          <div class="route-code">MRS</div>
-          <div class="route-name">馬賽普羅旺斯</div>
+    <!-- Tab 1: 行程總覽 -->
+    <section id="tab-timeline" class="tab-view active">
+      <!-- 頂部旅程看板 -->
+      <div class="hero-banner">
+        <div class="hero-meta-subtitle">Western Mediterranean Cruise</div>
+        <div class="hero-meta-title">西地中海經典巡禮</div>
+        <div class="hero-desc">
+          搭乘 21 萬噸綠能旗艦 MSC World Europa，橫跨法國普羅旺斯、義大利熱那亞、拿坡里/龐貝、西西里島、馬爾他古城與西班牙加泰隆尼亞。
         </div>
       </div>
 
-      <div class="flight-segments">
-        <div class="segment-item">
-          <span class="segment-flight-no">👑 KLM KL808 · 波音客機</span>
-          <span style="color:var(--text-muted);">14 小時 16 分鐘</span>
-        </div>
-        <div style="font-size:11px; color:var(--text-sub); margin-bottom:4px;">
-          23:59 TPE 台北桃園 ➔ 08:15 (+1) AMS 阿姆斯特丹史基浦
-        </div>
-
-        <div class="layover-divider">
-          <span>⏳ 機場轉機中停：阿姆斯特丹 (AMS)</span>
-          <span>1 小時 15 分鐘</span>
-        </div>
-
-        <div class="segment-item">
-          <span class="segment-flight-no">👑 KLM KL1465</span>
-          <span style="color:var(--text-muted);">2 小時 00 分鐘</span>
-        </div>
-        <div style="font-size:11px; color:var(--text-sub);">
-          09:30 AMS 阿姆斯特丹 ➔ 11:30 MRS 馬賽普羅旺斯 (Terminal 1)
-        </div>
-      </div>
-    </div>
-
-    <!-- 回程航班卡片 -->
-    <div class="flight-card">
-      <div class="flight-card-header">
-        <span class="flight-type-badge inbound">🛬 回程 · 2026/10/10 (週六)</span>
-        <span class="flight-total-time">總時長 15 小時 25 分鐘</span>
+      <!-- 每日靠港行程手冊 ＆ 航程節奏時間軸 -->
+      <div class="section-headline">
+        <span>每日靠港行程手冊 ＆ 航程節奏</span>
+        <span class="count-tag">8 日時間軸</span>
       </div>
 
-      <div class="flight-route-overview">
-        <div class="route-city">
-          <div class="route-time">17:30</div>
-          <div class="route-code">MRS</div>
-          <div class="route-name">馬賽普羅旺斯</div>
+      <div class="journey-timeline-group">
+        <!-- Day 1 -->
+        <div class="journey-timeline-node">
+          <div class="timeline-dot-indicator"></div>
+          <a class="day-card" href="1003_登船日.html">
+            <div class="day-card-header">
+              <div class="day-pill-wrap">
+                <span class="day-pill">Day 1</span>
+                <span class="day-date">10/03 (六)</span>
+              </div>
+              <span class="rhythm-badge danger">13:30 登船 ➔ 18:00 啟航</span>
+            </div>
+            <div class="day-card-body">
+              <div class="day-destination">
+                <h2>🇫🇷 法國 馬賽 Marseille</h2>
+                <p>📍 馬賽港 4 號門 · MPCT 客運碼頭</p>
+              </div>
+              <span class="btn-card-action">行程 ➔</span>
+            </div>
+            <div class="day-highlights-chips">
+              <span class="chip-micro">KLM 11:30 降落</span>
+              <span class="chip-micro">Welcome Pickups 專車</span>
+              <span class="chip-micro chip-highlight">⚡ 搶約劇場秀</span>
+              <span class="chip-micro">伊夫堡眺望</span>
+            </div>
+          </a>
         </div>
-        <div class="route-path">
-          <span class="route-stop-pill">轉機 1 次 AMS</span>
-          <div class="route-path-line"></div>
-          <span style="font-size:10px; color:var(--text-muted);">抵達 10/11 週日</span>
+
+        <!-- Day 2 -->
+        <div class="journey-timeline-node">
+          <div class="timeline-dot-indicator"></div>
+          <a class="day-card" href="1004_義大利_熱拿亞.html">
+            <div class="day-card-header">
+              <div class="day-pill-wrap">
+                <span class="day-pill">Day 2</span>
+                <span class="day-date">10/04 (日)</span>
+              </div>
+              <span class="rhythm-badge danger">08:00 靠港 ➔ 16:00 (15:00 返船)</span>
+            </div>
+            <div class="day-card-body">
+              <div class="day-destination">
+                <h2>🇮🇹 義大利 熱那亞 Genoa</h2>
+                <p>📍 Ponte dei Mille · Stazioni Marittime</p>
+              </div>
+              <span class="btn-card-action">行程 ➔</span>
+            </div>
+            <div class="day-highlights-chips">
+              <span class="chip-micro">純步行 5.4 km</span>
+              <span class="chip-micro">黑白聖老楞佐座堂</span>
+              <span class="chip-micro">百年復古電梯</span>
+              <span class="chip-micro chip-highlight">🥪 正宗青醬 & 起司佛卡夏</span>
+            </div>
+          </a>
         </div>
-        <div class="route-city right">
-          <div class="route-time">14:55<span style="font-size:12px; vertical-align:super; color:var(--accent);">+1</span></div>
-          <div class="route-code">TPE</div>
-          <div class="route-name">台北桃園</div>
+
+        <!-- Day 3 -->
+        <div class="journey-timeline-node">
+          <div class="timeline-dot-indicator"></div>
+          <a class="day-card" href="1005_義大利_拿坡里.html">
+            <div class="day-card-header">
+              <div class="day-pill-wrap">
+                <span class="day-pill">Day 3</span>
+                <span class="day-date">10/05 (一)</span>
+              </div>
+              <span class="rhythm-badge danger">13:00 靠港 ➔ 20:00 (19:15 返船)</span>
+            </div>
+            <div class="day-card-body">
+              <div class="day-destination">
+                <h2>🇮🇹 義大利 拿坡里 & 龐貝</h2>
+                <p>📍 Stazione Marittima · Molo Angioino</p>
+              </div>
+              <span class="btn-card-action">行程 ➔</span>
+            </div>
+            <div class="day-highlights-chips">
+              <span class="chip-micro">龐貝古城 2hr 導覽</span>
+              <span class="chip-micro">逃亡者花園</span>
+              <span class="chip-micro chip-highlight">🍕 外帶爆漿炸披薩</span>
+              <span class="chip-micro">百年文學咖啡</span>
+            </div>
+          </a>
+        </div>
+
+        <!-- Day 4 -->
+        <div class="journey-timeline-node">
+          <div class="timeline-dot-indicator"></div>
+          <a class="day-card" href="1006_義大利_墨西拿.html">
+            <div class="day-card-header">
+              <div class="day-pill-wrap">
+                <span class="day-pill">Day 4</span>
+                <span class="day-date">10/06 (二)</span>
+              </div>
+              <span class="rhythm-badge danger">09:00 靠港 ➔ 18:00 (17:15 返船)</span>
+            </div>
+            <div class="day-card-body">
+              <div class="day-destination">
+                <h2>🇮🇹 義大利 墨西拿 & 陶爾米娜</h2>
+                <p>📍 Terminal Crociere Messina</p>
+              </div>
+              <span class="btn-card-action">行程 ➔</span>
+            </div>
+            <div class="day-highlights-chips">
+              <span class="chip-micro">官方大巴接駁</span>
+              <span class="chip-micro">古希臘羅馬劇場</span>
+              <span class="chip-micro">四月九日全景露台</span>
+              <span class="chip-micro chip-highlight">🍮 正宗西西里 Cannoli</span>
+            </div>
+          </a>
+        </div>
+
+        <!-- Day 5 -->
+        <div class="journey-timeline-node">
+          <div class="timeline-dot-indicator"></div>
+          <a class="day-card" href="1007_馬爾他_瓦萊塔.html">
+            <div class="day-card-header">
+              <div class="day-pill-wrap">
+                <span class="day-pill">Day 5</span>
+                <span class="day-date">10/07 (三)</span>
+              </div>
+              <span class="rhythm-badge danger">08:00 靠港 ➔ 17:00 (16:15 返船)</span>
+            </div>
+            <div class="day-card-body">
+              <div class="day-destination">
+                <h2>🇲🇹 馬爾他 瓦萊塔 Valletta</h2>
+                <p>📍 Pinto Wharf · Valletta Cruise Port</p>
+              </div>
+              <span class="btn-card-action">行程 ➔</span>
+            </div>
+            <div class="day-highlights-chips">
+              <span class="chip-micro">巴拉卡升降梯</span>
+              <span class="chip-micro">12:00 正午鳴砲</span>
+              <span class="chip-micro chip-highlight">⛪ 13:15 錯峰買票大教堂</span>
+              <span class="chip-micro">卡拉瓦喬真跡</span>
+            </div>
+          </a>
+        </div>
+
+        <!-- Day 6 -->
+        <div class="journey-timeline-node">
+          <div class="timeline-dot-indicator sea"></div>
+          <a class="day-card" href="1008_海上日.html">
+            <div class="day-card-header">
+              <div class="day-pill-wrap">
+                <span class="day-pill" style="background:#7E22CE;">Day 6</span>
+                <span class="day-date">10/08 (四)</span>
+              </div>
+              <span class="rhythm-badge sea">全日公海 ➔ Gala 正式晚宴</span>
+            </div>
+            <div class="day-card-body">
+              <div class="day-destination">
+                <h2>🛳️ 海上巡航日 At Sea</h2>
+                <p>📍 MSC World Europa 旗艦生活深度體驗</p>
+              </div>
+              <span class="btn-card-action" style="color:#7E22CE; background:#F3E8FF; border-color:rgba(126,34,206,0.25);">行程 ➔</span>
+            </div>
+            <div class="day-highlights-chips">
+              <span class="chip-micro">Venom Drop 11層旋轉滑梯</span>
+              <span class="chip-micro">Zen Pool 成人泳池</span>
+              <span class="chip-micro chip-highlight">👔 船長晚宴正式服裝</span>
+            </div>
+          </a>
+        </div>
+
+        <!-- Day 7 -->
+        <div class="journey-timeline-node">
+          <div class="timeline-dot-indicator"></div>
+          <a class="day-card" href="1009_西班牙_巴塞隆納.html">
+            <div class="day-card-header">
+              <div class="day-pill-wrap">
+                <span class="day-pill">Day 7</span>
+                <span class="day-date">10/09 (五)</span>
+              </div>
+              <span class="rhythm-badge danger">08:00 靠港 ➔ 18:00 (17:00 返船)</span>
+            </div>
+            <div class="day-card-body">
+              <div class="day-destination">
+                <h2>🇪🇸 西班牙 巴塞隆納 Barcelona</h2>
+                <p>📍 Moll Adossat · Terminal A-E</p>
+              </div>
+              <span class="btn-card-action">行程 ➔</span>
+            </div>
+            <div class="day-highlights-chips">
+              <span class="chip-micro chip-highlight">🎟️ 09:45 聖家堂 (已預約)</span>
+              <span class="chip-micro">米拉與巴特略之家</span>
+              <span class="chip-micro">波蓋利亞市場</span>
+              <span class="chip-micro">16:15 哥倫布紀念碑搭車</span>
+            </div>
+          </a>
+        </div>
+
+        <!-- Day 8 -->
+        <div class="journey-timeline-node">
+          <div class="timeline-dot-indicator"></div>
+          <a class="day-card" href="1010_法國_馬賽.html">
+            <div class="day-card-header">
+              <div class="day-pill-wrap">
+                <span class="day-pill">Day 8</span>
+                <span class="day-date">10/10 (六)</span>
+              </div>
+              <span class="rhythm-badge accent">08:00 靠港 ➔ 17:30 班機返程</span>
+            </div>
+            <div class="day-card-body">
+              <div class="day-destination">
+                <h2>🇫🇷 法國 馬賽 Marseille (回程)</h2>
+                <p>📍 MPCC 碼頭 ➔ 聖夏爾火車站 ➔ MRS 機場</p>
+              </div>
+              <span class="btn-card-action">行程 ➔</span>
+            </div>
+            <div class="day-highlights-chips">
+              <span class="chip-micro">聖夏爾火車站寄物</span>
+              <span class="chip-micro">籃筐老城散步</span>
+              <span class="chip-micro chip-highlight">🍲 12:00 Chez Madie 馬賽魚湯</span>
+              <span class="chip-micro">L91 機場快線直達</span>
+            </div>
+          </a>
         </div>
       </div>
 
-      <div class="flight-segments">
-        <div class="segment-item">
-          <span class="segment-flight-no">👑 KLM KL1470</span>
-          <span style="color:var(--text-muted);">1 小時 55 分鐘</span>
-        </div>
-        <div style="font-size:11px; color:var(--text-sub); margin-bottom:4px;">
-          17:30 MRS 馬賽普羅旺斯 ➔ 19:25 AMS 阿姆斯特丹史基浦
-        </div>
+      <!-- 國際航班接駁資訊 -->
+      <div class="section-headline">
+        <span>✈️ 國際航班接駁資訊</span>
+        <span class="count-tag">荷蘭皇家航空 KLM</span>
+      </div>
 
-        <div class="layover-divider" style="background:#FEF2F2; border-left-color:var(--danger); color:#991B1B;">
-          <span>⚠️ 緊湊轉機注意：阿姆斯特丹 (AMS)</span>
-          <span>0 小時 50 分鐘</span>
+      <!-- 去程航班卡片 -->
+      <div class="flight-card">
+        <div class="flight-card-header">
+          <span class="flight-type-badge outbound">🛫 去程 · 2026/10/02 (週五)</span>
+          <span class="flight-total-time">總時長 17 小時 31 分鐘</span>
         </div>
-
-        <div class="segment-item">
-          <span class="segment-flight-no">👑 KLM KL807 · 波音客機</span>
-          <span style="color:var(--text-muted);">12 小時 40 分鐘</span>
+        <div class="flight-route-overview">
+          <div class="route-city">
+            <div class="route-time">23:59</div>
+            <div class="route-code">TPE</div>
+            <div class="route-name">台北桃園</div>
+          </div>
+          <div class="route-path">
+            <span class="route-stop-pill">轉機 1 次 AMS</span>
+            <div class="route-path-line"></div>
+            <span style="font-size:10px; color:var(--text-muted);">抵達 10/03 週六</span>
+          </div>
+          <div class="route-city right">
+            <div class="route-time">11:30<span style="font-size:12px; vertical-align:super; color:var(--accent);">+1</span></div>
+            <div class="route-code">MRS</div>
+            <div class="route-name">馬賽普羅旺斯</div>
+          </div>
         </div>
-        <div style="font-size:11px; color:var(--text-sub);">
-          20:15 AMS 阿姆斯特丹 ➔ 14:55 (+1) TPE 台北桃園航廈
+        <div class="flight-segments">
+          <div class="segment-item">
+            <span class="segment-flight-no">👑 KLM KL808 · 波音客機</span>
+            <span style="color:var(--text-muted);">14 小時 16 分鐘</span>
+          </div>
+          <div style="font-size:11px; color:var(--text-sub); margin-bottom:4px;">
+            23:59 TPE ➔ 08:15 (+1) AMS 阿姆斯特丹
+          </div>
+          <div class="layover-divider">
+            <span>⏳ 機場轉機中停：阿姆斯特丹 (AMS)</span>
+            <span>1 小時 15 分鐘</span>
+          </div>
+          <div class="segment-item">
+            <span class="segment-flight-no">👑 KLM KL1465</span>
+            <span style="color:var(--text-muted);">2 小時 00 分鐘</span>
+          </div>
+          <div style="font-size:11px; color:var(--text-sub);">
+            09:30 AMS ➔ 11:30 MRS 馬賽 (Terminal 1)
+          </div>
         </div>
       </div>
-    </div>
+
+      <!-- 回程航班卡片 -->
+      <div class="flight-card">
+        <div class="flight-card-header">
+          <span class="flight-type-badge inbound">🛬 回程 · 2026/10/10 (週六)</span>
+          <span class="flight-total-time">總時長 15 小時 25 分鐘</span>
+        </div>
+        <div class="flight-route-overview">
+          <div class="route-city">
+            <div class="route-time">17:30</div>
+            <div class="route-code">MRS</div>
+            <div class="route-name">馬賽普羅旺斯</div>
+          </div>
+          <div class="route-path">
+            <span class="route-stop-pill">轉機 1 次 AMS</span>
+            <div class="route-path-line"></div>
+            <span style="font-size:10px; color:var(--text-muted);">抵達 10/11 週日</span>
+          </div>
+          <div class="route-city right">
+            <div class="route-time">14:55<span style="font-size:12px; vertical-align:super; color:var(--accent);">+1</span></div>
+            <div class="route-code">TPE</div>
+            <div class="route-name">台北桃園</div>
+          </div>
+        </div>
+        <div class="flight-segments">
+          <div class="segment-item">
+            <span class="segment-flight-no">👑 KLM KL1470</span>
+            <span style="color:var(--text-muted);">1 小時 55 分鐘</span>
+          </div>
+          <div style="font-size:11px; color:var(--text-sub); margin-bottom:4px;">
+            17:30 MRS ➔ 19:25 AMS 阿姆斯特丹
+          </div>
+          <div class="layover-divider" style="background:#FEF2F2; border-left-color:var(--danger); color:#991B1B;">
+            <span>⚠️ 緊湊轉機注意：絕對禁止退稅排隊</span>
+            <span>0 小時 50 分鐘</span>
+          </div>
+          <div class="segment-item">
+            <span class="segment-flight-no">👑 KLM KL807 · 波音客機</span>
+            <span style="color:var(--text-muted);">12 小時 40 分鐘</span>
+          </div>
+          <div style="font-size:11px; color:var(--text-sub);">
+            20:15 AMS ➔ 14:55 (+1) TPE 台北桃園
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Tab 2: 路線圖 (圖1) -->
+    <section id="tab-map" class="tab-view">
+      <div class="section-headline plain">
+        <span>🗺️ 西地中海航行路線圖</span>
+      </div>
+      <p style="font-size:12.5px; color:var(--text-sub); margin-bottom:12px;">
+        航程總計約 1,600 海里。由法國普羅旺斯出發，順時針繞行地中海，途經利古里亞海、第勒尼安海、抵達西西里島與馬爾他，最後橫跨公海至伊比利半島。
+      </p>
+      
+      <!-- 直接插入您的 圖1 -->
+      <img src="map_1.jpg" alt="西地中海路線圖" style="width: 100%; height: auto; border-radius: var(--radius-md); border: 1px solid var(--border-color); box-shadow: var(--shadow-sm); margin-bottom: 16px; display: block;">
+
+      <div class="guide-card">
+        <div class="guide-names">
+          <div class="guide-cn">航程距離參考 (海里 NM)</div>
+        </div>
+        <div class="guide-desc" style="display:flex; flex-direction:column; gap:6px;">
+          <span>🛳️ 馬賽 ➔ 熱那亞：約 200 NM</span>
+          <span>🛳️ 熱那亞 ➔ 拿坡里：約 360 NM</span>
+          <span>🛳️ 拿坡里 ➔ 墨西拿：約 170 NM</span>
+          <span>🛳️ 墨西拿 ➔ 瓦萊塔：約 150 NM</span>
+          <span>🛳️ 瓦萊塔 ➔ 巴塞隆納 (含海上日)：約 620 NM</span>
+          <span>🛳️ 巴塞隆納 ➔ 馬賽：約 180 NM</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Tab 3: 港口歷史景點 -->
+    <section id="tab-guide" class="tab-view">
+      <div class="section-headline plain">
+        <span>🏛️ 靠港城市歷史縮影</span>
+      </div>
+      <p style="font-size:12.5px; color:var(--text-sub); margin-bottom:12px;">
+        地中海是西方文明的搖籃。在抵達這 6 座千年古城前，先來了解她們的歷史底蘊：
+      </p>
+
+      <div class="guide-card">
+        <div class="guide-names">
+          <div class="guide-cn">法國 · 馬賽 (Marseille)</div>
+          <div class="guide-native">建城於西元前 600 年</div>
+        </div>
+        <div class="guide-desc">
+          法國最古老的城市。由來自小亞細亞的古希臘水手所建立，當時被稱為「馬薩利亞 (Massalia)」。歷經兩千多年的地中海貿易洗禮，成為融合北非、南歐與法國普羅旺斯風情的多元文化大熔爐。
+        </div>
+        <div class="guide-highlight">代表符號：伊夫堡、馬賽魚湯、馬賽香皂。</div>
+      </div>
+
+      <div class="guide-card">
+        <div class="guide-names">
+          <div class="guide-cn">義大利 · 熱那亞 (Genoa)</div>
+          <div class="guide-native">中世紀最強大的海上共和國之一</div>
+        </div>
+        <div class="guide-desc">
+          「La Superba (傲慢之城)」，中世紀與威尼斯齊名的海洋霸主，也是探險家哥倫布的故鄉。16 世紀此處聚集了全歐洲最富有的銀行家，在市中心打造了華麗無雙的羅利宮殿群 (Palazzi dei Rolli)。
+        </div>
+        <div class="guide-highlight">代表符號：羅利宮殿、羅勒青醬 (Pesto)、哥倫布。</div>
+      </div>
+
+      <div class="guide-card">
+        <div class="guide-names">
+          <div class="guide-cn">義大利 · 拿坡里 (Naples)</div>
+          <div class="guide-native">西元前 470 年的新城 (Neapolis)</div>
+        </div>
+        <div class="guide-desc">
+          曾被古希臘、羅馬帝國、諾曼人、西班牙波旁王朝輪番統治，保留了極度豐厚的歷史層次與奔放的南義市井氣息。一旁的龐貝古城更在西元 79 年因維蘇威火山爆發而被瞬間封存。
+        </div>
+        <div class="guide-highlight">代表符號：瑪格麗特披薩、維蘇威火山、龐貝古城。</div>
+      </div>
+
+      <div class="guide-card">
+        <div class="guide-names">
+          <div class="guide-cn">義大利 · 墨西拿 (Messina)</div>
+          <div class="guide-native">西西里島的門戶</div>
+        </div>
+        <div class="guide-desc">
+          自古希臘時期即為扼守海峽的軍事與商業咽喉。歷經 1908 年歐洲史上最慘重的大地震與海嘯摧毀，城市幾乎奇蹟般地按原貌重建。鄰近的陶爾米娜 (Taormina) 則保留了壯麗的古希臘懸崖劇場。
+        </div>
+        <div class="guide-highlight">代表符號：天文鐘樓、古希臘劇場、埃特納火山。</div>
+      </div>
+
+      <div class="guide-card">
+        <div class="guide-names">
+          <div class="guide-cn">馬爾他 · 瓦萊塔 (Valletta)</div>
+          <div class="guide-native">由騎士團建立的堅固堡壘</div>
+        </div>
+        <div class="guide-desc">
+          建城於 1565 年「馬爾他大圍攻」擊退鄂圖曼土耳其帝國之後。由聖約翰醫院騎士團大團長讓·德·瓦萊特親自奠基，整座城市建於堅硬的石灰岩半島上，被譽為「由紳士為紳士打造的城市」。
+        </div>
+        <div class="guide-highlight">代表符號：騎士團盔甲、馬爾他十字、卡拉瓦喬。</div>
+      </div>
+
+      <div class="guide-card">
+        <div class="guide-names">
+          <div class="guide-cn">西班牙 · 巴塞隆納 (Barcelona)</div>
+          <div class="guide-native">加泰隆尼亞的驕傲</div>
+        </div>
+        <div class="guide-desc">
+          從羅馬時代的殖民地 (Barcino) 發展至今。舊城哥特區保留了迷宮般的中世紀街道，而 19 世紀的「擴展區」則成為高第 (Gaudí) 等現代主義建築大師揮灑奇幻創意的畫布。
+        </div>
+        <div class="guide-highlight">代表符號：聖家堂、波浪建築、Tapas 與海鮮燉飯。</div>
+      </div>
+    </section>
+
+    <!-- Tab 4: 錦囊與必帶清單 -->
+    <section id="tab-checklist" class="tab-view">
+      <div class="section-headline plain">
+        <span>🧳 航前準備與全航程錦囊</span>
+      </div>
+
+      <div class="checklist-section">
+        <div class="section-headline">
+          <span>✅</span> 出發前數位與文件準備
+        </div>
+        <div class="check-item" onclick="toggleCheckItem(this, 'idx_app1')">
+          <div class="check-box"></div>
+          <div>
+            <div class="check-text-title">下載 MSC for Me App</div>
+            <div class="check-text-desc">登船連上內網即可預約劇場秀、SPA與查詢帳單。</div>
+          </div>
+        </div>
+        <div class="check-item" onclick="toggleCheckItem(this, 'idx_app2')">
+          <div class="check-box"></div>
+          <div>
+            <div class="check-text-title">下載 Sagrada Família App (聖家堂)</div>
+            <div class="check-text-desc">巴塞隆納入內必備，供查驗電子票與聆聽語音導覽。</div>
+          </div>
+        </div>
+        <div class="check-item" onclick="toggleCheckItem(this, 'idx_doc1')">
+          <div class="check-box"></div>
+          <div>
+            <div class="check-text-title">護照正本 (效期 > 6 個月) ＆ 影本 3 份</div>
+            <div class="check-text-desc">正本將於登船時由郵輪收走保管。岸上觀光請務必隨身攜帶「紙本護照影本」作為身分與退稅證明（手機照片不可靠）。</div>
+          </div>
+        </div>
+        <div class="check-item" onclick="toggleCheckItem(this, 'idx_doc2')">
+          <div class="check-box"></div>
+          <div>
+            <div class="check-text-title">列印並綁定 MSC 行李條</div>
+            <div class="check-text-desc">出發前列印並釘牢於 6 件大托運行李把手上。</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="checklist-section">
+        <div class="section-headline">
+          <span>👗</span> 衣物與鞋履必備清單
+        </div>
+        <div class="check-item" onclick="toggleCheckItem(this, 'idx_clothes1')">
+          <div class="check-box"></div>
+          <div>
+            <div class="check-text-title">貼身衣物與襪子 (12-14 套)</div>
+            <div class="check-text-desc">船上手洗不易乾，洗衣費高，帶足全航程數量最省事。</div>
+          </div>
+        </div>
+        <div class="check-item" onclick="toggleCheckItem(this, 'idx_clothes2')">
+          <div class="check-box"></div>
+          <div>
+            <div class="check-text-title">正式服裝 Dress Code (1 套)</div>
+            <div class="check-text-desc">為 Day 6 船長晚宴準備：男士西裝/皮鞋，女士洋裝或禮服。</div>
+          </div>
+        </div>
+        <div class="check-item" onclick="toggleCheckItem(this, 'idx_clothes3')">
+          <div class="check-box"></div>
+          <div>
+            <div class="check-text-title">包覆肩膝的服裝</div>
+            <div class="check-text-desc">參訪馬爾他大教堂與羅馬天主教堂時的強制規定。</div>
+          </div>
+        </div>
+        <div class="check-item" onclick="toggleCheckItem(this, 'idx_shoes1')">
+          <div class="check-box"></div>
+          <div>
+            <div class="check-text-title">防滑厚底運動鞋</div>
+            <div class="check-text-desc">龐貝古城與歐洲石板路極需避震，嚴禁薄底或高跟鞋。</div>
+          </div>
+        </div>
+        <div class="check-item" onclick="toggleCheckItem(this, 'idx_jacket')">
+          <div class="check-box"></div>
+          <div>
+            <div class="check-text-title">防風薄外套</div>
+            <div class="check-text-desc">早晚甲板海風強勁，採洋蔥式穿法應對 15°C~25°C 溫差。</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="checklist-section">
+        <div class="section-headline">
+          <span>⚠️</span> 旅程保命與防呆注意事項
+        </div>
+        <div class="check-text-desc" style="margin-bottom: 8px;">
+          • <strong>隨身防竊警告：</strong>南歐港口（尤其是拿坡里、巴塞隆納）為扒手熱區。隨身包與背包請一律「前背」，手機切勿插在後口袋。
+        </div>
+        <div class="check-text-desc" style="margin-bottom: 8px;">
+          • <strong>實體信用卡與小額歐元：</strong>船上綁定及岸上交通多支援 Tap & Go，但仍需備妥 €20 左右的零錢，用於購買街頭小吃或部分舊式設施。
+        </div>
+        <div class="check-text-desc" style="margin-bottom: 8px;">
+          • <strong>飛航模式：</strong>郵輪離港進入公海後，務必將手機切換至「飛航模式」並僅連線船上 Wi-Fi，以免誤連高額的衛星海事漫遊網路。
+        </div>
+        <div class="check-text-desc">
+          • <strong>回程轉機極度緊湊 (Day 8)：</strong>荷航在阿姆斯特丹 (AMS) 轉機僅有 50 分鐘。在馬賽機場與 AMS 轉機時，**絕對禁止排隊辦理退稅**，否則極大機率錯過返台班機！
+        </div>
+      </div>
+    </section>
 
   </main>
 
-  <footer class="app-footer">
-    <p>MSC World Europa 西地中海郵輪行程手冊</p>
-    <p style="margin-top: 4px; opacity: 0.7;">PWA Mobile Web App · 離線錦囊與即時導航</p>
-  </footer>
+  <!-- 底部固定 4 鍵 Tab Bar -->
+  <nav class="tab-bar">
+    <button class="tab-btn active" onclick="switchTab('tab-timeline', this)">
+      <svg viewBox="0 0 24 24"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z"/></svg>
+      <span>行程</span>
+    </button>
+    <button class="tab-btn" onclick="switchTab('tab-map', this)">
+      <svg viewBox="0 0 24 24"><path d="M20.5 3l-.16.03L15 5.1 9 3 3.36 4.9c-.21.07-.36.25-.36.48V20.5c0 .28.22.5.5.5l.16-.03L9 18.9l6 2.1 5.64-1.9c.21-.07.36-.25.36-.48V3.5c0-.28-.22-.5-.5-.5zM15 19l-6-2.11V5l6 2.11V19z"/></svg>
+      <span>路線</span>
+    </button>
+    <button class="tab-btn" onclick="switchTab('tab-guide', this)">
+      <svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+      <span>景點</span>
+    </button>
+    <button class="tab-btn" onclick="switchTab('tab-checklist', this)">
+      <svg viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-9 14l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
+      <span>錦囊</span>
+    </button>
+  </nav>
 
+  <script>
+    function switchTab(tabId, btn) {
+      document.querySelectorAll('.tab-view').forEach(function(view) {
+        view.classList.remove('active');
+      });
+      document.querySelectorAll('.tab-bar .tab-btn').forEach(function(item) {
+        item.classList.remove('active');
+      });
+
+      const target = document.getElementById(tabId);
+      if (target) {
+        target.classList.add('active');
+      }
+      btn.classList.add('active');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function toggleCheckItem(el, storageKey) {
+      el.classList.toggle('checked');
+      const isChecked = el.classList.contains('checked');
+      localStorage.setItem(storageKey, isChecked);
+    }
+
+    document.addEventListener('DOMContentLoaded', function() {
+      document.querySelectorAll('.check-item').forEach(function(item) {
+        const onclickAttr = item.getAttribute('onclick');
+        if (onclickAttr) {
+          const match = onclickAttr.match(/'([^']+)'/);
+          if (match && match[1]) {
+            const saved = localStorage.getItem(match[1]);
+            if (saved === 'true') {
+              item.classList.add('checked');
+            }
+          }
+        }
+      });
+    });
+  </script>
 </body>
-<script>
-  if ('serviceWorker' in navigator) {
-    navigator.serviceWorker.register('./sw.js')
-      .then(() => console.log('離線快取服務已啟動'))
-      .catch(err => console.log('登錄失敗', err));
-  }
-</script>
 </html>

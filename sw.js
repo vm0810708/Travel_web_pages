@@ -1,5 +1,5 @@
 // ⚠️ 每次修改任何 HTML，務必把版本號 +1（v2 → v3 …），手機才會更新
-const VERSION = 'v2';
+const VERSION = 'v3';
 const CACHE_NAME = 'offline-' + VERSION;
 
 const ASSETS = [
